@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/pic_1719776941118.png">
 <meta property="og:image" content="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/pic_1719776957370.png">
 <meta property="article:published_time" content="2024-06-30T19:40:32.000Z">
-<meta property="article:modified_time" content="2024-06-30T20:17:34.677Z">
+<meta property="article:modified_time" content="2024-06-30T20:37:22.899Z">
 <meta property="article:author" content="Yandi Liu">
 <meta property="article:tag" content="math">
 <meta name="twitter:card" content="summary">
@@ -238,7 +238,7 @@ point: derivative with respect to each element in matrix&#x2F;vector</span></a><
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2024-06-30 21:40:32 / Modified: 22:17:34" itemprop="dateCreated datePublished" datetime="2024-06-30T21:40:32+02:00">2024-06-30</time>
+      <time title="Created: 2024-06-30 21:40:32 / Modified: 22:37:22" itemprop="dateCreated datePublished" datetime="2024-06-30T21:40:32+02:00">2024-06-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -271,7 +271,7 @@ point: derivative with respect to each element in matrix&#x2F;vector</span></a><
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>8k</span>
+      <span>7.9k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -357,27 +357,23 @@ function of <span class="math inline">\(t\)</span>, and in the end,
 <span class="math inline">\(f\)</span> can be a function of <span
 class="math inline">\(t\)</span>. Thus, we can try to find derivative of
 <span class="math inline">\(f\)</span> with respect to <span
-class="math inline">\(t\)</span>, by using multivariate chain rule:
-<span class="math display">\[
-\begin{equation}
+class="math inline">\(t\)</span>, by using multivariate chain rule:</p>
+<p><strong>Equation 1</strong> <span class="math display">\[
 \frac{df}{dt} = \frac{\partial f}{\partial \boldsymbol{x}}
 \frac{d\boldsymbol{x}}{dt}
-\end{equation}
 \]</span></p>
-<p><span class="math display">\[
-\begin{equation}
+<p><strong>Equation 2</strong> <span class="math display">\[
 \frac{df}{dt} = \frac{\partial f}{\partial x_1} \frac{dx_1}{dt} +
 \frac{\partial f}{\partial x_2} \frac{dx_2}{dt} + \dots + \frac{\partial
 f}{\partial x_n} \frac{dx_n}{dt}
-\end{equation}
 \]</span></p>
 <p>The <span class="math inline">\(\frac{\partial f}{\partial
 \boldsymbol{x}}\)</span> and <span
-class="math inline">\(\frac{d\boldsymbol{x}}{dt}\)</span> in formula
-(1)] are vectors, and <span class="math inline">\(\frac{df}{dt}\)</span>
-is the <strong>dot product</strong> of these two vectors. The result of
-dot product just equals to the sum formula (2). Therefore, we can use
-the simple form formula (1).</p>
+class="math inline">\(\frac{d\boldsymbol{x}}{dt}\)</span> in Equation 1
+are vectors, and <span class="math inline">\(\frac{df}{dt}\)</span> is
+the <strong>dot product</strong> of these two vectors. The result of dot
+product just equals to the sum Equation 2. Therefore, we can use the
+simple form Equation 1.</p>
 <p>The independent variable <span class="math inline">\(t\)</span> is a
 single variable. However, what would the formula be if <span
 class="math inline">\(t\)</span> is also a pack of variables? e.g.:
@@ -497,13 +493,12 @@ class="math inline">\(z_i\)</span> with respect to <span
 class="math inline">\(w_{i,j}^{(L)}\)</span>, it's just <span
 class="math inline">\(a_j^{(L-1)}\)</span>. But let's keep these
 derivative symbols (since the result is not important for our topic) and
-put all the derivatives in a vector: <span class="math display">\[
-\begin{equation}
+put all the derivatives in a vector:</p>
+<p><strong>Equation 3</strong> <span class="math display">\[
 \frac{\partial z_i^{(L)}}{\partial \boldsymbol{w}_i^{(L)}} =
 [\frac{\partial z_i^{(L)}}{\partial w_{i, 0}^{(L)}}, \frac{\partial
 z_i^{(L)}}{\partial w_{i, 1}^{(L)}}, \cdots, \frac{\partial
 z_i^{(L)}}{\partial w_{i, n-1}^{(L)}}]
-\end{equation}
 \]</span></p>
 <p>And then we take derivative of <span
 class="math inline">\(a_i^{(L)}\)</span> with respect to <span
@@ -538,7 +533,7 @@ w_{i,j}^{(L)}}\)</span>.</p>
 <p>Now, what if we replace the single variable <span
 class="math inline">\(w_{i,j}^{(L)}\)</span> with a vector <span
 class="math inline">\(\boldsymbol{w}_i^{(L)}\)</span>?</p>
-<p>Then the last term becomes the <strong>equation (3)</strong>. It is a
+<p>Then the last term becomes the <strong>Equation 3</strong>. It is a
 vector! The first and second term doesn't change, because we still take
 derivative with respect to <span
 class="math inline">\(a_i^{(L)}\)</span> and <span
