@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"dinayuil.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近在用Qt做一个hobby project，类似Microsoft Todo的任务清单。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Item View里画一个checkbox并能改变勾选状态 - subclassing QStyledItemDelegate">
+<meta property="og:url" content="http://dinayuil.github.io/2024/06/03/%E5%9C%A8Item-View%E9%87%8C%E7%94%BB%E4%B8%80%E4%B8%AAcheckbox%E5%B9%B6%E8%83%BD%E6%94%B9%E5%8F%98%E5%8B%BE%E9%80%89%E7%8A%B6%E6%80%81-subclassing-QStyledItemDelegate/index.html">
+<meta property="og:site_name" content="Yandi&#39;s Little World">
+<meta property="og:description" content="最近在用Qt做一个hobby project，类似Microsoft Todo的任务清单。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-06-03T21:07:25.000Z">
+<meta property="article:modified_time" content="2024-06-30T19:35:16.652Z">
+<meta property="article:author" content="Yandi Liu">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://dinayuil.github.io/2024/06/03/%E5%9C%A8Item-View%E9%87%8C%E7%94%BB%E4%B8%80%E4%B8%AAcheckbox%E5%B9%B6%E8%83%BD%E6%94%B9%E5%8F%98%E5%8B%BE%E9%80%89%E7%8A%B6%E6%80%81-subclassing-QStyledItemDelegate/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/06/03/%E5%9C%A8Item-View%E9%87%8C%E7%94%BB%E4%B8%80%E4%B8%AAcheckbox%E5%B9%B6%E8%83%BD%E6%94%B9%E5%8F%98%E5%8B%BE%E9%80%89%E7%8A%B6%E6%80%81-subclassing-QStyledItemDelegate/","path":"2024/06/03/在Item-View里画一个checkbox并能改变勾选状态-subclassing-QStyledItemDelegate/","title":"在Item View里画一个checkbox并能改变勾选状态 - subclassing QStyledItemDelegate"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在Item View里画一个checkbox并能改变勾选状态 - subclassing QStyledItemDelegate | Yandi's Little World</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-354MG6H6PY"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-354MG6H6PY","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Yandi's Little World</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yandi Liu</p>
+  <div class="site-description" itemprop="description">Record my life, play with technologies</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dinayuil" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dinayuil" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yandi-liu-a82bbb156/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yandi-liu-a82bbb156&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/06/03/%E5%9C%A8Item-View%E9%87%8C%E7%94%BB%E4%B8%80%E4%B8%AAcheckbox%E5%B9%B6%E8%83%BD%E6%94%B9%E5%8F%98%E5%8B%BE%E9%80%89%E7%8A%B6%E6%80%81-subclassing-QStyledItemDelegate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yandi Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yandi's Little World">
+      <meta itemprop="description" content="Record my life, play with technologies">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在Item View里画一个checkbox并能改变勾选状态 - subclassing QStyledItemDelegate | Yandi's Little World">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在Item View里画一个checkbox并能改变勾选状态 - subclassing QStyledItemDelegate
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-06-03 23:07:25" itemprop="dateCreated datePublished" datetime="2024-06-03T23:07:25+02:00">2024-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-06-30 21:35:16" itemprop="dateModified" datetime="2024-06-30T21:35:16+02:00">2024-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/06/03/%E5%9C%A8Item-View%E9%87%8C%E7%94%BB%E4%B8%80%E4%B8%AAcheckbox%E5%B9%B6%E8%83%BD%E6%94%B9%E5%8F%98%E5%8B%BE%E9%80%89%E7%8A%B6%E6%80%81-subclassing-QStyledItemDelegate/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/06/03/在Item-View里画一个checkbox并能改变勾选状态-subclassing-QStyledItemDelegate/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>3 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近在用Qt做一个hobby project，类似Microsoft Todo的任务清单。</p>
+<span id="more"></span>
+<p>最初就是用QListView，QStandardItemModel，QStandardItem，和默认使用的QStyledItemDelegate。如果每个只是显示任务名字和一个checkbox的话，这些确实足够了。</p>
+<p>但是还想在item
+view里显示截止日期和提醒时间，上面的就不够了。想自定义item
+view的话，就得自建一个QStyledItemDelegate的子类，重新实现paint方法了。
+<code>void paint(QPainter *painter, const QStyleOptionViewItem &amp;option, const QModelIndex &amp;index) const</code></p>
+<p>感觉官方也没有给这个方法详细的解释和例子，搜到的很多也只是画了单纯的图片和文字，没有像checkbox这样的控件。</p>
+<p>这个方法里最让我搞不懂的就是<code>option</code>。好像都是基于<code>option.rect</code>来画出自定义的界面。后来通过debug打印出来rect的size和position，才搞懂一些。</p>
+<p><code>paint</code>方法有还有个<code>index</code>参数，而<code>option</code>也对应了这个<code>index</code>的item，每个<code>option.rect</code>的位置是对应了<code>index</code>的item在QListView里显示的位置。</p>
+<p>然后就是不同类型的<code>option</code>，比如<code>paint</code>方法参数的option是<code>QStyleOptionViewItem</code>类型，对应的是item
+view。而如果我要在item
+view上画一个checkbox，那这个checkbox需要另建一个类型为<code>QStyleOptionButton</code>的实例，比如把这个实例命名为<code>checkBoxOpt</code>。那么<code>checkBoxOpt.rect</code>的位置应该根据<code>option.rect</code>的位置来设定。</p>
+<p>下面就是我在paint方法里用来画checkbox的代码，这里还包括了通过index获得该item的<code>TaskCompleteRole</code>数据，表示这个task是否已经完成，并由此设定该item的checkbox是否被勾选。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Draw checkbox</span></span><br><span class="line">QStyleOptionButton checkBoxOpt;</span><br><span class="line">checkBoxOpt.rect = <span class="built_in">createCheckBoxRect</span>(option, checkBoxOpt);</span><br><span class="line">checkBoxOpt.state = QStyle::State_Enabled;</span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> isChecked = index.<span class="built_in">data</span>(TaskCompleteRole).<span class="built_in">toBool</span>();</span><br><span class="line"><span class="keyword">if</span> (isChecked)</span><br><span class="line">&#123;</span><br><span class="line">    checkBoxOpt.state |= QStyle::State_On;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    checkBoxOpt.state |= QStyle::State_Off;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">QApplication::<span class="built_in">style</span>()-&gt;<span class="built_in">drawControl</span>(QStyle::CE_CheckBox, &amp;checkBoxOpt, painter);</span><br></pre></td></tr></table></figure>
+<code>createCheckBoxRect</code>是用来确定checkbox的rect的位置，这个方法在之后改变checkbox状态的时候也用到。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QRect <span class="title">TaskViewDelegate::createCheckBoxRect</span><span class="params">(<span class="type">const</span> QStyleOptionViewItem&amp; option, <span class="type">const</span> QStyleOptionButton&amp; checkBoxOpt)</span> <span class="type">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    QSize checkBoxSize = QApplication::<span class="built_in">style</span>()-&gt;<span class="built_in">sizeFromContents</span>(QStyle::CT_CheckBox, &amp;checkBoxOpt, <span class="built_in">QSize</span>());</span><br><span class="line">    <span class="type">int</span> checkBoxRectTopLeftY = option.rect.<span class="built_in">topLeft</span>().<span class="built_in">y</span>() + option.rect.<span class="built_in">height</span>() / <span class="number">2</span> - checkBoxSize.<span class="built_in">height</span>() / <span class="number">2</span>;</span><br><span class="line">    <span class="function">QPoint <span class="title">checkBoxRectTopLeft</span><span class="params">(<span class="number">0</span>, checkBoxRectTopLeftY)</span></span>;</span><br><span class="line">    <span class="function">QRect <span class="title">checkBoxRect</span><span class="params">(checkBoxRectTopLeft, checkBoxSize)</span></span>;    <span class="comment">// checkBoxRect&#x27;s position should be related to the option of each item,</span></span><br><span class="line">                                                                <span class="comment">// not a fixed value, otherwise all the check box is at the same position</span></span><br><span class="line">    <span class="keyword">return</span> checkBoxRect;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在可以在item
+view里画出来一个checkbox了，但是怎么让checkbox被点击之后能被勾选或者取消勾选呢。参考StackOverflow的一个问答，需要重新实现<code>QStyledItemDelegate</code>的<code>editorEvent</code>方法
+<code>bool editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem&amp; option, const QModelIndex&amp; index)</code></p>
+<p>通过检测鼠标点击事件并且点击区域限定在checkbox的rect位置内，来更新该item的<code>TaskCompleteRole</code>的数据
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">TaskViewDelegate::editorEvent</span><span class="params">(QEvent* event, QAbstractItemModel* model, <span class="type">const</span> QStyleOptionViewItem&amp; option, <span class="type">const</span> QModelIndex&amp; index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (event-&gt;<span class="built_in">type</span>() == QEvent::MouseButtonRelease)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;editorEvent: option.rect.size()&quot;</span> &lt;&lt; option.rect.<span class="built_in">size</span>();</span><br><span class="line">        QMouseEvent* pME = <span class="built_in">static_cast</span>&lt;QMouseEvent*&gt;(event);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;pME-&gt;pos()&quot;</span> &lt;&lt; pME-&gt;<span class="built_in">pos</span>();</span><br><span class="line">        QStyleOptionButton checkBoxOpt;</span><br><span class="line">        QRect checkBoxRec = <span class="built_in">createCheckBoxRect</span>(option, checkBoxOpt);</span><br><span class="line">        <span class="keyword">if</span> (checkBoxRec.<span class="built_in">contains</span>(pME-&gt;<span class="built_in">pos</span>()))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">bool</span> value = index.<span class="built_in">data</span>(TaskCompleteRole).<span class="built_in">toBool</span>();</span><br><span class="line">            model-&gt;<span class="built_in">setData</span>(index, !value, TaskCompleteRole);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> QStyledItemDelegate::<span class="built_in">editorEvent</span>(event, model, option, index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面这两个个例子给了我很大启发。</p>
+<p>自定义的item view里checkbox改变状态
+https://stackoverflow.com/questions/36778577/qstyleditemdelegate-how-to-make-checkbox-button-to-change-its-state-on-click</p>
+<p>在QListView里展示自定义wedget
+https://stackoverflow.com/questions/53105343/is-it-possible-to-add-a-custom-widget-into-a-qlistview</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Yandi Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://dinayuil.github.io/2024/06/03/%E5%9C%A8Item-View%E9%87%8C%E7%94%BB%E4%B8%80%E4%B8%AAcheckbox%E5%B9%B6%E8%83%BD%E6%94%B9%E5%8F%98%E5%8B%BE%E9%80%89%E7%8A%B6%E6%80%81-subclassing-QStyledItemDelegate/" title="在Item View里画一个checkbox并能改变勾选状态 - subclassing QStyledItemDelegate">http://dinayuil.github.io/2024/06/03/在Item-View里画一个checkbox并能改变勾选状态-subclassing-QStyledItemDelegate/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Qt/" rel="tag"># Qt</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_linkedin"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_evernote"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
+      <a class="a2a_button_sina_weibo"></a>
+      <a class="a2a_button_copy_link"></a>
+      <a class="a2a_button_email"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/28/Visual-Studio-CMake-Presets%E6%B7%BB%E5%8A%A0option/" rel="prev" title="Visual Studio CMake Presets添加option">
+                  <i class="fa fa-chevron-left"></i> Visual Studio CMake Presets添加option
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/" rel="next" title="Multivariate derivative chain rule with vector or matrix, in Machine Learning">
+                  Multivariate derivative chain rule with vector or matrix, in Machine Learning <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yandi Liu</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">41k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">37 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"yandis-little-world","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

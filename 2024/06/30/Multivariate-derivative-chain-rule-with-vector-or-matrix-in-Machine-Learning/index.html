@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"dinayuil.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="阅前提醒： - 本文可能使用了大量比较随便的英文表达； - 本文的数学名词、公式可能不严谨； - 总之意思传达到就行。 While doing the lab Backpropogation from week 3 of Math for ML course, some questions poped up in my mind.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multivariate derivative chain rule with vector or matrix, in Machine Learning">
+<meta property="og:url" content="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/index.html">
+<meta property="og:site_name" content="Yandi&#39;s Little World">
+<meta property="og:description" content="阅前提醒： - 本文可能使用了大量比较随便的英文表达； - 本文的数学名词、公式可能不严谨； - 总之意思传达到就行。 While doing the lab Backpropogation from week 3 of Math for ML course, some questions poped up in my mind.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/pic_1719776941118.png">
+<meta property="og:image" content="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/pic_1719776957370.png">
+<meta property="article:published_time" content="2024-06-30T19:40:32.000Z">
+<meta property="article:modified_time" content="2024-06-30T20:17:34.677Z">
+<meta property="article:author" content="Yandi Liu">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/pic_1719776941118.png">
+
+
+<link rel="canonical" href="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/","path":"2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/","title":"Multivariate derivative chain rule with vector or matrix, in Machine Learning"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Multivariate derivative chain rule with vector or matrix, in Machine Learning | Yandi's Little World</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-354MG6H6PY"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-354MG6H6PY","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Yandi's Little World</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#some-background"><span class="nav-number">1.</span> <span class="nav-text">Some background</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#questions"><span class="nav-number">2.</span> <span class="nav-text">Questions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#analysis"><span class="nav-number">3.</span> <span class="nav-text">Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#key-point-derivative-with-respect-to-each-element-in-matrixvector"><span class="nav-number">3.1.</span> <span class="nav-text">Key
+point: derivative with respect to each element in matrix&#x2F;vector</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#answer-to-the-question"><span class="nav-number">4.</span> <span class="nav-text">Answer to the question</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#take-away"><span class="nav-number">5.</span> <span class="nav-text">Take away</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yandi Liu</p>
+  <div class="site-description" itemprop="description">Record my life, play with technologies</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dinayuil" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dinayuil" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yandi-liu-a82bbb156/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yandi-liu-a82bbb156&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yandi Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yandi's Little World">
+      <meta itemprop="description" content="Record my life, play with technologies">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Multivariate derivative chain rule with vector or matrix, in Machine Learning | Yandi's Little World">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Multivariate derivative chain rule with vector or matrix, in Machine Learning
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-06-30 21:40:32 / Modified: 22:17:34" itemprop="dateCreated datePublished" datetime="2024-06-30T21:40:32+02:00">2024-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/machine-learning/" itemprop="url" rel="index"><span itemprop="name">machine learning</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>8k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>7 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>阅前提醒： - 本文可能使用了大量比较随便的英文表达； -
+本文的数学名词、公式可能不严谨； - 总之意思传达到就行。</p>
+<p>While doing the lab <code>Backpropogation</code> from week 3 of <a
+target="_blank" rel="noopener" href="https://www.coursera.org/learn/multivariate-calculus-machine-learning?specialization=mathematics-machine-learning">Math
+for ML course</a>, some questions poped up in my mind.</p>
+<span id="more"></span>
+<h1 id="some-background">Some background</h1>
+<figure>
+<img src="pic_1719776941118.png" alt="picture 0" />
+<figcaption aria-hidden="true">picture 0</figcaption>
+</figure>
+<figure>
+<img src="pic_1719776957370.png" alt="picture 1" />
+<figcaption aria-hidden="true">picture 1</figcaption>
+</figure>
+<p><span class="math inline">\(\boldsymbol{a}^{(L)}\)</span> is the
+values of the nodes at layer L. <span
+class="math inline">\(\boldsymbol{a}^{(L)} = [a_0^{(L)}, a_1^{(L)},
+\dots, a_{m-1}^{(L)}]\)</span>, where <code>m</code> is the number of
+nodes at layer <code>L</code>.</p>
+<p><span class="math inline">\(z^{(L)}\)</span> is the values before
+passing to activation function, just a trick to make the derivation of
+the activation function easier.</p>
+<p><span class="math inline">\(\boldsymbol{W}^{(L)}\)</span> is the
+weight from layer <code>L-1</code> to layer <code>L</code>, and <span
+class="math inline">\(\boldsymbol{b}^{(L)}\)</span> is the bias from
+layer L-1 to Layer 1.</p>
+<p><span class="math inline">\(\sigma\)</span> is some activation
+function.</p>
+<p><span class="math inline">\(C\)</span> is the cost function, <span
+class="math inline">\(y_i\)</span> is the truth value in the dataset for
+training the network, corresponding to a input <span
+class="math inline">\(a_i^{(0)}\)</span></p>
+<p>What we want to do is to find good <span
+class="math inline">\(\boldsymbol{W}^{(L)}\)</span> and <span
+class="math inline">\(\boldsymbol{b}^{(L)}\)</span> that minimize the
+cost, and for that we need to take partial derivative of <span
+class="math inline">\(C\)</span> with respect to each W and b.</p>
+<h1 id="questions">Questions</h1>
+<p>In the lab <code>Backpropogation</code>, I doubted a partial
+derivative formula: <span class="math display">\[
+\frac{\partial C}{\partial \boldsymbol{W}^{(3)}} = \frac{\partial
+C}{\partial \boldsymbol{a}^{(3)}} \frac{\partial
+\boldsymbol{a}^{(3)}}{\partial \boldsymbol{z}^{(3)}} \frac{\partial
+\boldsymbol{z}^{(3)}}{\partial \boldsymbol{W}^{(3)}}
+\]</span></p>
+<ol type="1">
+<li>Why we can take partial derivative of <span
+class="math inline">\(C\)</span> with respect to <span
+class="math inline">\(\boldsymbol{W}\)</span>?</li>
+<li>In the cost function, it sums the squre of <span
+class="math inline">\(a_i^{(L)} - y_i\)</span>, why in the derivative
+formula it becomes the partial derivative of <span
+class="math inline">\(C\)</span> with respect to <span
+class="math inline">\(\boldsymbol{a}\)</span>, and how?</li>
+</ol>
+<h1 id="analysis">Analysis</h1>
+<p>In the previous lectures, I've learned about chain rule for
+multivariate derivative with function being like this form: <span
+class="math display">\[
+f(\boldsymbol{x}(t)), \boldsymbol{x} = [x_1(t), x_2(t), ... x_n(t)]
+\]</span></p>
+<p><span class="math inline">\(f\)</span> is a function of <span
+class="math inline">\(x_1(t), x_2(t), ... x_n(t)\)</span>, and each
+elements of <span class="math inline">\(\boldsymbol{x}\)</span> is a
+function of <span class="math inline">\(t\)</span>, and in the end,
+<span class="math inline">\(f\)</span> can be a function of <span
+class="math inline">\(t\)</span>. Thus, we can try to find derivative of
+<span class="math inline">\(f\)</span> with respect to <span
+class="math inline">\(t\)</span>, by using multivariate chain rule:
+<span class="math display">\[
+\begin{equation}
+\frac{df}{dt} = \frac{\partial f}{\partial \boldsymbol{x}}
+\frac{d\boldsymbol{x}}{dt}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{df}{dt} = \frac{\partial f}{\partial x_1} \frac{dx_1}{dt} +
+\frac{\partial f}{\partial x_2} \frac{dx_2}{dt} + \dots + \frac{\partial
+f}{\partial x_n} \frac{dx_n}{dt}
+\end{equation}
+\]</span></p>
+<p>The <span class="math inline">\(\frac{\partial f}{\partial
+\boldsymbol{x}}\)</span> and <span
+class="math inline">\(\frac{d\boldsymbol{x}}{dt}\)</span> in formula
+(1)] are vectors, and <span class="math inline">\(\frac{df}{dt}\)</span>
+is the <strong>dot product</strong> of these two vectors. The result of
+dot product just equals to the sum formula (2). Therefore, we can use
+the simple form formula (1).</p>
+<p>The independent variable <span class="math inline">\(t\)</span> is a
+single variable. However, what would the formula be if <span
+class="math inline">\(t\)</span> is also a pack of variables? e.g.:
+<span class="math display">\[
+\boldsymbol{t} = [t_1, t_2]
+\]</span></p>
+<p>To make it easier for understanding, we can use an example, say <span
+class="math inline">\(\boldsymbol{x} = [x_1, x_2]\)</span>, and <span
+class="math inline">\(\boldsymbol{t} = [t_1, t_2]\)</span>, <span
+class="math inline">\(f\)</span> is a function of <span
+class="math inline">\(\boldsymbol{x}\)</span>, <span
+class="math inline">\(f(\boldsymbol{x})\)</span>, (or explicitly <span
+class="math inline">\(f(x_1, x_2)\)</span>, and each element in <span
+class="math inline">\(\boldsymbol{x}\)</span> is a function of <span
+class="math inline">\(\boldsymbol{t}\)</span>: <span
+class="math display">\[
+x = [x_1(\boldsymbol{t}), x_2(\boldsymbol{t})]
+\]</span></p>
+<p>or explicitly <span class="math display">\[
+x = [x_1(t_1, t_2), x_2(t_1, t_2)]
+\]</span></p>
+<p>So, <span class="math inline">\(f\)</span> can be a function of <span
+class="math inline">\(t_1\)</span> and <span
+class="math inline">\(t_2\)</span>. Now, if we want to find derivative
+of <span class="math inline">\(f\)</span> with respect to <span
+class="math inline">\(\boldsymbol{t}\)</span>, we have to do partial
+defferentiation on <span class="math inline">\(t_1\)</span> and <span
+class="math inline">\(t_2\)</span> respectively: <span
+class="math display">\[
+\frac{\partial f}{\partial t_1} = \frac{\partial f}{\partial
+x_1}\frac{\partial x_1}{\partial t_1} + \frac{\partial f}{\partial
+x_2}\frac{\partial x_2}{\partial t_1}
+\]</span></p>
+<p>It can be written as dot product of vector <span
+class="math display">\[
+\frac{\partial f}{\partial \boldsymbol{x}} = [\frac{\partial f}{\partial
+x_1}, \frac{\partial f}{\partial x_2}]
+\]</span></p>
+<p>and vector <span class="math display">\[
+\frac{\partial \boldsymbol{x}}{\partial t_1} = [\frac{\partial
+x_1}{\partial t_1}, \frac{\partial x_2}{\partial t_1}]
+\]</span></p>
+<p>Thus, <span class="math display">\[
+\frac{\partial f}{\partial t_1} = \frac{\partial f}{\partial
+\boldsymbol{x}}\frac{\partial \boldsymbol{x}}{\partial t_1}
+\]</span></p>
+<p>And similarly for <span class="math inline">\(t_2\)</span> <span
+class="math display">\[
+\frac{\partial f}{\partial t_2} = \frac{\partial f}{\partial
+\boldsymbol{x}}\frac{\partial \boldsymbol{x}}{\partial t_2}
+\]</span> Until here, we can roughly answer a part of the question
+1:</p>
+<p><span class="math inline">\(C\)</span> is a function of <span
+class="math inline">\(\boldsymbol{a}^{(L)}\)</span>, and <span
+class="math inline">\(\boldsymbol{a}^{(L)}\)</span> is a function of
+<span class="math inline">\(\boldsymbol{W}^{(L)}\)</span> and <span
+class="math inline">\(\boldsymbol{b}^{(L)}\)</span>. Therefore, <span
+class="math inline">\(C\)</span> can also be a function of <span
+class="math inline">\(\boldsymbol{W}^{(L)}\)</span> and <span
+class="math inline">\(\boldsymbol{b}^{(L)}\)</span>.</p>
+<p>Just like above example(<span class="math inline">\(f\)</span>, <span
+class="math inline">\(t_1\)</span>, and <span
+class="math inline">\(t_2\)</span>), we can take partial derivative of
+<span class="math inline">\(C\)</span> with respective <span
+class="math inline">\(\boldsymbol{W}^{(L)}\)</span> and <span
+class="math inline">\(\boldsymbol{b}^{(L)}\)</span>.</p>
+<p>However, there is new question:</p>
+<p><span class="math inline">\(\boldsymbol{W}^{(L)}\)</span> is a
+matrix, how do we take derivative with respect to a matrix?</p>
+<h2
+id="key-point-derivative-with-respect-to-each-element-in-matrixvector">Key
+point: derivative with respect to each element in matrix/vector</h2>
+<p>My idea is that, this is just a simpler form for writing. We can't
+take derivative with respect to a matrix or vector, but we actually do
+that on <strong>each element</strong> in the matrix or vector.</p>
+<p>For the above example <span class="math inline">\(f\)</span>, <span
+class="math inline">\(t_1\)</span>, and <span
+class="math inline">\(t_2\)</span>, we can also put <span
+class="math inline">\(\frac{\partial f}{\partial t_1}\)</span> and <span
+class="math inline">\(\frac{\partial f}{\partial t_2}\)</span> together
+in a vector, and write: <span class="math display">\[
+\frac{\partial f}{\partial \boldsymbol{t}} = [\frac{\partial f}{\partial
+t_1}, \frac{\partial f}{\partial t_2}]
+\]</span></p>
+<h1 id="answer-to-the-question">Answer to the question</h1>
+<p><span class="math inline">\(C\)</span> is a function of <span
+class="math inline">\(\boldsymbol{a}^{(L)} = [a_0^{(L)}, a_1^{(L)},
+\dots, a_{m-1}^{(L)}]\)</span>.</p>
+<p>Each <span class="math inline">\(a_i^{(L)}\)</span> is a function of
+<span class="math inline">\(\boldsymbol{w}_i^{(L)} = [w_{i,0}^{(L)},
+w_{i,1}^{(L)}, \dots, w_{i,n-1}^{(L)}]\)</span> and <span
+class="math inline">\(b_i^{(L)}\)</span>. <code>n</code> is the number
+of nodes in the layer <code>L-1</code>.</p>
+<p>We, in fact, are not taking derivative of <span
+class="math inline">\(C\)</span> with respect to the matrix <span
+class="math inline">\(\boldsymbol{W}^{(L)}\)</span>, but to each
+variable <span class="math inline">\(w_{i,j}^{(L)}\)</span>, while in
+the end, writing the result as simpler form <span
+class="math inline">\(\frac{\partial C}{\partial
+\boldsymbol{W}^{(L)}}\)</span>.</p>
+<p>Same for <span class="math inline">\(\frac{\partial C}{\partial
+\boldsymbol{a}^{(L)}}\)</span>, we need to take derivative of <span
+class="math inline">\(C\)</span> with respect to each variable <span
+class="math inline">\(a_i^{(L)}\)</span>, and in the end write as a
+simpler form.</p>
+<p>So let's start by doing derivative of <span
+class="math inline">\(z_i^{(L)}\)</span> with respect to <span
+class="math inline">\(\boldsymbol{w}_i^{(L)}\)</span>.</p>
+<p>Expan the formula <span class="math inline">\(z_i^{(L)} =
+\boldsymbol{w}_i^{(L)} \cdot \boldsymbol{a}^{(L-1)} +
+b_i^{(L)}\)</span>: <span class="math display">\[
+z_i^{(L)} = [w_{i,0}^{(L)}, w_{i,1}^{(L)}, \dots, w_{i,n-1}^{(L)}] \cdot
+[a_0^{(L-1)}, a_1^{(L-1)}, \dots, a_{n-1}^{(L-1)}] + b_i^{(L)}
+\]</span></p>
+<p>We can easily get the result of taking derivative of <span
+class="math inline">\(z_i\)</span> with respect to <span
+class="math inline">\(w_{i,j}^{(L)}\)</span>, it's just <span
+class="math inline">\(a_j^{(L-1)}\)</span>. But let's keep these
+derivative symbols (since the result is not important for our topic) and
+put all the derivatives in a vector: <span class="math display">\[
+\begin{equation}
+\frac{\partial z_i^{(L)}}{\partial \boldsymbol{w}_i^{(L)}} =
+[\frac{\partial z_i^{(L)}}{\partial w_{i, 0}^{(L)}}, \frac{\partial
+z_i^{(L)}}{\partial w_{i, 1}^{(L)}}, \cdots, \frac{\partial
+z_i^{(L)}}{\partial w_{i, n-1}^{(L)}}]
+\end{equation}
+\]</span></p>
+<p>And then we take derivative of <span
+class="math inline">\(a_i^{(L)}\)</span> with respect to <span
+class="math inline">\(z_i^{(L)}\)</span>: <span class="math display">\[
+\frac{\partial a_i^{(L)}}{\partial z_i^{(L)}} =
+\sigma^{\prime}(z_i^{(L)})
+\]</span></p>
+<p>Then we do <span class="math inline">\(\frac{\partial C}{\partial
+a_i^{(L)}}\)</span>. Remember that: <span class="math display">\[
+C = \sum_i (a_i^{(L)} - y_i)^2 = (a_0^{(L)} - y_0)^2 + (a_1^{(L)} -
+y_1)^2 + \cdots + (a_{m-1}^{(L)} - y_{m-1})^2
+\]</span></p>
+<p>We only take derivative with respect to <span
+class="math inline">\(a_i^{(L)}\)</span>: <span class="math display">\[
+\frac{\partial C}{\partial a_i^{(L)}} = 2(a_i^{(L)} - y_i)
+\]</span></p>
+<p>At last, we can get partial derivative of <span
+class="math inline">\(C\)</span> respect to each <span
+class="math inline">\(w_{i,j}^{(L)}\)</span> <span
+class="math display">\[
+\frac{\partial C}{\partial w_{i,j}^{(L)}} = \frac{\partial C}{\partial
+a_i^{(L)}}\frac{\partial a_i^{(L)}}{\partial z_i^{(L)}}\frac{\partial
+z_i^{(L)}}{\partial w_{i,j}^{(L)}}
+\]</span></p>
+<p>All the derivative term <span class="math inline">\(\frac{\partial
+C}{\partial a_i^{(L)}}\)</span>, <span
+class="math inline">\(\frac{\partial a_i^{(L)}}{\partial
+z_i^{(L)}}\)</span>, <span class="math inline">\(\frac{\partial
+z_i^{(L)}}{\partial w_{i,j}^{(L)}}\)</span>, are just scalars, so is the
+result <span class="math inline">\(\frac{\partial C}{\partial
+w_{i,j}^{(L)}}\)</span>.</p>
+<p>Now, what if we replace the single variable <span
+class="math inline">\(w_{i,j}^{(L)}\)</span> with a vector <span
+class="math inline">\(\boldsymbol{w}_i^{(L)}\)</span>?</p>
+<p>Then the last term becomes the <strong>equation (3)</strong>. It is a
+vector! The first and second term doesn't change, because we still take
+derivative with respect to <span
+class="math inline">\(a_i^{(L)}\)</span> and <span
+class="math inline">\(z_i^{(L)}\)</span>.</p>
+<p>So what happens to <span class="math inline">\(\frac{\partial
+C}{\partial w_{i,j}^{(L)}}\)</span>? It also turns to a vector! <span
+class="math display">\[
+\frac{\partial C}{\partial \boldsymbol{w}_i^{(L)}} = [ \frac{\partial
+C}{\partial w_{i,0}^{(L)}}, \frac{\partial C}{\partial w_{i,1}^{(L)}},
+\cdots, \frac{\partial C}{\partial w_{i, n-1}^{(L)}} ]
+\]</span></p>
+<p>What is <span class="math inline">\(\boldsymbol{w}_i^{(L)}\)</span>?
+It is the <code>i</code>th row of the matrix <span
+class="math inline">\(\boldsymbol{W}^{(L)}\)</span>. If we then do
+similar things to each row of <span
+class="math inline">\(\boldsymbol{W}^{(L)}\)</span>, and stack them
+together, we get a new matrix, that is <span
+class="math inline">\(\frac{\partial C}{\partial
+\boldsymbol{W}^{(L)}}\)</span>! <span class="math display">\[
+\frac{\partial C}{\partial \boldsymbol{W}^{(L)}} =
+\begin{bmatrix}
+   \frac{\partial C}{\partial \boldsymbol{w}_0^{(L)}}  \\
+   \frac{\partial C}{\partial \boldsymbol{w}_1^{(L)}}  \\
+   \vdots \\
+   \frac{\partial C}{\partial \boldsymbol{w}_{m-1}^{(L)}}
+\end{bmatrix}
+\]</span></p>
+<h1 id="take-away">Take away</h1>
+<p>When there is vector or matrix in a derivative formula, we are taking
+derivative with respect to each element in matrix or vector.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Yandi Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/" title="Multivariate derivative chain rule with vector or matrix, in Machine Learning">http://dinayuil.github.io/2024/06/30/Multivariate-derivative-chain-rule-with-vector-or-matrix-in-Machine-Learning/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/math/" rel="tag"># math</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_linkedin"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_evernote"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
+      <a class="a2a_button_sina_weibo"></a>
+      <a class="a2a_button_copy_link"></a>
+      <a class="a2a_button_email"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/03/%E5%9C%A8Item-View%E9%87%8C%E7%94%BB%E4%B8%80%E4%B8%AAcheckbox%E5%B9%B6%E8%83%BD%E6%94%B9%E5%8F%98%E5%8B%BE%E9%80%89%E7%8A%B6%E6%80%81-subclassing-QStyledItemDelegate/" rel="prev" title="在Item View里画一个checkbox并能改变勾选状态 - subclassing QStyledItemDelegate">
+                  <i class="fa fa-chevron-left"></i> 在Item View里画一个checkbox并能改变勾选状态 - subclassing QStyledItemDelegate
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yandi Liu</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">41k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">37 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"yandis-little-world","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
