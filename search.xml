@@ -397,6 +397,9 @@ https://learn.microsoft.com/en-us/cpp/standard-library/future-functions?view=msv
       <categories>
         <category>programming</category>
       </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
   </entry>
   <entry>
     <title>自行车被偷了</title>
@@ -956,6 +959,100 @@ derivative with respect to each element in matrix or vector.</p>
       </categories>
       <tags>
         <tag>math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对编程中的取模运算的一些发现</title>
+    <url>/2024/07/01/%E5%AF%B9%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%8F%96%E6%A8%A1%E8%BF%90%E7%AE%97%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%91%E7%8E%B0/</url>
+    <content><![CDATA[<p>看c++ primer的时候看到赋值溢出会取模，-1赋给unsigned
+char得到255（第五版中文p33），让我对负数取模的运算产生了疑问。</p>
+<span id="more"></span>
+<h1 id="问题">问题</h1>
+<p>于是又翻了下英文书(p35)，意思是一样的：</p>
+<blockquote>
+<p>If we assign an out-of-range value to an object of unsigned type, the
+result is the remainder of the value modulo the number of values the
+target type can hold. For example, an 8-bit unsigned char can hold
+values from 0 through 255, inclusive. If we assign a value outside this
+range, the compiler assigns the remainder of that value modulo 256.
+Therefore, <strong>assigning –1 to an 8-bit unsigned char gives that
+object the value 255</strong>.</p>
+</blockquote>
+<p>马上用C++试了下，<code>-1 % 256</code>，结果是<code>-1</code>。是C++有问题还是我理解有问题？正准备手算一下，突然了新问题，负数的取模运算该怎么算？</p>
+<h1 id="解答">解答</h1>
+<p>上一次正经学相关内容大概要追溯到本科学离散数学的时候了，已经记不得什么了，不如搜一下。也是发现<a
+href="https://stackoverflow.com/questions/11630321/why-does-c-output-negative-numbers-when-using-modulo">stackoverflow上有类似的疑问</a>，而且有了新发现，那就是Python的取模运算结果和C++不一样。</p>
+<p>维基百科里给出了不同语言在<a
+href="https://en.wikipedia.org/wiki/Modulo#In_programming_languages">取模运算上不同的定义</a>。</p>
+<p>根据百科对<strong>模</strong>的定义，“modulo operation returns the
+remainder or signed remainder of a
+division”，实际上取余取模其实是一回事。并且运算使用的是<strong>欧几里得除法</strong>：</p>
+<p>a和b是整数，存在唯一的q和r，满足： <span class="math display">\[
+\begin{matrix}
+a = bq+r \\
+0 \leq r \lt |b| \\
+b \neq 0
+\end{matrix}
+\]</span></p>
+<p>从定义里就能看出，余数是非负的。但是在编程语言里，并不一定满足<span
+class="math inline">\(r \geq 0\)</span>，当<span
+class="math inline">\(a\)</span>和<span
+class="math inline">\(b\)</span>有一个是负数的情况下，不同编程语言就有不同的处理。而且在某个版本的C++之前，余数的符号还是由C++的实现决定的（也就是说用不同的编译器可能会有不同的结果）。</p>
+<p>目前C++的取模运算使用truncated定义，也就是商舍去小数部分，向0取整。例如-0.5变成0，-1.5会变成-1,
+1.5变成1，0.5变成0。</p>
+<p>这也就解释了为什么<code>-1\%256 = -1</code>。首先<code>-1/256</code>商是<code>0</code>，然后<code>r = a-bq = -1 - 256*0 = -1</code>。</p>
+<p>而Python使用的是Floored定义，商向下取整。例如-1.5变成-2，-0.5变成-1，1.5变成1，0.5变成0。
+在这种情况下<span class="math inline">\(q = \lfloor -1/256
+\rfloor  =  -1\)</span>，那么<span class="math inline">\(r = -1 - 256 *
+(-1) = 255\)</span>。</p>
+<h1 id="其他">其他</h1>
+<h2 id="c的定义">C++的定义</h2>
+<p>我还查了下<a
+href="https://en.cppreference.com/w/cpp/language/operator_arithmetic">cppreference</a>，对%(remainder
+operator)的定义是(只节选了相关部分）：</p>
+<blockquote>
+<p><code>lhs % rhs</code></p>
+</blockquote>
+<blockquote>
+<p>The result of built-in remainder is the remainder of the integer
+division of lhs by rhs. If rhs is zero, the behavior is undefined.</p>
+</blockquote>
+<blockquote>
+<p>If a / b is representable in the result type, (a / b) * b + a % b ==
+a.</p>
+</blockquote>
+<blockquote>
+<p>Note: Until CWG issue 614 was resolved (N2757), if one or both
+operands to binary operator % were negative, the sign of the remainder
+was implementation-defined, as it depends on the rounding direction of
+integer division. The function std::div provided well-defined behavior
+in that case.</p>
+</blockquote>
+<p>而 integer division：</p>
+<blockquote>
+<p><code>lhs / rhs</code></p>
+</blockquote>
+<blockquote>
+<p>The result of built-in division is lhs divided by rhs. If rhs is
+zero, the behavior is undefined.</p>
+</blockquote>
+<blockquote>
+<p>If both operands have an integral type, the result is the algebraic
+quotient (performs integer division): the quotient is truncated towards
+zero (fractional part is discarded).</p>
+</blockquote>
+<p>商向0取整，与维基百科的内容相符。它也是说了在CWG issue
+614被解决之前C++的余数符号是由实现决定的，不过现在已经统一了。</p>
+<h2 id="编程中取模的陷阱">编程中取模的陷阱</h2>
+<p>维基百科里的例子就很好，判断一个整数是否是奇数可能会写这样的代码
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(a%2 == 1)</span><br></pre></td></tr></table></figure> 那么如果a是负数，python会得到1，但是c++会得到-1。</p>
+<p>在忽视了负数除数或者被除数可能是负数的情况下，如果不了解取模运算在编程中会有不同定义的话，就会出错了。</p>
+]]></content>
+      <categories>
+        <category>programming</category>
+      </categories>
+      <tags>
+        <tag>math, C++, Python</tag>
       </tags>
   </entry>
 </search>
