@@ -1052,7 +1052,9 @@ zero (fractional part is discarded).</p>
         <category>programming</category>
       </categories>
       <tags>
-        <tag>math, C++, Python</tag>
+        <tag>math</tag>
+        <tag>C++</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
 </search>
