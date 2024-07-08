@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"dinayuil.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在工作中经常看到这样的代码。好奇为什么要用unnamed namespace，以及在unnamed namespace里用using会有什么效果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unnamed namespace and using declaration">
+<meta property="og:url" content="http://dinayuil.github.io/2024/07/08/unnamed-namespace-and-using-declaration/index.html">
+<meta property="og:site_name" content="Yandi&#39;s Little World">
+<meta property="og:description" content="在工作中经常看到这样的代码。好奇为什么要用unnamed namespace，以及在unnamed namespace里用using会有什么效果。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-08T15:46:25.000Z">
+<meta property="article:modified_time" content="2024-07-08T15:47:42.607Z">
+<meta property="article:author" content="Yandi Liu">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://dinayuil.github.io/2024/07/08/unnamed-namespace-and-using-declaration/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/07/08/unnamed-namespace-and-using-declaration/","path":"2024/07/08/unnamed-namespace-and-using-declaration/","title":"unnamed namespace and using declaration"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>unnamed namespace and using declaration | Yandi's Little World</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-354MG6H6PY"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-354MG6H6PY","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Yandi's Little World</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#unnamed-namespace-scope"><span class="nav-number">1.</span> <span class="nav-text">unnamed namespace scope</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#unnamed-namespace%E4%B8%8D%E5%90%8C%E4%BA%8E%E5%B8%B8%E8%A7%84%E7%9A%84namespace%E4%B9%8B%E5%A4%84"><span class="nav-number">1.1.</span> <span class="nav-text">unnamed
+namespace不同于常规的namespace之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%9C%A8unnamed-namespace%E9%87%8C%E7%9A%84%E6%88%90%E5%91%98%E7%9A%84scope"><span class="nav-number">1.2.</span> <span class="nav-text">定义在unnamed
+namespace里的成员的scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E4%BE%8B%E5%AD%90%E7%9C%8B%E6%99%AE%E9%80%9Anamespace%E5%92%8Cunnamed-namespace%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.</span> <span class="nav-text">通过例子看普通namespace和unnamed
+namespace的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#using"><span class="nav-number">2.</span> <span class="nav-text">Using</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#using-declaration"><span class="nav-number">2.1.</span> <span class="nav-text">using declaration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#include"><span class="nav-number">2.1.1.</span> <span class="nav-text">include</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#translation-unit"><span class="nav-number">2.1.2.</span> <span class="nav-text">Translation Unit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#using-directives"><span class="nav-number">2.2.</span> <span class="nav-text">using Directives</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yandi Liu</p>
+  <div class="site-description" itemprop="description">Work hard, Play hard!</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dinayuil" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dinayuil" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yandi-liu-a82bbb156/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yandi-liu-a82bbb156&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/07/08/unnamed-namespace-and-using-declaration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yandi Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yandi's Little World">
+      <meta itemprop="description" content="Work hard, Play hard!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="unnamed namespace and using declaration | Yandi's Little World">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          unnamed namespace and using declaration
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-07-08 17:46:25 / Modified: 17:47:42" itemprop="dateCreated datePublished" datetime="2024-07-08T17:46:25+02:00">2024-07-08</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/07/08/unnamed-namespace-and-using-declaration/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/08/unnamed-namespace-and-using-declaration/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>3.9k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>4 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在工作中经常看到这样的代码。好奇为什么要用<code>unnamed namespace</code>，以及在<code>unnamed namespace</code>里用<code>using</code>会有什么效果。
+<span id="more"></span></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> NS_A1 &#123;</span><br><span class="line">	<span class="keyword">namespace</span> NS_A2 &#123;</span><br><span class="line">		<span class="keyword">namespace</span> NS_A3 &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">namespace</span> &#123;</span><br><span class="line">				<span class="keyword">using</span> NS_B1::NS_B2::NS_B3::ClassB;</span><br><span class="line">				</span><br><span class="line">				<span class="comment">// some local variables</span></span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line">				<span class="comment">// ... use ClassB methods</span></span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="unnamed-namespace-scope">unnamed namespace scope</h1>
+<h2 id="unnamed-namespace不同于常规的namespace之处">unnamed
+namespace不同于常规的namespace之处</h2>
+<p>首先想搞明白的就是<code>unnamed namespace</code>的scope（作用域）。</p>
+<p><code>unnamed namespace</code>只作用在当前的文件，也就是说如果两个cpp文件里都有<code>unnamed namespace</code>，那么他们没有任何关联。</p>
+<p>如果<code>unnamed namespace</code>是定义在头文件里，那么引用头文件的cpp文件用到的<code>unnamed namespace</code>里的成员也是仅属于当前的cpp文件。也就是说，比如有两个cpp文件都用到头文件<code>unnamed namespace</code>的某个变量<code>a</code>，那么相当于他们都创建了只能在自己cpp文件使用的<code>a</code>变量，各种操作当然只会对自己的<code>a</code>起作用。</p>
+<p>示例： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;nsInHeader.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;func.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;in main, before change, a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="built_in">func</span>();</span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;in main, after change, a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="built_in">func</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// nsInHeader.h</span></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// func.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;nsInHeader.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;func.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;in func, a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// func.h</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>运行输出结果：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">in main, before change, a: 0</span><br><span class="line">in func, a: 0</span><br><span class="line">in main, after change, a: 1</span><br><span class="line">in func, a: 0</span><br></pre></td></tr></table></figure>
+<h2 id="定义在unnamed-namespace里的成员的scope">定义在unnamed
+namespace里的成员的scope</h2>
+<p>定义在<code>unnamed namespace</code>里的成员跟这个<code>unnamed namespace</code>本身的scope相同。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer例子，英文第五版p791</span></span><br><span class="line"><span class="type">int</span> i;   <span class="comment">// global declaration for i</span></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ambiguous: defined globally and in an unnested, unnamed namespace</span></span><br><span class="line">i = <span class="number">10</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+如果<code>unnamed namespace</code>定义在一个文件的最外层scope，相当于定义在这个文件的global
+scope，那<code>unnamed namespace</code>的成员也相当于定义在global
+scope。</p>
+<p>这也是为什么<code>unnamed namespace</code>能够取代static变量。定义在global
+scope的<code>unnamed namespace</code>里的成员跟用static声明的变量都只在当前文件里可用，对其他文件不可见。</p>
+<h2
+id="通过例子看普通namespace和unnamed-namespace的区别">通过例子看普通namespace和unnamed
+namespace的区别</h2>
+<p>分别在两个cpp文件里定义namespace NS1，并在namespace里定义一个变量：
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ns1.cpp</span></span><br><span class="line"><span class="keyword">namespace</span> NS1 &#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="comment">// reopen the namespace NS1:</span></span><br><span class="line"><span class="keyword">namespace</span> NS1 &#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 这时候编译不会有问题，但是link的时候会报错： "multiple
+definition of NS1::a;".</p>
+<p>但是如果改成下面这样： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ns1.cpp</span></span><br><span class="line"><span class="keyword">namespace</span> NS1 &#123;</span><br><span class="line">	<span class="keyword">namespace</span>&#123;</span><br><span class="line">		<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="comment">// reopen the namespace NS1:</span></span><br><span class="line"><span class="keyword">namespace</span> NS1 &#123;</span><br><span class="line">	<span class="keyword">namespace</span>&#123;</span><br><span class="line">		<span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 就不会报错了。</p>
+<p>这是因为普通的namespace可以展开到多个文件，但是就如之前所说，unnamed
+namespace只在当前的文件有效。</p>
+<h1 id="using">Using</h1>
+<p>把别的namespace的成员引入当前的namespace，有两种using的用法：using
+declaration和using Directives。 这里用到的是using
+declaration所以就只讨论它。关于using
+directive，我发现了一篇很好的文章，放在后面了。</p>
+<h2 id="using-declaration">using declaration</h2>
+<blockquote>
+<p><strong>In namespace and block scope</strong></p>
+<p>Using-declarations introduce a member of another namespace into the
+current namespace or block scope.</p>
+<p>https://en.cppreference.com/w/cpp/language/using_declaration</p>
+</blockquote>
+<p>之前提到的<code>using NS_B1::NS_B2::NS_B3::ClassB;</code>就属于<code>using declaration</code>。它只是把其它namespace的成员引入到当前的scope。</p>
+<p>而“定义在<code>unnamed namespace</code>里的成员跟这个<code>unnamed namespace</code>本身的scope相同”。</p>
+<p>也就是说，其实<code>using declaration</code>放不放在<code>unnamed namespace</code>里，效果都是一样的。</p>
+<p>那么我猜在工作中看到<code>using declaration</code>放在<code>unnamed namespace</code>只是顺便；因为<code>unnamed namespace</code>里还定义了别的变量和函数，这些成员只在当前文件可见；别的文件如果用了相同的<code>enclosing namespace</code>的，也定义了类似的变量和函数，放在<code>unnamed namespace</code>里就不会导致命名冲突。</p>
+<h3 id="include">include</h3>
+<blockquote>
+<p>#include &lt; h-char-sequence &gt; new-line (1)</p>
+<p>#include " q-char-sequence " new-line (2)</p>
+<ol type="1">
+<li><p>Searches for a header identified uniquely by h-char-sequence and
+replaces the directive by the entire contents of the header.</p></li>
+<li><p>Searches for a source file identified by q-char-sequence and
+replaces the directive by the entire contents of the source file. It may
+fallback to (1) and treat q-char-sequence as a header
+identifier.</p></li>
+</ol>
+<p>https://en.cppreference.com/w/cpp/preprocessor/include</p>
+</blockquote>
+<p>在preprocessor处理cpp文件的时候，include
+directive会把头文件的全部内容拿过来。</p>
+<h3 id="translation-unit">Translation Unit</h3>
+<p>一个translation unit就是一个cpp文件和它引用的头文件。
+https://stackoverflow.com/questions/1106149/what-is-a-translation-unit-in-c</p>
+<p>所以，如果不把<code>using declaration</code>放在头文件里并被另一个cpp文件引用的话，这个<code>using declaration</code>对于另一个cpp文件来说就是不可见的。</p>
+<h2 id="using-directives">using Directives</h2>
+<p>https://quuxplusone.github.io/blog/2020/12/21/using-directive/</p>
+<p>这篇文章说用using directive会把target namespace的成员引入到target
+namespace和current scope的least common ancestor的scope里。</p>
+<p>而且这个引入的效果仅限在current
+scope（以及它包含的scope）里。在外层和其他的的scope里，target
+namespace的成员依然是不可见的。</p>
+<p>而且最后的建议就是不要用using Directives。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Yandi Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://dinayuil.github.io/2024/07/08/unnamed-namespace-and-using-declaration/" title="unnamed namespace and using declaration">http://dinayuil.github.io/2024/07/08/unnamed-namespace-and-using-declaration/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_linkedin"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_evernote"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
+      <a class="a2a_button_sina_weibo"></a>
+      <a class="a2a_button_copy_link"></a>
+      <a class="a2a_button_email"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/01/%E5%AF%B9%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%8F%96%E6%A8%A1%E8%BF%90%E7%AE%97%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%91%E7%8E%B0/" rel="prev" title="对编程中的取模运算的一些发现">
+                  <i class="fa fa-chevron-left"></i> 对编程中的取模运算的一些发现
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yandi Liu</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">42k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">38 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"yandis-little-world","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
