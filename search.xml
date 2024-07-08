@@ -1026,5 +1026,11 @@ scope（以及它包含的scope）里。在外层和其他的的scope里，targe
 namespace的成员依然是不可见的。</p>
 <p>而且最后的建议就是不要用using Directives。</p>
 ]]></content>
+      <categories>
+        <category>programming</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
   </entry>
 </search>
