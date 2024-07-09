@@ -1052,12 +1052,19 @@ Deck才能继续安装，Reinstall Steam OS运行之后没有什么反应。</p>
     <url>/2024/01/07/Joplin%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90%E5%92%8C%E8%AE%BE%E7%BD%AE/</url>
     <content><![CDATA[<p>Joplin真是相见恨晚，几乎满足了我对笔记软件的所有需求（硬要说的话可能就是不能手写笔记）：本地一定有一份备份，能在多端查看，文件格式最好是开放的，并且方便导入导出。</p>
 <span id="more"></span>
-<p>Joplin： - 使用markdown格式，而且粘贴图片也很方便 -
-支持多端：Windows, Linux, macOS, Android and iOS -
-可完全本地离线运行，不需要账号 -
-也可以自己设置同步服务，支持WebDav，S3，OneDrive等，它自己也提供云服务 -
-非常方便地导入导出 - 支持导入html、markdown、txt和evernote -
-支持导出markdown、pdf、html - 免费，开源</p>
+<p>Joplin：</p>
+<ul>
+<li>使用markdown格式，而且粘贴图片也很方便</li>
+<li>支持多端：Windows, Linux, macOS, Android and iOS</li>
+<li>可完全本地离线运行，不需要账号</li>
+<li>也可以自己设置同步服务，支持WebDav，S3，OneDrive等，它自己也提供云服务</li>
+<li>非常方便地导入导出
+<ul>
+<li>支持导入html、markdown、txt和evernote</li>
+<li>支持导出markdown、pdf、html</li>
+</ul></li>
+<li>免费，开源</li>
+</ul>
 <blockquote>
 <p>https://joplinapp.org/</p>
 </blockquote>
