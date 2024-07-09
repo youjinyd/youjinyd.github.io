@@ -1033,4 +1033,61 @@ namespace的成员依然是不可见的。</p>
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>steam deck 换固态重装系统</title>
+    <url>/2024/01/09/steam-deck-%E6%8D%A2%E5%9B%BA%E6%80%81%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<p>得用好点的U盘而且是USB3以上，不然安装的时候容易卡在进入桌面之前的过程。</p>
+<p>手边没有合适的U盘，最后只能在sd卡里刷入镜像来重装steamos到ssd里。</p>
+<p>安装的时候选Re-image Steam
+Deck。看了几个教程要么没提到要么是用的Reinstall Steam
+OS，但是因为换了固态硬盘什么都没有了所以选Re-image Steam
+Deck才能继续安装，Reinstall Steam OS运行之后没有什么反应。</p>
+]]></content>
+      <categories>
+        <category>software</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Joplin笔记软件推荐和设置</title>
+    <url>/2024/01/07/Joplin%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90%E5%92%8C%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<p>Joplin真是相见恨晚，几乎满足了我对笔记软件的所有需求（硬要说的话可能就是不能手写笔记）：本地一定有一份备份，能在多端查看，文件格式最好是开放的，并且方便导入导出。</p>
+<span id="more"></span>
+<p>Joplin： - 使用markdown格式，而且粘贴图片也很方便 -
+支持多端：Windows, Linux, macOS, Android and iOS -
+可完全本地离线运行，不需要账号 -
+也可以自己设置同步服务，支持WebDav，S3，OneDrive等，它自己也提供云服务 -
+非常方便地导入导出 - 支持导入html、markdown、txt和evernote -
+支持导出markdown、pdf、html - 免费，开源</p>
+<blockquote>
+<p>https://joplinapp.org/</p>
+</blockquote>
+<blockquote>
+<p>https://github.com/laurent22/joplin</p>
+</blockquote>
+<h1 id="修改本地存储位置">修改本地存储位置</h1>
+<p>Joplin默认把数据放在<code>C:\Users\&lt;username&gt;\.config\joplin-desktop</code>，但是官方竟然没有更改存储位置的设置项。</p>
+<p>不过有一个非官方的方法，在windows上，在Joplin的桌面快捷方式右键-&gt;属性-&gt;快捷方式-&gt;<code>目标</code>，结尾加上<code>--profile "新的路径"</code>，注意<code>--</code>之前和<code>profile</code>之后都有空格。</p>
+<blockquote>
+<p>https://www.cnblogs.com/KoiC/p/16541109.html</p>
+</blockquote>
+<p>虽然不是offical
+support的，之后也不知道会不会更新改本地存储位置的功能，目前也只能暂时用这个方法了。</p>
+<h1 id="云同步">云同步</h1>
+<p>使用阿里云OSS云同步 https://www.jianshu.com/p/f2ced7e002ff</p>
+<p>使用腾讯云COS云同步 https://zhuanlan.zhihu.com/p/346460176</p>
+<p>我自己用的是阿里云的，看着计费挺复杂的，但是可能我用量很小，到现在还没有被计费过。虽然我选的是国内的节点（看起来便宜些），但是在欧洲用同步功能也没碰到过非常慢的情况。</p>
+<h1 id="遇到过的问题">遇到过的问题</h1>
+<ol type="1">
+<li><p>WebDav不支持坚果云
+一开始是想用坚果云同步的，但是会报错，而且没找到解决方法。</p></li>
+<li><p>复制到新电脑上出现同步错误
+把joplin的目录复制到另一台电脑上之后，在新电脑上打开joplin，提示需要重新输入笔记加密密码，和S3密钥（使用S3同步的情况下）。
+尽管输入了正确的S3密钥，并且在点击“检查同步配置”的按钮之后提示没有问题，但是在同步的时候还是出现了SignatureDoesNotMatch的问题。
+解决方法：重新启动Joplin</p></li>
+</ol>
+]]></content>
+      <categories>
+        <category>software</category>
+      </categories>
+  </entry>
 </search>
