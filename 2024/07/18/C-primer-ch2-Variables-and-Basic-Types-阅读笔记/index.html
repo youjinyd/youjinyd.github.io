@@ -28,7 +28,7 @@
 <meta property="og:description" content="最近看了下C++ roadmap，发现自己有些基础的内容还不是很懂，于是选了本经典的C++书来读，发现确实有很多基础知识没掌握。读完了第二章，边读边记了些之前不太懂和感觉重要的内容。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-07-18T18:22:40.000Z">
-<meta property="article:modified_time" content="2024-07-18T18:41:33.203Z">
+<meta property="article:modified_time" content="2024-07-18T18:54:25.990Z">
 <meta property="article:author" content="Yandi Liu">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -245,7 +245,7 @@ Structures</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" h
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2024-07-18 20:22:40 / Modified: 20:41:33" itemprop="dateCreated datePublished" datetime="2024-07-18T20:22:40+02:00">2024-07-18</time>
+      <time title="Created: 2024-07-18 20:22:40 / Modified: 20:54:25" itemprop="dateCreated datePublished" datetime="2024-07-18T20:22:40+02:00">2024-07-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -326,7 +326,22 @@ target type can hold.</p>
 result is <strong>undefined</strong>.</p>
 </blockquote>
 <h2 id="literal">literal</h2>
-<p>整数literal默认类型？</p>
+<p>整数literal默认类型（比我想的复杂）:</p>
+<ul>
+<li>decimal literals are signed
+<ul>
+<li>decimal literal has the smallest type of int, long, or long long
+(i.e., the first type in this list) in which the literal’s value
+fits</li>
+</ul></li>
+<li>octal and hexadecimal literals can be either signed or unsigned
+types
+<ul>
+<li>Octal and hexadecimal literals have the smallest type of int,
+unsigned int, long, unsigned long, long long, or unsigned long long in
+which the literal’s value fits</li>
+</ul></li>
+</ul>
 <h3 id="负数literal">负数literal</h3>
 <p>负数literal（字面值）的符号不包含在literal里： -42
 符号是一个operator，作用在42上</p>

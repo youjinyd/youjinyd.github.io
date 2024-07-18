@@ -1154,7 +1154,22 @@ target type can hold.</p>
 result is <strong>undefined</strong>.</p>
 </blockquote>
 <h2 id="literal">literal</h2>
-<p>整数literal默认类型？</p>
+<p>整数literal默认类型（比我想的复杂）:</p>
+<ul>
+<li>decimal literals are signed
+<ul>
+<li>decimal literal has the smallest type of int, long, or long long
+(i.e., the first type in this list) in which the literal’s value
+fits</li>
+</ul></li>
+<li>octal and hexadecimal literals can be either signed or unsigned
+types
+<ul>
+<li>Octal and hexadecimal literals have the smallest type of int,
+unsigned int, long, unsigned long, long long, or unsigned long long in
+which the literal’s value fits</li>
+</ul></li>
+</ul>
 <h3 id="负数literal">负数literal</h3>
 <p>负数literal（字面值）的符号不包含在literal里： -42
 符号是一个operator，作用在42上</p>
