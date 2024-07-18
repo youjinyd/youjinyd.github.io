@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"dinayuil.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近看了下C++ roadmap，发现自己有些基础的内容还不是很懂，于是选了本经典的C++书来读，发现确实有很多基础知识没掌握。读完了第二章，边读边记了些之前不太懂和感觉重要的内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ primer ch2 - Variables and Basic Types 阅读笔记">
+<meta property="og:url" content="http://dinayuil.github.io/2024/07/18/C-primer-ch2-Variables-and-Basic-Types-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Yandi&#39;s Little World">
+<meta property="og:description" content="最近看了下C++ roadmap，发现自己有些基础的内容还不是很懂，于是选了本经典的C++书来读，发现确实有很多基础知识没掌握。读完了第二章，边读边记了些之前不太懂和感觉重要的内容。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-18T18:22:40.000Z">
+<meta property="article:modified_time" content="2024-07-18T18:34:39.078Z">
+<meta property="article:author" content="Yandi Liu">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://dinayuil.github.io/2024/07/18/C-primer-ch2-Variables-and-Basic-Types-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/07/18/C-primer-ch2-Variables-and-Basic-Types-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/","path":"2024/07/18/C-primer-ch2-Variables-and-Basic-Types-阅读笔记/","title":"C++ primer ch2 - Variables and Basic Types 阅读笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C++ primer ch2 - Variables and Basic Types 阅读笔记 | Yandi's Little World</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-354MG6H6PY"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-354MG6H6PY","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Yandi's Little World</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#primitive-built-in-types"><span class="nav-number">1.</span> <span class="nav-text">Primitive Built-in Types</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#arithmetic-types"><span class="nav-number">1.1.</span> <span class="nav-text">Arithmetic Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#type-conversions"><span class="nav-number">1.2.</span> <span class="nav-text">Type Conversions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#literal"><span class="nav-number">1.3.</span> <span class="nav-text">literal</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9F%E6%95%B0literal"><span class="nav-number">1.3.1.</span> <span class="nav-text">负数literal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#floating-point-literal"><span class="nav-number">1.3.2.</span> <span class="nav-text">Floating-point literal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2literal"><span class="nav-number">1.3.3.</span> <span class="nav-text">字符串literal</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">字符串连接</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#variables"><span class="nav-number">2.</span> <span class="nav-text">Variables</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#initializer%E5%88%9D%E5%A7%8B%E5%80%BC"><span class="nav-number">2.1.</span> <span class="nav-text">Initializer（初始值）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list-initialization"><span class="nav-number">2.1.1.</span> <span class="nav-text">List Initialization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variable-declarations-vs-definitions"><span class="nav-number">2.2.</span> <span class="nav-text">Variable Declarations vs
+Definitions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extern"><span class="nav-number">2.2.1.</span> <span class="nav-text">extern</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conventions-for-variable-names"><span class="nav-number">2.3.</span> <span class="nav-text">Conventions for Variable
+Names</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#compound-types"><span class="nav-number">3.</span> <span class="nav-text">Compound Types</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">3.1.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointer"><span class="nav-number">3.2.</span> <span class="nav-text">Pointer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#understanding-compound-type-declarations"><span class="nav-number">3.3.</span> <span class="nav-text">Understanding Compound
+Type Declarations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#const-qualifier"><span class="nav-number">4.</span> <span class="nav-text">const Qualifier</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#const-objects-are-local-to-a-file"><span class="nav-number">4.0.1.</span> <span class="nav-text">const Objects Are Local to a
+File</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference-to-const"><span class="nav-number">4.1.</span> <span class="nav-text">Reference to const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointers-and-const"><span class="nav-number">4.2.</span> <span class="nav-text">Pointers and const</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pointer-to-const"><span class="nav-number">4.2.1.</span> <span class="nav-text">pointer to const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-pointer"><span class="nav-number">4.2.2.</span> <span class="nav-text">const pointer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#top-level-const"><span class="nav-number">4.3.</span> <span class="nav-text">Top-Level const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#constexpr-and-constant-expressions"><span class="nav-number">4.4.</span> <span class="nav-text">constexpr and
+Constant Expressions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#constant-expression"><span class="nav-number">4.4.1.</span> <span class="nav-text">Constant expression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constexpr-variables"><span class="nav-number">4.4.2.</span> <span class="nav-text">constexpr Variables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#literal-types"><span class="nav-number">4.4.3.</span> <span class="nav-text">Literal Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constexpr-pointer"><span class="nav-number">4.4.4.</span> <span class="nav-text">constexpr pointer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dealing-with-types"><span class="nav-number">5.</span> <span class="nav-text">Dealing with Types</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#type-alias"><span class="nav-number">5.1.</span> <span class="nav-text">Type Alias</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pointers-const-and-type-aliases"><span class="nav-number">5.1.1.</span> <span class="nav-text">Pointers, const, and Type
+Aliases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-auto-type-specifier"><span class="nav-number">5.2.</span> <span class="nav-text">The auto Type
+Specifier</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#compound-types-const-and-auto"><span class="nav-number">5.2.1.</span> <span class="nav-text">Compound Types, const, and
+auto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#auto%E5%90%8Epointer-declarator"><span class="nav-number">5.2.2.</span> <span class="nav-text">auto后pointer declarator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-decltype-type-specifier"><span class="nav-number">5.3.</span> <span class="nav-text">The decltype Type
+Specifier</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#decltype-and-references"><span class="nav-number">5.3.1.</span> <span class="nav-text">decltype and
+References</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#defining-our-own-data-structures"><span class="nav-number">6.</span> <span class="nav-text">Defining Our Own Data
+Structures</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%84%9F%E6%83%B3"><span class="nav-number">7.</span> <span class="nav-text">一些感想</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yandi Liu</p>
+  <div class="site-description" itemprop="description">Work hard, Play hard!</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dinayuil" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dinayuil" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yandi-liu-a82bbb156/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yandi-liu-a82bbb156&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/07/18/C-primer-ch2-Variables-and-Basic-Types-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yandi Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yandi's Little World">
+      <meta itemprop="description" content="Work hard, Play hard!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C++ primer ch2 - Variables and Basic Types 阅读笔记 | Yandi's Little World">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++ primer ch2 - Variables and Basic Types 阅读笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-07-18 20:22:40 / Modified: 20:34:39" itemprop="dateCreated datePublished" datetime="2024-07-18T20:22:40+02:00">2024-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/07/18/C-primer-ch2-Variables-and-Basic-Types-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/18/C-primer-ch2-Variables-and-Basic-Types-阅读笔记/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>13 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近看了下C++
+roadmap，发现自己有些基础的内容还不是很懂，于是选了本经典的C++书来读，发现确实有很多基础知识没掌握。读完了第二章，边读边记了些之前不太懂和感觉重要的内容。</p>
+<span id="more"></span>
+<h1 id="primitive-built-in-types">Primitive Built-in Types</h1>
+<p>primitive types:</p>
+<ul>
+<li>arithmetic types</li>
+<li>void</li>
+</ul>
+<h2 id="arithmetic-types">Arithmetic Types</h2>
+<ul>
+<li>integral types</li>
+<li>floating-point types</li>
+</ul>
+<p><code>unsigned int</code>可以被简写成<code>unsigned</code>。</p>
+<blockquote>
+<p>The type unsigned int may be abbreviated as unsigned</p>
+</blockquote>
+<h2 id="type-conversions">Type Conversions</h2>
+<p>out-of-range assignment</p>
+<blockquote>
+<p>If we assign an out-of-range value to an object of unsigned type, the
+result is the remainder of the value modulo the number of values the
+target type can hold.</p>
+</blockquote>
+<p>关于modulo怎么算，看之前的一篇文章。</p>
+<blockquote>
+<p>If we assign an out-of-range value to an object of signed type, the
+result is <strong>undefined</strong>.</p>
+</blockquote>
+<h2 id="literal">literal</h2>
+<p>整数literal默认类型？</p>
+<h3 id="负数literal">负数literal</h3>
+<p>负数literal（字面值）的符号不包含在literal里： -42
+符号是一个operator，作用在42上</p>
+<h3 id="floating-point-literal">Floating-point literal</h3>
+<p>浮点数literal默认的类型是<strong>double</strong></p>
+<h3 id="字符串literal">字符串literal</h3>
+<p>字符串literal的type是<strong>常量字符数组</strong> （array of
+constant chars）</p>
+<h4 id="字符串连接">字符串连接</h4>
+<p>两个字符串literal，中间用 空格、tab、换行
+隔开的话，会被连接成单个字符串literal "a really, really long string
+literal " "that spans two lines" 效果等于 "a really, really long string
+literal that spans two lines"</p>
+<h1 id="variables">Variables</h1>
+<p>C++ Primer 对于 object 的定义是： &gt; An object is a region of
+memory that has a type. We will freely use the term object regardless of
+whether the object has built-in or class type, is named or unnamed, or
+can be read or written.</p>
+<h2 id="initializer初始值">Initializer（初始值）</h2>
+<blockquote>
+<p>initialization and assignment are different operations in C++</p>
+</blockquote>
+<p>C++里变量初始化和赋值是<strong>不同的操作</strong></p>
+<blockquote>
+<p>Initialization is not assignment. Initialization happens when a
+variable is given a value when it is created. Assignment obliterates an
+object’s current value and replaces that value with a new one.</p>
+</blockquote>
+<p>初始化发生在创建一个变量的时候给这个变量初始值；赋值（assignment）是更改一个对象的值，用新值替换掉旧值。</p>
+<p>所有built-in
+type的变量，在<strong>函数之外</strong>被定义的时候如果没有给初始值，那么会被default
+initialized，初始值为0。如果在<strong>函数之内</strong>被定义并没有给初始值，那么它是<strong>uninitialized</strong>，它的值是<strong>undefined</strong>。</p>
+<p>自定义类型（类）的变量定义时如果没有给初始值，那初始化是由这个类来控制的。(我猜，定义这种变量不给初始值的前提，是这个类有不带参数的构造函数（constructor））。</p>
+<p>建议：定义变量时就显式地给初始值。</p>
+<h3 id="list-initialization">List Initialization</h3>
+<p>C++11新增了<code>List Initialization</code>，用花括号初始化。也就有了下面四种初始化方式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p43</span></span><br><span class="line"><span class="type">int</span> units_sold = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> units_sold = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">int</span> units_sold&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">units_sold</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h2 id="variable-declarations-vs-definitions">Variable Declarations vs
+Definitions</h2>
+<p>Declaration：makes a name known to the program, also specifying the
+type</p>
+<p>Definition: in addition to declaration, creates an entity associated
+with a name - allocates storage and may provide the variable with an
+initial value</p>
+<p>definition（定义）不仅declare（声明）一个变量的名字和类型，还给这个变量分配内存，<strong>可能</strong>会给它一个初始值</p>
+<p>变量可以被declare多次，可以在多个文件里被declare，但是只能被define一次，也当然只可能在一个文件里被define。</p>
+<h3 id="extern">extern</h3>
+<p>通过<code>extern</code>关键字只declare而不define <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> i; <span class="comment">// declares but does not define i</span></span><br><span class="line"><span class="type">int</span> j; <span class="comment">// declares and defines j</span></span><br></pre></td></tr></table></figure></p>
+<p>只能define一次，但是可以declare多次。下面这个例子在defa.cpp和main.cpp都define了a，会导致link
+error。</p>
+<p>#include "a.h" 会把a.h里的内容替换到当前位置，所以在哪#include
+"a.h"就相当于在哪declare
+a，在例子里也就是在defa.cpp和main.cpp都declare了a。 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file: a.h</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> a;</span><br><span class="line"></span><br><span class="line"><span class="comment">// file: defa.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;a.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// file: main.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;a.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a;	<span class="comment">// link error!</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果把main.cpp中的定义a删去就没有问题了。 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;a.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果： <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a: 1</span><br></pre></td></tr></table></figure></p>
+<p>用extern同时有初始值 = definition <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">double</span> pi = <span class="number">3.1416</span>; <span class="comment">// definition</span></span><br></pre></td></tr></table></figure></p>
+<p>但是，在函数里用extern声明变量并给初始值的话就是<strong>错误</strong>。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">extern</span> <span class="type">double</span> pi = <span class="number">3.1416</span>;	<span class="comment">// compile error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="conventions-for-variable-names">Conventions for Variable
+Names</h2>
+<p>原来C++里面有一类名字是<code>C++ Alternative Operator Names</code>，可以像python一样用and，or，not等等表示布尔运算。这些alternative
+operator是给一些没有&amp;、|这种符号的编码集用的。（很少见，之前根本不知道）</p>
+<h1 id="compound-types">Compound Types</h1>
+<p>declaration更广泛的定义： &gt; More generally, a declaration is a
+<strong>base type</strong> followed by a list of
+<strong>declarators</strong>. Each declarator names a variable and gives
+the variable a type that is related to the base type.</p>
+<p>例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i3 = <span class="number">1024</span>, &amp;ri = i3; <span class="comment">// i3 is an int; ri is a reference bound to i3</span></span><br><span class="line"><span class="comment">// int是base type，i3和&amp;ri是declarator。</span></span><br><span class="line"><span class="comment">// &amp;ri这个declarator给了变量名：ri，和type：int&amp;</span></span><br><span class="line"></span><br><span class="line"><span class="type">double</span> dp, *dp2; <span class="comment">// dp2 is a pointer to double; dp is a double</span></span><br><span class="line"><span class="comment">// double是base type，dp和*dp2是declarator。</span></span><br><span class="line"><span class="comment">// *dp2这个declarator给了变量名：dp2，和type：int*</span></span><br></pre></td></tr></table></figure>
+<p><code>*</code>和<code>&amp;</code>是type
+modifier，是declarator的一部分。type
+modifier只作用在使用它的变量上，所以下面这个declaration，只有<code>p1</code>是pointer。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>* p1, p2; <span class="comment">// p1 is a pointer to int; p2 is an int</span></span><br></pre></td></tr></table></figure> type
+modifier和变量名之间可以有空格，这也就造成了大家容易误解成<code>int*</code>
+是所有后面变量的type。</p>
+<p>之前我自己是更喜欢把<code>&amp;</code>和<code>*</code>跟base
+type写在一起，看到这里之后决定还是改成跟变量名写在一起比较明白。</p>
+<h2 id="reference">Reference</h2>
+<p>A reference is an <strong>alias</strong>, <strong>not</strong> an
+object. A reference is just another name for an already existing
+object.</p>
+<p>reference和它bind的object的type必须匹配（比如<code>double&amp;</code>
+type不能bind一个<code>int</code>）。</p>
+<p>一个reference只是一个名字，一个已有的object的另一个名字，reference没有自己的内存空间。</p>
+<p>reference只能绑定（bind）到object上，不能绑定到字面值（literal）或者一个表达式的结果。</p>
+<h2 id="pointer">Pointer</h2>
+<p>pointer和它所指向的object的type必须匹配（比如<code>int*</code>
+type不能指向一个<code>double</code>）。</p>
+<p>Pointer如果定义在block scope（一般是函数体）里，跟之前的built-in
+type的variable一样，如果没有给初始值，那它也是uninitialized，它的值是undefined
+value。这样的Pointer是invalid。</p>
+<p>建议：定义pointer的时候就初始化它</p>
+<p>null pointer不指向任何object <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p1 = <span class="literal">nullptr</span>; <span class="comment">// equivalent to int *p1 = 0;</span></span><br></pre></td></tr></table></figure></p>
+<p>pointer可以直接用在condition里（如<code>if(pointer)</code>），如果pointer为0（<code>nullptr</code>）那就是false，其他为true。</p>
+<p>两个pointer用==比较，如果他们指向相同的地址那就是true。</p>
+<p>Invalid pointer用在condition里或者比较的行为是undefined。</p>
+<h2 id="understanding-compound-type-declarations">Understanding Compound
+Type Declarations</h2>
+<p>因为reference不是object，所以pointer不能指向reference。但是pointer是object，所以reference可以bind到pointer。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer 英文版p58</span></span><br><span class="line"><span class="type">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="type">int</span> *p; <span class="comment">// p is a pointer to int</span></span><br><span class="line"><span class="type">int</span> *&amp;r = p; <span class="comment">// r is a reference to the pointer p</span></span><br><span class="line">r = &amp;i; <span class="comment">// r refers to a pointer; assigning &amp;i to r makes p point to i</span></span><br><span class="line">*r = <span class="number">0</span>; <span class="comment">// dereferencing r yields i, the object to which p points; changes i to 0</span></span><br></pre></td></tr></table></figure> （不会真有人喜欢写这种代码吧，什么情况下会写成这样……</p>
+<h1 id="const-qualifier"><code>const</code> Qualifier</h1>
+<p>const object必须给初始值（被初始化）。 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p59</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> i = <span class="built_in">get_size</span>(); <span class="comment">// ok: initialized at run time</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> j = <span class="number">42</span>; <span class="comment">// ok: initialized at compile time</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> k; <span class="comment">// error: k is uninitialized const</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="const-objects-are-local-to-a-file">const Objects Are Local to a
+File</h3>
+<blockquote>
+<p>the compiler will <strong>usually</strong> replace uses of the
+variable with its corresponding value during compilation</p>
+</blockquote>
+<blockquote>
+<p>To share a const object among multiple files, you must define the
+variable as extern.</p>
+</blockquote>
+<p><code>const</code>
+object默认只在当前文件可见。需要跨文件使用同一个object的话，要用<code>extern</code>。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p60</span></span><br><span class="line"><span class="comment">// file_1.cc defines and initializes a const that is accessible to other files</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">int</span> bufSize = <span class="built_in">fcn</span>();</span><br><span class="line"><span class="comment">// file_1.h</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">int</span> bufSize; <span class="comment">// same bufSize as defined in file_1.cc</span></span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，<code>const</code>与<code>initializer</code>同时使用，只能在<code>global scope</code>里，也就是<code>file_1.cc</code>里的语句不能放在任何函数中。</p>
+<p><code>file_1.h</code>里的语句是declaration，之前也提到过，一个变量是可以声明多次的，所以每在其他cpp文件里引用<code>file_1.h</code>就相当于声明了一次。</p>
+<p>其实不引用<code>file_1.h</code>，直接在cpp文件里用<code>extern const int bufSize;</code>也是一样的效果，但是就会造成相同的代码复制到多个地方，以后如果要改就容易出错。</p>
+<h2 id="reference-to-const">Reference to <code>const</code></h2>
+<p>reference的类型和它绑定的object的类型需要匹配，但是有两个例外，这里是第一个例外：reference
+to
+<code>const</code>，可以用<code>literal</code>、表达式和non<code>const</code>
+object初始化，还能用<em>可以转换成reference的类型的其他表达式</em>初始化</p>
+<blockquote>
+<p>we can initialize a reference to const from any expression that can
+be converted (§ 2.1.2, p. 35) to the type of the reference. In
+particular, we can bind a reference to const to a nonconst object, a
+literal, or a more general expression</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;r1 = i; <span class="comment">// we can bind a const int&amp; to a plain int object</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;r2 = <span class="number">42</span>; <span class="comment">// ok: r1 is a reference to const</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;r3 = r1 * <span class="number">2</span>; <span class="comment">// ok: r3 is a reference to const</span></span><br><span class="line"><span class="type">int</span> &amp;r4 = r * <span class="number">2</span>; <span class="comment">// error: r4 is a plain, nonconst reference</span></span><br><span class="line"></span><br><span class="line"><span class="type">double</span> dval = <span class="number">3.14</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;ri = dval;	<span class="comment">// OK, convert from double to int</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;ri2 = <span class="number">3.14</span>;	<span class="comment">// OK, convert from double to int</span></span><br></pre></td></tr></table></figure>
+<p>Reference to
+const可以绑定nonconst的object，但是不能更改object的值。</p>
+<h2 id="pointers-and-const">Pointers and const</h2>
+<h3 id="pointer-to-const">pointer to <code>const</code></h3>
+<p>pointer的类型需要和它指向的object的类型匹配，但有两个例外，这里是第一个。
+我们可以用一个pointer to <code>const</code>指向一个non<code>const</code>
+object <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p62</span></span><br><span class="line"><span class="type">double</span> dval = <span class="number">3.14</span>; <span class="comment">// dval is a double; its value can be changed</span></span><br><span class="line"><span class="type">const</span> <span class="type">double</span> *cptr = &amp;dval; <span class="comment">// ok: but can’t change dval through cptr</span></span><br></pre></td></tr></table></figure>
+从右往左读declaration更容易理解。<code>const double *cptr</code>：cptr是一个pointer，指向double
+const。</p>
+<h3 id="const-pointer">const pointer</h3>
+<p>不同于reference，pointer自己也是一个object，所以pointer本身也可以是const。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p63</span></span><br><span class="line"><span class="type">int</span> errNumb = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> *<span class="type">const</span> curErr = &amp;errNumb; <span class="comment">// curErr will always point to errNumb</span></span><br><span class="line"><span class="type">const</span> <span class="type">double</span> pi = <span class="number">3.14159</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">double</span> *<span class="type">const</span> pip = &amp;pi; <span class="comment">// pip is a const pointer to a const object</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="top-level-const">Top-Level const</h2>
+<p>这个概念之前根本没接触过。</p>
+<blockquote>
+<p>top-level const indicates that an object itself is const. Top-level
+const can appear in any object type, i.e., one of the built-in
+arithmetic types, a class type, or a pointer type. Low-level const
+appears in the base type of compound types such as pointers or
+references.</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p64</span></span><br><span class="line"><span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> *<span class="type">const</span> p1 = &amp;i; <span class="comment">// we can’t change the value of p1; const is top-level</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> ci = <span class="number">42</span>; <span class="comment">// we cannot change ci; const is top-level</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *p2 = &amp;ci; <span class="comment">// we can change p2; const is low-level</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *<span class="type">const</span> p3 = p2; <span class="comment">// right-most const is top-level, left-most is not</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;r = ci; <span class="comment">// const in reference types is always low-level</span></span><br></pre></td></tr></table></figure>
+<p>如果pointer是const
+pointer，也就是指针指向的地址不能改变，这个const是top
+level；如果pointer指向的object是const，这个const是low level。</p>
+<p>reference只有low level
+const，因为reference不可能改变绑定的object（也可以说reference本身就只能是const），const的区别也就只在于reference绑定的object是不是const。</p>
+<blockquote>
+<p>When we copy an object, top-level consts are ignored:</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i = ci; <span class="comment">// ok: copying the value of ci; top-level const in ci is ignored</span></span><br><span class="line">p2 = p3; <span class="comment">// ok: pointed-to type matches; top-level const in p3 is ignored</span></span><br></pre></td></tr></table></figure>
+<p>在复制object的时候，top level const被忽略，nonconst当然可以赋值const
+object的值，const初始化的时候也可以用nonconst的值。</p>
+<h2 id="constexpr-and-constant-expressions"><code>constexpr</code> and
+Constant Expressions</h2>
+<h3 id="constant-expression">Constant expression</h3>
+<blockquote>
+<p>an expression whose value cannot change and that can be evaluated at
+compile time.</p>
+</blockquote>
+<ul>
+<li>A <strong>literal</strong> is a constant expression</li>
+<li>A <strong>const object</strong> that is <strong>initialized</strong>
+from a <strong>constant expression</strong> is also a constant
+expression</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> max_files = <span class="number">20</span>; <span class="comment">// max_files is a constant expression</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> limit = max_files + <span class="number">1</span>; <span class="comment">// limit is a constant expression</span></span><br><span class="line"><span class="type">int</span> staff_size = <span class="number">27</span>; <span class="comment">// staff_size is not a constant expression</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> sz = <span class="built_in">get_size</span>(); <span class="comment">// sz is not a constant expression</span></span><br></pre></td></tr></table></figure>
+<p>不懂为什么limit也是constant expression，两个constant
+expression加法运算也是constant expression吗？</p>
+<h3 id="constexpr-variables"><code>constexpr</code> Variables</h3>
+<p>C++11,
+用<code>constexpr</code>声明变量，编译器会帮我们检查这个变量是不是constant
+expression。</p>
+<p>用<code>constexpr</code>声明的variable，隐含着声明了它是<code>const</code>variable。（variable一般翻译成变量，但是const表示不变，const
+variable意义互相矛盾就很奇怪了，直接翻译成<code>常量</code>）</p>
+<p>用<code>constexpr</code>声明的variable，必须用constant
+expression初始化。</p>
+<h3 id="literal-types">Literal Types</h3>
+<p>可以用<code>constexpr</code>的类型被叫做<code>literal types</code>。</p>
+<p>目前<code>literal types</code>：</p>
+<ul>
+<li>arithmetic type</li>
+<li>reference type</li>
+<li>pointer type</li>
+</ul>
+<p>可以初始化<code>constexpr</code> pointer的expression：</p>
+<ul>
+<li>nullptr</li>
+<li>literal 0</li>
+<li>an object that remains at a fixed address</li>
+</ul>
+<p>函数里的variable没有固定地址，所以不能用来初始化<code>constexpr</code>
+pointer。（static例外？）</p>
+<h3 id="constexpr-pointer"><code>constexpr</code> pointer</h3>
+<blockquote>
+<p>constexpr imposes a <strong>top-level const</strong> (§ 2.4.3, p. 63)
+on the objects it defines</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p67</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *p = <span class="literal">nullptr</span>; <span class="comment">// p is a pointer to a const int</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> *q = <span class="literal">nullptr</span>; <span class="comment">// q is a const pointer to int</span></span><br></pre></td></tr></table></figure>
+<p><code>constexpr</code>
+pointer一定是一个不能改变所指地址的pointer（const pointer）。</p>
+<h1 id="dealing-with-types">Dealing with Types</h1>
+<h2 id="type-alias">Type Alias</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p67-68</span></span><br><span class="line"><span class="comment">// Two ways</span></span><br><span class="line"><span class="comment">// 1. typedef</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> wages; <span class="comment">// wages is a synonym for double</span></span><br><span class="line"><span class="keyword">typedef</span> wages base, *p; <span class="comment">// base is a synonym for double, p for double*</span></span><br><span class="line"><span class="comment">// 2. using</span></span><br><span class="line"><span class="keyword">using</span> SI = Sales_item; <span class="comment">// SI is a synonym for Sales_item</span></span><br><span class="line"></span><br><span class="line">wages hourly, weekly; <span class="comment">// same as double hourly, weekly;</span></span><br><span class="line">SI item; <span class="comment">// same as Sales_item item</span></span><br></pre></td></tr></table></figure>
+<h3 id="pointers-const-and-type-aliases">Pointers, const, and Type
+Aliases</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> *pstring;</span><br><span class="line"><span class="type">const</span> pstring cstr = <span class="number">0</span>; <span class="comment">// cstr is a constant pointer to char</span></span><br><span class="line"><span class="type">const</span> pstring *ps; <span class="comment">// ps is a pointer to a constant pointer to char</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *cstr = <span class="number">0</span>; <span class="comment">// wrong interpretation of const pstring cstr</span></span><br></pre></td></tr></table></figure>
+<p>需要注意： <code>const pstring cstr</code> 不等于
+<code>const char *cstr</code></p>
+<blockquote>
+<p>a const that appears in the base type modifies the given type.</p>
+</blockquote>
+<blockquote>
+<p>When we use pstring in a declaration, the base type of the
+declaration is a pointer type.</p>
+</blockquote>
+<p>base type到底是什么？在chapter summary里给了定义： &gt; type
+specifier, possibly qualified by const, that precedes the declarators in
+a declaration. The base type provides the common type on which the
+declarators in a declaration can build.</p>
+<h2 id="the-auto-type-specifier">The <code>auto</code> Type
+Specifier</h2>
+<p>使用<code>auto</code>创建变量必须有初始值。 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// the type of item is deduced from the type of the result of adding val1 and val2</span></span><br><span class="line"><span class="keyword">auto</span> item = val1 + val2; <span class="comment">// item initialized to the result of val1 + val2</span></span><br></pre></td></tr></table></figure></p>
+<p>跟其他type
+specifier一样，可以使用一次auto定义多个变量，但是每个变量类型必须一致。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> i = <span class="number">0</span>, *p = &amp;i; <span class="comment">// ok: i is int and p is a pointer to int</span></span><br><span class="line"><span class="keyword">auto</span> sz = <span class="number">0</span>, pi = <span class="number">3.14</span>; <span class="comment">// error: inconsistent types for sz and pi</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="compound-types-const-and-auto">Compound Types, const, and
+auto</h3>
+<p>感觉auto碰上const，reference和pointer就变得有好复杂了</p>
+<p>使用auto声明的变量的类型，不一定跟给它的初始值的类型一样。</p>
+<p><strong>Reference</strong></p>
+<p>使用reference作为初始值，auto推断出的类型是和reference绑定的类型相同。这意味着：
+- 使用int &amp;类型的变量作为初始值，auto推测的类型是int。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>, &amp;r = i;</span><br><span class="line"><span class="keyword">auto</span> a = r; <span class="comment">// a is an int (r is an alias for i, which has type int)</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Top-level consts</strong></p>
+<p>auto忽略top-level consts。这意味着： - 使用const
+int类型的变量作为初始值，auto推测的类型是int。因为这里const是top-level。
+- 使用const int* 类型的变量作为初始值，auto推测的类型是const
+int*。这里const是修饰int，而不是pointer，所以是low-level const。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> ci = i, &amp;cr = ci;</span><br><span class="line"><span class="keyword">auto</span> b = ci; <span class="comment">// b is an int (top-level const in ci is dropped)</span></span><br><span class="line"><span class="keyword">auto</span> c = cr; <span class="comment">// c is an int (cr is an alias for ci whose const is top-level)</span></span><br><span class="line"><span class="keyword">auto</span> d = &amp;i; <span class="comment">// d is an int* (&amp; of an int object is int*)</span></span><br><span class="line"><span class="keyword">auto</span> e = &amp;ci; <span class="comment">// e is const int* (&amp; of a const object is low-level const)</span></span><br></pre></td></tr></table></figure></p>
+<p>如果要得到top level const，需要显式声明<code>const auto</code>。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="keyword">auto</span> f = ci; <span class="comment">// deduced type of ci is int; f has type const int</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Reference with top-level consts</strong></p>
+<p>但是，如果用auto声明一个reference，那top level
+const就不会被忽略了。这意味着： - 使用const
+int类型的变量作为初始值，auto &amp;推测的类型是const int&amp;。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> &amp;g = ci; <span class="comment">// g is a const int&amp; that is bound to ci</span></span><br><span class="line"><span class="keyword">auto</span> &amp;h = <span class="number">42</span>; <span class="comment">// error: we can’t bind a plain reference to a literal</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> &amp;j = <span class="number">42</span>; <span class="comment">// ok: we can bind a const reference to a literal</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="auto后pointer-declarator">auto后pointer declarator</h3>
+<p>在下面这种情况下加不加<code>*</code>效果是一样的 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> *p = &amp;i;	<span class="comment">// p is a pointer to int</span></span><br><span class="line"><span class="keyword">auto</span> d = &amp;i;	<span class="comment">// d is also a pointer to int</span></span><br></pre></td></tr></table></figure></p>
+<p>但是和const一起用就不一样了…… &gt;
+https://stackoverflow.com/a/40867640</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Const pointer to non-const int</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> ip1 = &amp;i; <span class="comment">// int *const</span></span><br><span class="line">++ip1; <span class="comment">// error</span></span><br><span class="line">*ip1 = <span class="number">1</span>; <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Non-const pointer to const int</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span>* ip2 = &amp;i; <span class="comment">// int const*</span></span><br><span class="line">++ip2; <span class="comment">// OK</span></span><br><span class="line">*ip2 = <span class="number">1</span>; <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
+<h2 id="the-decltype-type-specifier">The <code>decltype</code> Type
+Specifier</h2>
+<p>decltype是一个type
+specifier，也就是用来声明、定义变量用的类型。但是它不需要像auto那样必须给初始值。</p>
+<p>decltype通过给它的expression来判断类型，但并不会evaluate这个expression。（也就是说如果expression是个需要计算或者函数，decltype并不会执行这个计算或者调用函数，它只是通过expression分析计算或者函数将会返回什么类型）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ Primer EN p70</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">f</span>()) sum = x; <span class="comment">// sum has whatever type f returns</span></span><br></pre></td></tr></table></figure>
+<p>如果expression只是一个variable，decltype得到的就是这个variable的type，包括top-level
+const和reference。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ Primer EN p71</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> ci = <span class="number">0</span>, &amp;cj = ci;	<span class="comment">// cj is a reference to const int</span></span><br><span class="line"><span class="keyword">decltype</span>(ci) x = <span class="number">0</span>; <span class="comment">// x has type const int</span></span><br><span class="line"><span class="keyword">decltype</span>(cj) y = x; <span class="comment">// y has type const int&amp; and is bound to x</span></span><br><span class="line"><span class="keyword">decltype</span>(cj) z; <span class="comment">// error: z is a reference and must be initialized</span></span><br></pre></td></tr></table></figure>
+<h3 id="decltype-and-references"><code>decltype</code> and
+References</h3>
+<blockquote>
+<p>Generally speaking, <code>decltype</code> returns a reference type
+for expressions that yield objects that can stand on the left-hand side
+of the assignment</p>
+</blockquote>
+<p>看下面的例子。因为我们可以给<code>*p</code>赋值，而且赋值改变的是p指向的object，所以decltype得到一个reference也很合理。
+（如果decltype得到的是int类型，那么相当于新定义了一个变量，对新变量赋值不会影响原来的变量，这和<code>*p</code>的作用不符。）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p71</span></span><br><span class="line"><span class="comment">// decltype of an expression can be a reference type</span></span><br><span class="line"><span class="type">int</span> i = <span class="number">42</span>, *p = &amp;i, &amp;r = i;</span><br><span class="line"><span class="keyword">decltype</span>(r + <span class="number">0</span>) b; <span class="comment">// ok: addition yields an int; b is an (uninitialized) int</span></span><br><span class="line"><span class="keyword">decltype</span>(*p) c; <span class="comment">// error: c is int&amp; and must be initialized</span></span><br></pre></td></tr></table></figure>
+<p>如果在variable周围加上括号，那<code>decltype</code>得到的类型一定是reference。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p71</span></span><br><span class="line"><span class="comment">// decltype of a parenthesized variable is always a reference</span></span><br><span class="line"><span class="keyword">decltype</span>((i)) d; <span class="comment">// error: d is int&amp; and must be initialized</span></span><br><span class="line"><span class="keyword">decltype</span>(i) e; <span class="comment">// ok: e is an (uninitialized) int</span></span><br></pre></td></tr></table></figure>
+<h1 id="defining-our-own-data-structures">Defining Our Own Data
+Structures</h1>
+<p>Best Practices: &gt; Headers should have guards, even if they aren’t
+(yet) included by another header.</p>
+<p>所有的头文件都应该用guard。 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p77</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> SALES_DATA_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SALES_DATA_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Sales_data</span> &#123;</span><br><span class="line">	std::string bookNo;</span><br><span class="line">	<span class="type">unsigned</span> units_sold = <span class="number">0</span>;</span><br><span class="line">	<span class="type">double</span> revenue = <span class="number">0.0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
+<h1 id="一些感想">一些感想</h1>
+<p>虽然有很多知识盲区，现在才补上，但是就算不知道不还是这样工作快两年了，只能说目前工作里要处理的都是些业务逻辑，也很少需要细究C++基础知识。就算碰到什么不懂的语法，以前有搜索引擎，现在有chatgpt，工作总是能做的。</p>
+<p>只是感觉这样做这对自己的能力也没太大提升，所以还是得回头看书系统地学一学。</p>
+<p>不过之前看过一些观点说“系统学习”属于是学生思维了，我感觉也没错。如果让我一开始就看这本C++
+Primer我也看不进去，反倒是现在工作一段时间觉得知识上有漏洞，带着比较强目的性看反而收获颇多。而且毕竟对语言熟悉了，看起来也不那么费劲。</p>
+<p>总的来说还是实践更重要些，最好的还是快速入门然后做些项目，之后再来系统学习收获可能更多。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Yandi Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://dinayuil.github.io/2024/07/18/C-primer-ch2-Variables-and-Basic-Types-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" title="C++ primer ch2 - Variables and Basic Types 阅读笔记">http://dinayuil.github.io/2024/07/18/C-primer-ch2-Variables-and-Basic-Types-阅读笔记/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_linkedin"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_evernote"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
+      <a class="a2a_button_sina_weibo"></a>
+      <a class="a2a_button_copy_link"></a>
+      <a class="a2a_button_email"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/08/unnamed-namespace-and-using-declaration/" rel="prev" title="unnamed namespace and using declaration">
+                  <i class="fa fa-chevron-left"></i> unnamed namespace and using declaration
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yandi Liu</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">58k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">53 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"yandis-little-world","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
