@@ -1127,11 +1127,16 @@ support的，之后也不知道会不会更新改本地存储位置的功能，�
 roadmap，发现自己有些基础的内容还不是很懂，于是选了本经典的C++书来读，发现确实有很多基础知识没掌握。读完了第二章，边读边记了些之前不太懂和感觉重要的内容。</p>
 <span id="more"></span>
 <h1 id="primitive-built-in-types">Primitive Built-in Types</h1>
-<p>primitive types:</p>
+<p>Primitive types (fundamental types)</p>
 <ul>
 <li>arithmetic types</li>
 <li>void</li>
 </ul>
+<blockquote>
+<p>https://en.cppreference.com/w/cpp/language/type</p>
+</blockquote>
+<p>按照cppreference的说法，type就分fundamental和compound两大类，C++
+primer这里说的Primitive types应该就是fundamental type的一部分。</p>
 <h2 id="arithmetic-types">Arithmetic Types</h2>
 <ul>
 <li>integral types</li>
