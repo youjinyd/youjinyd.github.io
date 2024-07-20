@@ -1199,10 +1199,10 @@ variable is given a value when it is created. Assignment obliterates an
 object’s current value and replaces that value with a new one.</p>
 </blockquote>
 <p>初始化发生在创建一个变量的时候给这个变量初始值；赋值（assignment）是更改一个对象的值，用新值替换掉旧值。</p>
-<p>所有built-in
-type的变量，在<strong>函数之外</strong>被定义的时候如果没有给初始值，那么会被default
-initialized，初始值为0。如果在<strong>函数之内</strong>被定义并没有给初始值，那么它是<strong>uninitialized</strong>，它的值是<strong>undefined</strong>。</p>
-<p>自定义类型（类）的变量定义时如果没有给初始值，那初始化是由这个类来控制的。(我猜，定义这种变量不给初始值的前提，是这个类有不带参数的构造函数（constructor））。</p>
+<p>定义变量但是不给初始值，那么会被<code>default initialized</code>。
+有built-in
+type的变量，在<strong>函数之外</strong>被定义的时候如果没有给初始值，会被初始化为0。如果在<strong>函数之内</strong>被定义并没有给初始值，那么它是<strong>uninitialized</strong>，它的值是<strong>undefined</strong>。</p>
+<p>自定义类型（类）的变量定义时如果没有给初始值，那初始化是由这个类来控制的。（我猜，定义这种变量不给初始值的前提，是这个类有不带参数的构造函数（constructor））。</p>
 <p>建议：定义变量时就显式地给初始值。</p>
 <h3 id="list-initialization">List Initialization</h3>
 <p>C++11新增了<code>List Initialization</code>，用花括号初始化。也就有了下面四种初始化方式。</p>
