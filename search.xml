@@ -13,7 +13,7 @@ star的项目文档只有一页，也没有详细讲怎么配置主题。自己�
 - 新版：https://github.com/next-theme/hexo-theme-next -
 旧版：https://github.com/theme-next/hexo-theme-next</p>
 <p>不过现在的博客也还没完全配置好，比如之后要写带图片的文章，还要配置一下assets。评论工具也还没有设置。总之慢慢来吧。</p>
-<p>上面也提到自己以前也用过GitHub搭过博客，不过都不长久。具体的时间已经记不清了，不过在本科的时候应该是第一次，可能是在上软工课的时候产生的想法？第二次应该是硕士第一年为了找工作能写在简历上？虽然最后都因为学习很忙不了了之。除了GitHub还用过CSDN的博客记了一点东西，不过没啥太大的价值，虽然大三暑假找实习的时候也确实写进简历里了（应该庆幸没有细问我hhh)。</p>
+<p>上面也提到自己以前也用过GitHub搭过博客，不过都不长久。具体的时间已经记不清了，不过在本科的时候应该是第一次，可能是在上软工课的时候产生的想法？第二次应该是硕士第一年为了找工作能写在简历上？虽然最后都因为学习很忙不了了之。除了GitHub还用过CSDN的博客记了一点东西，不过没啥太大的价值，虽然大三暑假找实习的时候也确实写进简历里了（应该庆幸没有细问我hhh）。</p>
 <p>之前用Hexo，都很心急，文档也没有好好看过，也没有耐心去解决配置过过程中遇到的问题。现在至少能耐下性子看文档了，遇到问题也有时间去想办法解决。这次应该会长久一些吧，还是不立flag了。但是学生生涯大概终于是要结束了，给毕设professor打工的内容也基本做完了，下周开始就是我最后的暑假。是得好好休息一下，已经两年没有休过将近一个月的假期了。</p>
 ]]></content>
       <categories>
@@ -1476,5 +1476,728 @@ Primer我也看不进去，反倒是现在工作一段时间觉得知识上有�
       <tags>
         <tag>C++</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>非常基础的荷兰语笔记 KUL荷兰语课笔记整理</title>
+    <url>/2020/12/13/%E9%9D%9E%E5%B8%B8%E5%9F%BA%E7%A1%80%E7%9A%84%E8%8D%B7%E5%85%B0%E8%AF%AD%E7%AC%94%E8%AE%B0-KUL%E8%8D%B7%E5%85%B0%E8%AF%AD%E8%AF%BE%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<h1 id="介词">介词</h1>
+<h2 id="in">IN</h2>
+<h3 id="时间">时间</h3>
+<ul>
+<li>+ week: in de tweede week van oktober</li>
+<li>+ maand: in december</li>
+<li>+ seizoen: in de winter</li>
+<li>+ jaar: in 2020</li>
+</ul>
+<h3 id="地点">地点</h3>
+<ul>
+<li>+ straat: in de Naamsestraat</li>
+<li>+ 城市: in Leuven, in Brussel</li>
+</ul>
+<h2 id="op">OP</h2>
+<h3 id="时间-1">时间</h3>
+<p>+ dag: op maandag, op 26 september</p>
+<h3 id="地点-1">地点</h3>
+<ul>
+<li>+ plein: op het Ladeuzeplein</li>
+<li>+ nummer: op nummer 10</li>
+</ul>
+<h3 id="其他">其他</h3>
+<ul>
+<li>op een feestje</li>
+<li>op de luchthaven</li>
+<li>op vakantie</li>
+</ul>
+<h2 id="om">OM</h2>
+<h3 id="时间-2">时间</h3>
+<ul>
+<li>+ uur: om vijf uur, om halfvijf, om kwart voor vijf</li>
+</ul>
+<h2 id="aan">AAN</h2>
+<p>Anna werkt aan de universiteit.</p>
+<h2 id="bij">BIJ</h2>
+<p>Peter werkt bij een computerfirma.</p>
+<h2 id="met">MET</h2>
+<p>An gaat met de fiets naar de universiteit.</p>
+<h2 id="naar">NAAR</h2>
+<p>gaan (…) naar …</p>
+<h2 id="over">OVER</h2>
+<ul>
+<li>Ik ben 27 jaar. Over 3 jaar word ik 30 jaar.</li>
+<li>Over 15 minuten vertrekt de trein.</li>
+</ul>
+<h1 id="数字">数字</h1>
+<table>
+<thead>
+<tr>
+<th>0 nul</th>
+<th>10 tien</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 één</td>
+<td>11 elf</td>
+<td></td>
+<td>41 eenenveertig</td>
+</tr>
+<tr>
+<td>2 twee</td>
+<td>12 twaalf</td>
+<td>20 twintig</td>
+<td>42 tweeënveertig</td>
+</tr>
+<tr>
+<td>3 drie</td>
+<td>13 dertien</td>
+<td>30 dertig</td>
+<td>43 drieënveertig</td>
+</tr>
+<tr>
+<td>4 vier</td>
+<td>14 veertien</td>
+<td>40 veertig</td>
+<td>44 vierenveertig</td>
+</tr>
+<tr>
+<td>5 vijf</td>
+<td>15 vijftien</td>
+<td>50 vijftig</td>
+<td>45 vijfenveertig</td>
+</tr>
+<tr>
+<td>6 zes</td>
+<td>16 zestien</td>
+<td>60 zestig</td>
+<td>46 zesenveertig</td>
+</tr>
+<tr>
+<td>7 zeven</td>
+<td>17 zeventien</td>
+<td>70 zeventig</td>
+<td>47 zevenenveertig</td>
+</tr>
+<tr>
+<td>8 acht</td>
+<td>18 achttien</td>
+<td>80 tachtig</td>
+<td>48 achtenveertig</td>
+</tr>
+<tr>
+<td>9 negen</td>
+<td>19 negentien</td>
+<td>90 negentig</td>
+<td>49 negenenveertig</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>100</th>
+<th>honderd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400</td>
+<td>vierhonderd</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>duizend</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>duizend honderd (elfhonderd)</td>
+</tr>
+<tr>
+<td>1800</td>
+<td>duizend achthonderd (achttienhonderd)</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>tweeduizend</td>
+</tr>
+<tr>
+<td>2300</td>
+<td>tweeduizend driehonderd</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>101 honderd(en)één</th>
+<th>1001 duizend (en) één</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>110 honderd(en)tien</td>
+<td>1002 duizend (en) twee</td>
+</tr>
+<tr>
+<td>111 honderd(en)elf</td>
+<td>1011 duizend (en) elf</td>
+</tr>
+<tr>
+<td>112 honderd(en)twaalf</td>
+<td>1012 duizend (en) twaalf</td>
+</tr>
+<tr>
+<td>113 honderddertien</td>
+<td>1013 duizend dertien</td>
+</tr>
+<tr>
+<td>114 honderdveertien</td>
+<td>1014 duizend veertien</td>
+</tr>
+<tr>
+<td>129 honderdnegenentwintig</td>
+<td>1029 duizend negenentwintig</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>1.000.000</th>
+<th>één miljoen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.000.000</td>
+<td>tien miljoen</td>
+</tr>
+<tr>
+<td>1.000.000.000</td>
+<td>één miljard</td>
+</tr>
+</tbody>
+</table>
+<h2 id="序数词">序数词</h2>
+<table>
+<thead>
+<tr>
+<th>1ste eerste</th>
+<th>6de zesde</th>
+<th>11de elfde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2de tweede</td>
+<td>7de zevende</td>
+<td>12de twaalfde</td>
+</tr>
+<tr>
+<td>3de derde</td>
+<td>8ste achtste</td>
+<td>13de dertiende</td>
+</tr>
+<tr>
+<td>4de vierde</td>
+<td>9de negende</td>
+<td>14de veertiende</td>
+</tr>
+<tr>
+<td>5de vijfde</td>
+<td>10de tiende</td>
+<td>15de vijftiende</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>16de zestinede</th>
+<th>21ste eenentwintigste</th>
+<th>30ste dertigste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>17de zeventiende</td>
+<td>22ste tweeëntwintigste</td>
+<td>31ste eenendertigste</td>
+</tr>
+<tr>
+<td>18de achttiende</td>
+<td>23ste drieëntwintigste</td>
+<td></td>
+</tr>
+<tr>
+<td>19de negentiende</td>
+<td>24ste vierentwintigste</td>
+<td></td>
+</tr>
+<tr>
+<td>20ste twintigste</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="时间和日期">时间和日期</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>0.5</th>
+<th>1.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>秒</td>
+<td>1 seconde</td>
+<td>2 seconden</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>分</td>
+<td>1 minuut</td>
+<td>2 minuten</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>时</td>
+<td>1 uur</td>
+<td>2 uur</td>
+<td>een half uur</td>
+<td>anderhalf uur</td>
+</tr>
+<tr>
+<td>天</td>
+<td>1 dag</td>
+<td>2 dagen</td>
+<td>een halve dag</td>
+<td>anderhalve dag</td>
+</tr>
+<tr>
+<td>周</td>
+<td>1 week</td>
+<td>2 weken</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>月</td>
+<td>1 maand</td>
+<td>2 maanden</td>
+<td>een halve maand</td>
+<td>anderhalve maand</td>
+</tr>
+<tr>
+<td>年</td>
+<td>1 jaar</td>
+<td>2 jaar</td>
+<td>een half jaar</td>
+<td>anderhalf jaar</td>
+</tr>
+</tbody>
+</table>
+<h2 id="月份">月份</h2>
+<ul>
+<li>januari</li>
+<li>februari</li>
+<li>maart</li>
+<li>april</li>
+<li>mei</li>
+<li>juni</li>
+<li>juli</li>
+<li>augustus</li>
+<li>september</li>
+<li>oktober</li>
+<li>november</li>
+<li>december</li>
+</ul>
+<h2 id="星期">星期</h2>
+<ul>
+<li>maandag</li>
+<li>dinsdag</li>
+<li>woensdag</li>
+<li>donderdag</li>
+<li>vrijdag</li>
+<li>zaterdag</li>
+<li>zondag</li>
+</ul>
+<h2 id="一天里的不同时间">一天里的不同时间</h2>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 20%" />
+<col style="width: 37%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>de dag</th>
+<th>overdag (by day)</th>
+<th>vandaag (today)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>07:00</td>
+<td>de morgen, <br>de ochtend</td>
+<td>'s morgens,<br>'s ochtends <br>(in the morning)</td>
+<td>vanmorgen,<br>vannochtend <br>(this morning)</td>
+</tr>
+<tr>
+<td>10:00</td>
+<td>de voormiddag</td>
+<td>in de voormiddag, voor de middag</td>
+<td></td>
+</tr>
+<tr>
+<td>12:00</td>
+<td>de middag</td>
+<td>'s middags</td>
+<td>vanmiddag</td>
+</tr>
+<tr>
+<td>15:15</td>
+<td>de namiddag</td>
+<td>in de namiddag, <br>na de middag</td>
+<td></td>
+</tr>
+<tr>
+<td>20:07</td>
+<td>de avond</td>
+<td>'s avonds</td>
+<td>vanavond</td>
+</tr>
+<tr>
+<td>23:20</td>
+<td>de nacht</td>
+<td>'s nachts</td>
+<td>vannacht</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 17%" />
+<col style="width: 35%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th>vandaag</th>
+<th>+1 dag <br>morgen</th>
+<th>+2 dagen <br>voermorgen</th>
+<th>+3 dagen <br>over drie dagen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>van de week,<br>deze week <br>(this week)</td>
+<td>+1 week <br>volgende week</td>
+<td>+2 weken <br>over twee weken, <br>over veertien dagen</td>
+<td></td>
+</tr>
+<tr>
+<td>vrijdag</td>
+<td>volgende vrijdag</td>
+<td>vrijdag over twee weken</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="时刻">时刻</h2>
+<ul>
+<li>九点 negen uur</li>
+<li>九点五分 vijf over negen</li>
+<li>九点十分 tien over negen</li>
+<li>九点一刻 kwart over negen</li>
+<li>九点二十 twintig over negen, tien voor halftien</li>
+<li>九点二十五 vijf voor halftien</li>
+<li>九点半 halftien</li>
+<li>九点三十五 vijf over halftien</li>
+<li>九点四十 tien over halftien, twintig voor tien</li>
+<li>九点四十五 kwart voor tien</li>
+<li>九点五十 tien voor tien</li>
+<li>九点五十五 vijf voor tien</li>
+</ul>
+<h1 id="人称">人称</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>主格</th>
+<th>宾格</th>
+<th>所有格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一人称 单</td>
+<td>ik</td>
+<td>me / mij</td>
+<td>mijn</td>
+</tr>
+<tr>
+<td>第一人称 复</td>
+<td>we / wij</td>
+<td>ons</td>
+<td>(de) onze / (het) ons</td>
+</tr>
+<tr>
+<td>第二人称 单</td>
+<td>je / jij</td>
+<td>je / jou</td>
+<td>je / jouw</td>
+</tr>
+<tr>
+<td>第二人称 单 敬</td>
+<td>u</td>
+<td>u</td>
+<td>uw</td>
+</tr>
+<tr>
+<td>第二人称 复</td>
+<td>jullie</td>
+<td>jullie</td>
+<td>jullie</td>
+</tr>
+<tr>
+<td>第二人称 复 敬</td>
+<td>u</td>
+<td>u</td>
+<td>uw</td>
+</tr>
+<tr>
+<td>第三人称 单 男</td>
+<td>hij</td>
+<td>hem</td>
+<td>zijn</td>
+</tr>
+<tr>
+<td>第三人称 单 女</td>
+<td>ze / zij</td>
+<td>ze / haar</td>
+<td>haar</td>
+</tr>
+<tr>
+<td>第三人称 复</td>
+<td>ze / zij</td>
+<td>ze / hen</td>
+<td>hun</td>
+</tr>
+</tbody>
+</table>
+<p>英语里的it在荷兰语里可能是het</p>
+<h1 id="be动词zijn">be动词：zijn</h1>
+<h2 id="单数">单数</h2>
+<table>
+<thead>
+<tr>
+<th>ik</th>
+<th>je / jij</th>
+<th>u</th>
+<th>hij, ze / zij</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ben</td>
+<td>bent</td>
+<td>bent</td>
+<td>is</td>
+</tr>
+</tbody>
+</table>
+<h2 id="复数">复数</h2>
+<table>
+<thead>
+<tr>
+<th>we / wij</th>
+<th>jullie</th>
+<th>u</th>
+<th>ze / zij</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>zijn</td>
+<td>zijn</td>
+<td>bent</td>
+<td>zijn</td>
+</tr>
+</tbody>
+</table>
+<h1 id="助动词">助动词</h1>
+<ul>
+<li>willen: wish</li>
+<li>mogen: permission</li>
+<li>moeten: obligation</li>
+<li>kunnen: ability; possibility</li>
+<li>zullen: suggestion; future</li>
+</ul>
+<figure>
+<img src="pic_1721590024834.png" alt="picture 0" />
+<figcaption aria-hidden="true">picture 0</figcaption>
+</figure>
+<h1 id="指示代词">指示代词</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>this / these</th>
+<th>that / those</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>is</td>
+<td>dit is</td>
+<td>dat is</td>
+</tr>
+<tr>
+<td>are</td>
+<td>dit zijn</td>
+<td>dat zijn</td>
+</tr>
+</tbody>
+</table>
+<h1 id="形容词在dehet名词前的变化">形容词在de/het名词前的变化</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>de</th>
+<th>het</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>which</td>
+<td>welke</td>
+<td>welk</td>
+</tr>
+<tr>
+<td>half</td>
+<td>halve</td>
+<td>half</td>
+</tr>
+<tr>
+<td>each</td>
+<td>elke</td>
+<td>elk</td>
+</tr>
+<tr>
+<td>this</td>
+<td>deze</td>
+<td>dit</td>
+</tr>
+<tr>
+<td>that</td>
+<td>die</td>
+<td>dat</td>
+</tr>
+</tbody>
+</table>
+<h1 id="疑问词">疑问词</h1>
+<table>
+<thead>
+<tr>
+<th>NL</th>
+<th>EN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wie</td>
+<td>who</td>
+</tr>
+<tr>
+<td>wat</td>
+<td>what</td>
+</tr>
+<tr>
+<td>waar</td>
+<td>where</td>
+</tr>
+<tr>
+<td>wanneer</td>
+<td>when</td>
+</tr>
+<tr>
+<td>hoe</td>
+<td>how</td>
+</tr>
+<tr>
+<td>Hoe heet je?</td>
+<td>What’s your name? (How to call you?)</td>
+</tr>
+<tr>
+<td>Hoe laat is het?</td>
+<td>What time is it? (How late is it?)</td>
+</tr>
+<tr>
+<td>Hoe ver is het?</td>
+<td>How far is it?</td>
+</tr>
+<tr>
+<td>Hoe oud is je?</td>
+<td>How old are you?</td>
+</tr>
+<tr>
+<td>hoeveel</td>
+<td>how much / how many</td>
+</tr>
+<tr>
+<td>hoelang</td>
+<td>how long</td>
+</tr>
+<tr>
+<td>hoe vaak</td>
+<td>how often</td>
+</tr>
+<tr>
+<td>tot hoe laat</td>
+<td>till what time</td>
+</tr>
+</tbody>
+</table>
+<h1 id="简单句句子结构">简单句句子结构</h1>
+<h2 id="主语-定动词-其他-结尾">1.主语 定动词 其他 结尾</h2>
+<h2 id="定动词-主语-其他-结尾">2.（…） 定动词 主语 其他 结尾</h2>
+<figure>
+<img src="pic_1721590091014.png" alt="picture 1" />
+<figcaption aria-hidden="true">picture 1</figcaption>
+</figure>
+<p>也就是说，定动词一般放在简单句的第二位，除了把定动词提到最前面变成疑问句的情况。</p>
+<h2 id="有助动词的情况">3.有助动词的情况</h2>
+<figure>
+<img src="pic_1721590108153.png" alt="picture 2" />
+<figcaption aria-hidden="true">picture 2</figcaption>
+</figure>
+<p>助动词放在第二位，原来的定动词放到结尾，变成不定式。</p>
+<h2 id="频率词放在第三位">4.频率词放在第三位</h2>
+<ul>
+<li>Ik ga <strong>vaak</strong> naar dat café.</li>
+<li>Hij eet <strong>nooit</strong> pizza.</li>
+<li>Wij maken <strong>soms</strong> ons huiswerk.</li>
+<li>Ze eten <strong>elke week</strong> frietjes.</li>
+<li>Hij gaat <strong>drie keer per jaar</strong> naar Spanje.</li>
+<li>Ik tennis <strong>twee keer per week</strong> met mijn
+vrienden.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>language</category>
+      </categories>
   </entry>
 </search>
