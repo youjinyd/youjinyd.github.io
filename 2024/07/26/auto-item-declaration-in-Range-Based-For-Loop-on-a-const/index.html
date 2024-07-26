@@ -20,30 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"dinayuil.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="得用好点的U盘而且是USB3以上，不然安装的时候容易卡在进入桌面之前的过程。 手边没有合适的U盘，最后只能在sd卡里刷入镜像来重装steamos到ssd里。 安装的时候选Re-image Steam Deck。看了几个教程要么没提到要么是用的Reinstall Steam OS，但是因为换了固态硬盘什么都没有了所以选Re-image Steam Deck才能继续安装，Reinstall">
+    <meta name="description" content="在C++ Primer里有一道练习题： Exercise 3.11: Is the following range for legal? If so, what is the type of c? 12const string s &#x3D; &quot;Keep out!&quot;;for (auto &amp;c : s) &amp;#123; &#x2F;* ... *&#x2F; &amp;#125;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="steam deck 换固态重装系统">
-<meta property="og:url" content="http://dinayuil.github.io/2024/01/09/steam-deck-%E6%8D%A2%E5%9B%BA%E6%80%81%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:title" content="auto item-declaration in Range-Based For Loop on a const">
+<meta property="og:url" content="http://dinayuil.github.io/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/index.html">
 <meta property="og:site_name" content="Yandi&#39;s Garden">
-<meta property="og:description" content="得用好点的U盘而且是USB3以上，不然安装的时候容易卡在进入桌面之前的过程。 手边没有合适的U盘，最后只能在sd卡里刷入镜像来重装steamos到ssd里。 安装的时候选Re-image Steam Deck。看了几个教程要么没提到要么是用的Reinstall Steam OS，但是因为换了固态硬盘什么都没有了所以选Re-image Steam Deck才能继续安装，Reinstall">
+<meta property="og:description" content="在C++ Primer里有一道练习题： Exercise 3.11: Is the following range for legal? If so, what is the type of c? 12const string s &#x3D; &quot;Keep out!&quot;;for (auto &amp;c : s) &amp;#123; &#x2F;* ... *&#x2F; &amp;#125;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-01-09T15:26:19.000Z">
-<meta property="article:modified_time" content="2024-07-09T14:28:24.617Z">
+<meta property="article:published_time" content="2024-07-26T21:29:17.000Z">
+<meta property="article:modified_time" content="2024-07-26T21:31:07.363Z">
 <meta property="article:author" content="Yandi Liu">
-<meta property="article:tag" content="software">
-<meta property="article:tag" content="programming">
-<meta property="article:tag" content="language learning">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://dinayuil.github.io/2024/01/09/steam-deck-%E6%8D%A2%E5%9B%BA%E6%80%81%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/">
+<link rel="canonical" href="http://dinayuil.github.io/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/01/09/steam-deck-%E6%8D%A2%E5%9B%BA%E6%80%81%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/","path":"2024/01/09/steam-deck-换固态重装系统/","title":"steam deck 换固态重装系统"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/","path":"2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/","title":"auto item-declaration in Range-Based For Loop on a const"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>steam deck 换固态重装系统 | Yandi's Garden</title>
+<title>auto item-declaration in Range-Based For Loop on a const | Yandi's Garden</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-354MG6H6PY"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-354MG6H6PY","only_pageview":false}</script>
@@ -205,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/01/09/steam-deck-%E6%8D%A2%E5%9B%BA%E6%80%81%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/">
+    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -218,12 +216,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="steam deck 换固态重装系统 | Yandi's Garden">
+      <meta itemprop="name" content="auto item-declaration in Range-Based For Loop on a const | Yandi's Garden">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          steam deck 换固态重装系统
+          auto item-declaration in Range-Based For Loop on a const
         </h1>
 
         <div class="post-meta-container">
@@ -233,15 +231,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2024-01-09 16:26:19" itemprop="dateCreated datePublished" datetime="2024-01-09T16:26:19+01:00">2024-01-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-07-09 16:28:24" itemprop="dateModified" datetime="2024-07-09T16:28:24+02:00">2024-07-09</time>
+      <time title="Created: 2024-07-26 23:29:17 / Modified: 23:31:07" itemprop="dateCreated datePublished" datetime="2024-07-26T23:29:17+02:00">2024-07-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -249,7 +241,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/software/" itemprop="url" rel="index"><span itemprop="name">software</span></a>
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
         </span>
     </span>
 
@@ -262,8 +254,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2024/01/09/steam-deck-%E6%8D%A2%E5%9B%BA%E6%80%81%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/01/09/steam-deck-换固态重装系统/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -274,14 +266,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>204</span>
+      <span>2.9k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>3 mins.</span>
     </span>
 </div>
 
@@ -291,12 +283,69 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>得用好点的U盘而且是USB3以上，不然安装的时候容易卡在进入桌面之前的过程。</p>
-<p>手边没有合适的U盘，最后只能在sd卡里刷入镜像来重装steamos到ssd里。</p>
-<p>安装的时候选Re-image Steam
-Deck。看了几个教程要么没提到要么是用的Reinstall Steam
-OS，但是因为换了固态硬盘什么都没有了所以选Re-image Steam
-Deck才能继续安装，Reinstall Steam OS运行之后没有什么反应。</p>
+    <div class="post-body" itemprop="articleBody"><p>在C++ Primer里有一道练习题：</p>
+<p>Exercise 3.11: Is the following range <code>for</code> legal? If so,
+what is the type of <code>c</code>? <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> string s = <span class="string">&quot;Keep out!&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> &amp;c : s) &#123; <span class="comment">/* ... */</span> &#125;</span><br></pre></td></tr></table></figure> <span id="more"></span></p>
+<p>直觉上<code>c</code>的类型应该是<code>const char&amp;</code>，但是怎么推理得到<code>c</code>的类型呢？细究起来确实花了一番功夫。</p>
+<p>使用auto声明的变量必须要给初始值，而这里的语法没有给初始值。Range-Based
+for
+loop应该是一种语法糖，实际上编译器应该是当成普通的for循环来处理的。</p>
+<p>从cppreference（https://en.cppreference.com/w/cpp/language/range-for）上可以得到印证。
+Range-Based for loop的一般形式（省略了不相关的部分）：</p>
+<blockquote>
+<p><code>for ( item-declaration : range-initializer ) statement</code></p>
+<ul>
+<li><code>item-declaration</code> - a declaration for each range
+item</li>
+<li><code>range-initializer</code> - an expression or brace-enclosed
+initializer list</li>
+<li><code>statement</code> - any statement (typically a compound
+statement)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>The above syntax produces code <strong>equivalent</strong> to the
+following (the variables and expressions wrapped in <code>/* */</code>
+are for exposition only): <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span>&amp;&amp; <span class="comment">/* range */</span> = range-initializer ;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> <span class="comment">/* begin */</span> = <span class="comment">/* begin-expr */</span>, <span class="comment">/* end */</span> = <span class="comment">/* end-expr */</span>;</span><br><span class="line">            <span class="comment">/* begin */</span> != <span class="comment">/* end */</span>; ++<span class="comment">/* begin */</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        item-declaration = *<span class="comment">/* begin */</span>;</span><br><span class="line">        statement</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>Exposition-only expressions <code>/* begin-expr */</code> and
+<code>/* end-expr */</code> are defined as follows:</p>
+<p>If the type of <code>/* range */</code> is a reference to a class
+type C, and searches in the scope of C for the names “begin” and “end”
+each find at least one declaration, then <code>/* begin-expr */</code>
+is <code>/* range */.begin()</code> and <code>/* end-expr */</code> is
+<code>/* range */.end()</code>.</p>
+</blockquote>
+<p>在习题里，<code>range-initializer</code>对应的是<code>s</code>，<code>item-declaration</code>是<code>auto &amp;c</code>。<code>s</code>类型是<code>std::string</code>，是<code>class type</code>，而<code>std::string</code>也确实定义了<code>begin</code>和<code>end</code>函数，所以<code>/* begin-expr */</code>和<code>/* end-expr */</code>就是<code>string::begin()</code>和<code>string::end()</code>。</p>
+<p>那么<code>string::begin()</code>的返回值就决定了<code>c</code>的类型。cppreference（https://en.cppreference.com/w/cpp/string/basic_string/begin）可以看到函数签名<code>const_iterator begin() const;</code>。因为<code>s</code>是<code>const string</code>，所以我们关注的是<code>const</code>函数。</p>
+<p>根据cppreference（https://en.cppreference.com/w/cpp/string/basic_string，https://en.cppreference.com/w/cpp/named_req/Iterator），<code>const_iterator</code>是一种<code>LegacyIterator</code>，而iterator可以被看作是指针的一种抽象。</p>
+<blockquote>
+<p><code>LegacyRandomAccessIterator</code> and
+<code>LegacyContiguousIterator</code> to <code>const value_type</code>
+Iterators can be thought of as an abstraction of pointers.</p>
+</blockquote>
+<p>cppreference
+<code>LegacyRandomAccessIterator</code>的页面（https://en.cppreference.com/w/cpp/named_req/RandomAccessIterator）提到，如果iterator是来自一个container，那dereference这个iterator得到的object的类型就是containter的<code>value_type</code>。</p>
+<blockquote>
+<p>If a LegacyRandomAccessIterator it originates from a Container, then
+it's value_type is the same as the container's, so dereferencing (*it)
+obtains the container's value_type.</p>
+</blockquote>
+<p>那么string是不是一个Container呢？cppreference说它满足AllocatorAwareContainer、SequenceContainer、ContiguousContainer的要求，那么我们也可以说string是一种container。</p>
+<blockquote>
+<p>std::basic_string satisfies the requirements of
+<code>AllocatorAwareContainer</code> (except that customized
+construct/destroy are not used for construction/destruction of
+elements), <code>SequenceContainer</code> and
+<code>ContiguousContainer(since C++17)</code>.</p>
+</blockquote>
+<p>（不过<code>LegacyContiguousIterator</code>（https://en.cppreference.com/w/cpp/named_req/ContiguousIterator）没有提到dereference该怎么办，或者是我看漏了，这里也只能先忽略这种情况了）</p>
+<p><code>const_iterator</code>指向的是<code>const value_type</code>。<code>std::string</code>实际上是<code>std::basic_string&lt;char&gt;</code>，而<code>value_type</code>就是<code>char</code>。所以对<code>const_iterator</code>
+dereference（<code>*it</code>）的话得到的object类型是<code>const char</code>。</p>
+<p>一般情况下，<code>auto</code>会忽略top-level
+consts。但是如果用<code>auto</code>声明一个reference，那top-level
+<code>const</code>就不会被忽略了。习题的情况正是后者，所以<code>c</code>的类型是<code>const char&amp;</code>。</p>
 
     </div>
 
@@ -314,7 +363,7 @@ Deck才能继续安装，Reinstall Steam OS运行之后没有什么反应。</p>
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="http://dinayuil.github.io/2024/01/09/steam-deck-%E6%8D%A2%E5%9B%BA%E6%80%81%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/" title="steam deck 换固态重装系统">http://dinayuil.github.io/2024/01/09/steam-deck-换固态重装系统/</a>
+      <a href="http://dinayuil.github.io/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/" title="auto item-declaration in Range-Based For Loop on a const">http://dinayuil.github.io/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</a> unless stating additionally.
@@ -322,6 +371,9 @@ Deck才能继续安装，Reinstall Steam OS运行之后没有什么反应。</p>
 </ul>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
 
         
   <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
@@ -340,14 +392,11 @@ Deck才能继续安装，Reinstall Steam OS运行之后没有什么反应。</p>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/01/07/Joplin%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90%E5%92%8C%E8%AE%BE%E7%BD%AE/" rel="prev" title="Joplin笔记软件推荐和设置">
-                  <i class="fa fa-chevron-left"></i> Joplin笔记软件推荐和设置
+                <a href="/2024/07/18/C-primer-ch2-Variables-and-Basic-Types-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="prev" title="C++ primer ch2 - Variables and Basic Types 阅读笔记">
+                  <i class="fa fa-chevron-left"></i> C++ primer ch2 - Variables and Basic Types 阅读笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/05/22/WebDAV%E7%94%A8%E5%88%B0%E7%9A%84XML%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5/" rel="next" title="WebDAV用到的XML的一些概念">
-                  WebDAV用到的XML的一些概念 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

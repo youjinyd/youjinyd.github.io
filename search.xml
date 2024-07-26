@@ -2203,4 +2203,78 @@ vrienden.</li>
         <category>language</category>
       </categories>
   </entry>
+  <entry>
+    <title>auto item-declaration in Range-Based For Loop on a const</title>
+    <url>/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/</url>
+    <content><![CDATA[<p>在C++ Primer里有一道练习题：</p>
+<p>Exercise 3.11: Is the following range <code>for</code> legal? If so,
+what is the type of <code>c</code>? <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> string s = <span class="string">&quot;Keep out!&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> &amp;c : s) &#123; <span class="comment">/* ... */</span> &#125;</span><br></pre></td></tr></table></figure> <span id="more"></span></p>
+<p>直觉上<code>c</code>的类型应该是<code>const char&amp;</code>，但是怎么推理得到<code>c</code>的类型呢？细究起来确实花了一番功夫。</p>
+<p>使用auto声明的变量必须要给初始值，而这里的语法没有给初始值。Range-Based
+for
+loop应该是一种语法糖，实际上编译器应该是当成普通的for循环来处理的。</p>
+<p>从cppreference（https://en.cppreference.com/w/cpp/language/range-for）上可以得到印证。
+Range-Based for loop的一般形式（省略了不相关的部分）：</p>
+<blockquote>
+<p><code>for ( item-declaration : range-initializer ) statement</code></p>
+<ul>
+<li><code>item-declaration</code> - a declaration for each range
+item</li>
+<li><code>range-initializer</code> - an expression or brace-enclosed
+initializer list</li>
+<li><code>statement</code> - any statement (typically a compound
+statement)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>The above syntax produces code <strong>equivalent</strong> to the
+following (the variables and expressions wrapped in <code>/* */</code>
+are for exposition only): <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span>&amp;&amp; <span class="comment">/* range */</span> = range-initializer ;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> <span class="comment">/* begin */</span> = <span class="comment">/* begin-expr */</span>, <span class="comment">/* end */</span> = <span class="comment">/* end-expr */</span>;</span><br><span class="line">            <span class="comment">/* begin */</span> != <span class="comment">/* end */</span>; ++<span class="comment">/* begin */</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        item-declaration = *<span class="comment">/* begin */</span>;</span><br><span class="line">        statement</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>Exposition-only expressions <code>/* begin-expr */</code> and
+<code>/* end-expr */</code> are defined as follows:</p>
+<p>If the type of <code>/* range */</code> is a reference to a class
+type C, and searches in the scope of C for the names “begin” and “end”
+each find at least one declaration, then <code>/* begin-expr */</code>
+is <code>/* range */.begin()</code> and <code>/* end-expr */</code> is
+<code>/* range */.end()</code>.</p>
+</blockquote>
+<p>在习题里，<code>range-initializer</code>对应的是<code>s</code>，<code>item-declaration</code>是<code>auto &amp;c</code>。<code>s</code>类型是<code>std::string</code>，是<code>class type</code>，而<code>std::string</code>也确实定义了<code>begin</code>和<code>end</code>函数，所以<code>/* begin-expr */</code>和<code>/* end-expr */</code>就是<code>string::begin()</code>和<code>string::end()</code>。</p>
+<p>那么<code>string::begin()</code>的返回值就决定了<code>c</code>的类型。cppreference（https://en.cppreference.com/w/cpp/string/basic_string/begin）可以看到函数签名<code>const_iterator begin() const;</code>。因为<code>s</code>是<code>const string</code>，所以我们关注的是<code>const</code>函数。</p>
+<p>根据cppreference（https://en.cppreference.com/w/cpp/string/basic_string，https://en.cppreference.com/w/cpp/named_req/Iterator），<code>const_iterator</code>是一种<code>LegacyIterator</code>，而iterator可以被看作是指针的一种抽象。</p>
+<blockquote>
+<p><code>LegacyRandomAccessIterator</code> and
+<code>LegacyContiguousIterator</code> to <code>const value_type</code>
+Iterators can be thought of as an abstraction of pointers.</p>
+</blockquote>
+<p>cppreference
+<code>LegacyRandomAccessIterator</code>的页面（https://en.cppreference.com/w/cpp/named_req/RandomAccessIterator）提到，如果iterator是来自一个container，那dereference这个iterator得到的object的类型就是containter的<code>value_type</code>。</p>
+<blockquote>
+<p>If a LegacyRandomAccessIterator it originates from a Container, then
+it's value_type is the same as the container's, so dereferencing (*it)
+obtains the container's value_type.</p>
+</blockquote>
+<p>那么string是不是一个Container呢？cppreference说它满足AllocatorAwareContainer、SequenceContainer、ContiguousContainer的要求，那么我们也可以说string是一种container。</p>
+<blockquote>
+<p>std::basic_string satisfies the requirements of
+<code>AllocatorAwareContainer</code> (except that customized
+construct/destroy are not used for construction/destruction of
+elements), <code>SequenceContainer</code> and
+<code>ContiguousContainer(since C++17)</code>.</p>
+</blockquote>
+<p>（不过<code>LegacyContiguousIterator</code>（https://en.cppreference.com/w/cpp/named_req/ContiguousIterator）没有提到dereference该怎么办，或者是我看漏了，这里也只能先忽略这种情况了）</p>
+<p><code>const_iterator</code>指向的是<code>const value_type</code>。<code>std::string</code>实际上是<code>std::basic_string&lt;char&gt;</code>，而<code>value_type</code>就是<code>char</code>。所以对<code>const_iterator</code>
+dereference（<code>*it</code>）的话得到的object类型是<code>const char</code>。</p>
+<p>一般情况下，<code>auto</code>会忽略top-level
+consts。但是如果用<code>auto</code>声明一个reference，那top-level
+<code>const</code>就不会被忽略了。习题的情况正是后者，所以<code>c</code>的类型是<code>const char&amp;</code>。</p>
+]]></content>
+      <categories>
+        <category>programming</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
 </search>
