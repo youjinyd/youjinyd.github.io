@@ -2214,7 +2214,8 @@ what is the type of <code>c</code>? <figure class="highlight c++"><table><tr><td
 for
 loop应该是一种语法糖，实际上编译器应该是当成普通的for循环来处理的。</p>
 <p>从cppreference（https://en.cppreference.com/w/cpp/language/range-for）上可以得到印证。
-Range-Based for loop的一般形式（省略了不相关的部分）：</p>
+Range-Based for
+loop的一般形式（省略了不相关的部分）实际上等价于下面的for循环：</p>
 <blockquote>
 <p><code>for ( item-declaration : range-initializer ) statement</code></p>
 <ul>
