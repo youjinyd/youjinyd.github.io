@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"dinayuil.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="3.1 Namespace using Declarations  A Separate using Declaration Is Required for Each Name. The important part is that there must be a using declaration for each name we use, and each declaration m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ primer ch3 - Strings, Vectors, and Arrays 阅读笔记">
+<meta property="og:url" content="http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Yandi&#39;s Garden">
+<meta property="og:description" content="3.1 Namespace using Declarations  A Separate using Declaration Is Required for Each Name. The important part is that there must be a using declaration for each name we use, and each declaration m">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/c5c1ca40258a7e3514a759ab99a2ef45.png">
+<meta property="og:image" content="http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/54117011b1c1e3b480d6ecbd4131100d.png">
+<meta property="article:published_time" content="2024-07-30T20:41:01.000Z">
+<meta property="article:modified_time" content="2024-07-30T20:44:29.227Z">
+<meta property="article:author" content="Yandi Liu">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/c5c1ca40258a7e3514a759ab99a2ef45.png">
+
+
+<link rel="canonical" href="http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/","path":"2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-阅读笔记/","title":"C++ primer ch3 - Strings, Vectors, and Arrays 阅读笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C++ primer ch3 - Strings, Vectors, and Arrays 阅读笔记 | Yandi's Garden</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-354MG6H6PY"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-354MG6H6PY","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Yandi's Garden</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#namespace-using-declarations"><span class="nav-number">1.</span> <span class="nav-text">3.1 Namespace using
+Declarations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#headers-should-not-include-using-declarations"><span class="nav-number">1.1.</span> <span class="nav-text">Headers Should
+Not Include using Declarations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#library-string-type"><span class="nav-number">2.</span> <span class="nav-text">3.2 Library string Type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#defining-and-initializing-strings"><span class="nav-number">2.1.</span> <span class="nav-text">3.2.1 Defining and
+Initializing strings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#copy-initialization"><span class="nav-number">2.1.1.</span> <span class="nav-text">copy initialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#direct-initialization"><span class="nav-number">2.1.2.</span> <span class="nav-text">direct initialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy-initialization-with-multi-value-initializer"><span class="nav-number">2.1.3.</span> <span class="nav-text">copy
+initialization with multi-value initializer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#operations-on-strings"><span class="nav-number">2.2.</span> <span class="nav-text">3.2.2 Operations on
+strings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reading-and-writing-strings"><span class="nav-number">2.2.1.</span> <span class="nav-text">Reading and Writing
+strings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-stringsize_type-type"><span class="nav-number">2.2.2.</span> <span class="nav-text">The string::size_type
+Type</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dealing-with-the-characters-in-a-string"><span class="nav-number">2.3.</span> <span class="nav-text">3.2.3 Dealing with the
+Characters in a string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#advice-use-the-c-versions-of-c-library-headers"><span class="nav-number">2.3.1.</span> <span class="nav-text">ADVICE: USE THE
+C++ VERSIONS OF C LIBRARY HEADERS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#processing-only-some-characters"><span class="nav-number">2.3.2.</span> <span class="nav-text">Processing Only Some
+Characters?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#processing-every-character-use-range-based-for"><span class="nav-number">2.3.3.</span> <span class="nav-text">Processing Every
+Character? Use Range-Based for</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#library-vector-type"><span class="nav-number">3.</span> <span class="nav-text">3.3 Library vector Type</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#defining-and-initializing-vectors"><span class="nav-number">3.1.</span> <span class="nav-text">3.3.1 Defining and
+Initializing vectors</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#value-initialization"><span class="nav-number">3.1.1.</span> <span class="nav-text">Value Initialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-initializer-or-element-count"><span class="nav-number">3.1.2.</span> <span class="nav-text">List Initializer or Element
+Count?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adding-elements-to-a-vector"><span class="nav-number">3.2.</span> <span class="nav-text">3.3.2 Adding Elements to a
+vector</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#programming-implications-of-adding-elements-to-a-vector"><span class="nav-number">3.2.1.</span> <span class="nav-text">Programming
+Implications of Adding Elements to a vector</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other-vector-operations"><span class="nav-number">3.3.</span> <span class="nav-text">3.3.3 Other vector
+Operations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#introducing-iterators"><span class="nav-number">4.</span> <span class="nav-text">3.4 Introducing Iterators</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#using-iterators"><span class="nav-number">4.1.</span> <span class="nav-text">3.4.1 Using Iterators</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iterator-operations"><span class="nav-number">4.1.1.</span> <span class="nav-text">Iterator Operations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#moving-iterators-from-one-element-to-another"><span class="nav-number">4.1.2.</span> <span class="nav-text">Moving Iterators
+from One Element to Another</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iterator-types"><span class="nav-number">4.1.3.</span> <span class="nav-text">Iterator Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-begin-and-end-operations"><span class="nav-number">4.1.4.</span> <span class="nav-text">The begin and
+end Operations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#combining-dereference-and-member-access"><span class="nav-number">4.1.5.</span> <span class="nav-text">Combining Dereference
+and Member Access</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some-vector-operations-invalidate-iterators"><span class="nav-number">4.1.6.</span> <span class="nav-text">Some vector
+Operations Invalidate Iterators</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iterator-arithmetic"><span class="nav-number">4.2.</span> <span class="nav-text">3.4.2 Iterator Arithmetic</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#arrays"><span class="nav-number">5.</span> <span class="nav-text">3.5 Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#defining-and-initializing-built-in-arrays"><span class="nav-number">5.1.</span> <span class="nav-text">3.5.1 Defining and
+Initializing Built-in Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#explicitly-initializing-array-elements"><span class="nav-number">5.1.1.</span> <span class="nav-text">Explicitly Initializing
+Array Elements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#character-arrays-are-special"><span class="nav-number">5.1.2.</span> <span class="nav-text">Character Arrays Are Special</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-copy-or-assignment"><span class="nav-number">5.1.3.</span> <span class="nav-text">No Copy or Assignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#understanding-complicated-array-declarations"><span class="nav-number">5.1.4.</span> <span class="nav-text">Understanding
+Complicated Array Declarations</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#accessing-the-elements-of-an-array"><span class="nav-number">5.2.</span> <span class="nav-text">3.5.2 Accessing the Elements
+of an Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointers-and-arrays"><span class="nav-number">5.3.</span> <span class="nav-text">3.5.3 Pointers and Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pointers-are-iterators"><span class="nav-number">5.3.1.</span> <span class="nav-text">Pointers Are Iterators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-library-begin-and-end-functions"><span class="nav-number">5.3.2.</span> <span class="nav-text">The Library begin and end
+Functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointer-arithmetic"><span class="nav-number">5.3.3.</span> <span class="nav-text">Pointer Arithmetic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subcripts-and-pointers"><span class="nav-number">5.3.4.</span> <span class="nav-text">Subcripts and Pointers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-style-character-strings"><span class="nav-number">5.4.</span> <span class="nav-text">3.5.4 C-Style Character Strings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#c-library-string-functions"><span class="nav-number">5.4.1.</span> <span class="nav-text">C Library String Functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#comparing-strings"><span class="nav-number">5.4.2.</span> <span class="nav-text">Comparing Strings</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#interfacing-to-older-code"><span class="nav-number">5.5.</span> <span class="nav-text">3.5.5 Interfacing to Older Code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mixing-library-strings-and-c-style-strings"><span class="nav-number">5.5.1.</span> <span class="nav-text">Mixing Library
+strings and C-Style Strings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#using-an-array-to-initialize-a-vector"><span class="nav-number">5.5.2.</span> <span class="nav-text">Using an Array to
+Initialize a vector</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#advice-use-library-types-instead-of-arrays"><span class="nav-number">5.5.2.1.</span> <span class="nav-text">ADVICE: USE LIBRARY
+TYPES INSTEAD OF ARRAYS</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#multidimensional-arrays"><span class="nav-number">6.</span> <span class="nav-text">3.6 Multidimensional Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#initializing-the-elements-of-a-multidimensional-array"><span class="nav-number">6.1.</span> <span class="nav-text">Initializing
+the Elements of a Multidimensional Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#subscripting-a-multidimensional-array"><span class="nav-number">6.2.</span> <span class="nav-text">Subscripting a
+Multidimensional Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#using-a-range-for-with-multidimensional-arrays"><span class="nav-number">6.3.</span> <span class="nav-text">Using a Range
+for with Multidimensional Arrays</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pointers-and-multidimensional-arrays"><span class="nav-number">6.4.</span> <span class="nav-text">Pointers and
+Multidimensional Arrays</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%84%9F%E6%83%B3"><span class="nav-number">7.</span> <span class="nav-text">感想</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yandi Liu</p>
+  <div class="site-description" itemprop="description">Work hard, Play hard!</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dinayuil" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dinayuil" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yandi-liu-a82bbb156/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yandi-liu-a82bbb156&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yandi Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yandi's Garden">
+      <meta itemprop="description" content="Work hard, Play hard!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C++ primer ch3 - Strings, Vectors, and Arrays 阅读笔记 | Yandi's Garden">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++ primer ch3 - Strings, Vectors, and Arrays 阅读笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-07-30 22:41:01 / Modified: 22:44:29" itemprop="dateCreated datePublished" datetime="2024-07-30T22:41:01+02:00">2024-07-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-阅读笔记/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>16 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="namespace-using-declarations">3.1 Namespace using
+Declarations</h1>
+<blockquote>
+<p>A Separate using Declaration Is Required for Each Name. The important
+part is that there must be a using declaration for each name we use, and
+each declaration must end in a semicolon.</p>
+</blockquote>
+<p>C++ Primer第五版只是介绍C++11，那时候还只能用<code>using</code>
+declarations一个个声明需要的name，但是C++17已经支持comma-separated list
+in using-declaration。</p>
+<blockquote>
+<p>https://en.cppreference.com/w/cpp/language/using_declaration</p>
+</blockquote>
+<span id="more"></span>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="comment">// using declarations for names from the standard library</span></span><br><span class="line"><span class="keyword">using</span> std::cin;</span><br><span class="line"><span class="keyword">using</span> std::cout; <span class="keyword">using</span> std::endl;    <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> std::cout, std::endl;    <span class="comment">// Wrong in C++11, but available from C++17</span></span><br></pre></td></tr></table></figure>
+<h2 id="headers-should-not-include-using-declarations">Headers Should
+Not Include using Declarations</h2>
+<p>头文件在预处理的时候会被直接复制到用<code>#include</code>的那一行，所以在头文件里用using
+declaration就相当于在（引用了头文件的）cpp里用，可能会意外地导致命名冲突。</p>
+<h1 id="library-string-type">3.2 Library <code>string</code> Type</h1>
+<h2 id="defining-and-initializing-strings">3.2.1 Defining and
+Initializing <code>string</code>s</h2>
+<p>用string literal初始化<code>string</code>，literal尾部的null
+character不会被复制到<code>string</code>里。</p>
+<h3 id="copy-initialization">copy initialization</h3>
+<p>When we initialize a variable using =, we are asking the compiler to
+copy initialize</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string s5 = <span class="string">&quot;hiya&quot;</span>; <span class="comment">// copy initialization</span></span><br></pre></td></tr></table></figure>
+<h3 id="direct-initialization">direct initialization</h3>
+<p>when we omit the =, we use direct initialization</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">s6</span><span class="params">(<span class="string">&quot;hiya&quot;</span>)</span></span>; <span class="comment">// direct initialization</span></span><br><span class="line"><span class="function">string <span class="title">s7</span><span class="params">(<span class="number">10</span>, ’c’)</span></span>; <span class="comment">// direct initialization; s7 is cccccccccc</span></span><br></pre></td></tr></table></figure>
+<h3 id="copy-initialization-with-multi-value-initializer">copy
+initialization with multi-value initializer</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string s8 = <span class="built_in">string</span>(<span class="number">10</span>, ’c’); <span class="comment">// copy initialization; s8 is cccccccccc</span></span><br></pre></td></tr></table></figure>
+<p>上面copy initialization其实新建了一个临时变量，相当于下面的写法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">temp</span><span class="params">(<span class="number">10</span>, ’c’)</span></span>; <span class="comment">// temp is cccccccccc</span></span><br><span class="line">string s8 = temp; <span class="comment">// copy temp into s8</span></span><br></pre></td></tr></table></figure>
+<h2 id="operations-on-strings">3.2.2 Operations on
+<code>string</code>s</h2>
+<h3 id="reading-and-writing-strings">Reading and Writing
+<code>string</code>s</h3>
+<p><code>string</code> input operator (<code>&gt;&gt;</code>)
+会忽略开头的所有whitespace（空格、换行、tab）。</p>
+<h3 id="the-stringsize_type-type">The <code>string::size_type</code>
+Type</h3>
+<p><code>string</code>的<code>size</code>，类型是<code>string::size_type</code>。不确定具体的类型，但是一定是<code>unsigned</code>。</p>
+<p>在用for循环遍历string的时候，循环变量也最好用<code>string::size_type</code>，或者用decltype和size()。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p94</span></span><br><span class="line"><span class="comment">// process characters in s until we run out of characters or we hit a whitespace</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">decltype</span>(s.<span class="built_in">size</span>()) index = <span class="number">0</span>;</span><br><span class="line">    index != s.<span class="built_in">size</span>() &amp;&amp; !<span class="built_in">isspace</span>(s[index]); ++index)</span><br><span class="line">        s[index] = <span class="built_in">toupper</span>(s[index]); <span class="comment">// capitalize the current character</span></span><br></pre></td></tr></table></figure></p>
+<p>（但是以前从来没在意<code>size_type</code>，都是直接用<code>int i</code>循环了。）</p>
+<h2 id="dealing-with-the-characters-in-a-string">3.2.3 Dealing with the
+Characters in a <code>string</code></h2>
+<h3 id="advice-use-the-c-versions-of-c-library-headers">ADVICE: USE THE
+C++ VERSIONS OF C LIBRARY HEADERS</h3>
+<p>C++ library包含了C library。C
+library里头文件是以name.h格式命名的，在C++
+library里头文件则是用cname命名的。如<code>ctype.h</code>,
+<code>cctype</code>。</p>
+<p>C++ library头文件里的成员（函数名、变量名之类的）都是定义在std
+namespace里的，而C
+library则不是。所以在C++程序里推荐用C++版本的library，避免命名冲突。</p>
+<h3 id="processing-only-some-characters">Processing Only Some
+Characters?</h3>
+<p>subscript operator (the <code>[] operator</code>): The result of
+using an out-of-range subscript is <strong>undefined</strong>.</p>
+<h3 id="processing-every-character-use-range-based-for">Processing Every
+Character? Use Range-Based <code>for</code></h3>
+<p>Range-Based <code>for</code> （range for statement):</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p91</span></span><br><span class="line"><span class="function">string <span class="title">str</span><span class="params">(<span class="string">&quot;some string&quot;</span>)</span></span>;</span><br><span class="line"><span class="comment">// print the characters in str one character to a line</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> c : str) <span class="comment">// for every char in str</span></span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl; <span class="comment">// print the current character followed by a newline</span></span><br></pre></td></tr></table></figure>
+<h1 id="library-vector-type">3.3 Library <code>vector</code> Type</h1>
+<p><code>vector</code>是一个<code>class template</code>，template本身不是一种类型，但是template给定元素的类型就可以生成新的类型，如<code>vector&lt;int&gt;</code>。</p>
+<p>编译器从template创造class和function的过程叫做instantiation（实例化）。</p>
+<p><code>vector</code>只能存objects，也就是说它不能存reference。</p>
+<h2 id="defining-and-initializing-vectors">3.3.1 Defining and
+Initializing <code>vector</code>s</h2>
+<p>vector的复制：从旧vector复制每一个元素到新vector</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p97</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ivec2</span><span class="params">(ivec)</span></span>; <span class="comment">// copy elements of ivec into ivec2</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; ivec3 = ivec; <span class="comment">// copy elements of ivec into ivec3</span></span><br></pre></td></tr></table></figure>
+<h3 id="value-initialization">Value Initialization</h3>
+<p>如果创建vector的时候只给定了size，那么vector里的元素会被<code>value-initialized</code>：</p>
+<ul>
+<li>如果元素是<code>built-in</code> type，那么会被初始化为0。</li>
+<li>如果是<code>class</code>
+type，那么会被<code>default initialized</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p98</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ivec</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// ten elements, each initialized to 0</span></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">svec</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// ten elements, each an empty string</span></span><br></pre></td></tr></table></figure>
+<h3 id="list-initializer-or-element-count">List Initializer or Element
+Count?</h3>
+<blockquote>
+<p>When we use curly braces, {...}, we’re saying that, if possible, we
+want to list initialize the object. That is, if there is a way to use
+the values inside the curly braces as a list of element initializers,
+the class will do so. Only if it is not possible to list initialize the
+object will the other ways to initialize the object be considered.</p>
+</blockquote>
+<p>如果使用花括号<code>&#123;&#125;</code>来初始化一个vector，那么编译器优先看能不能用List
+initialization。如果不行，那再考虑其他的初始化方法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p100</span></span><br><span class="line">vector&lt;string&gt; v5&#123;<span class="string">&quot;hi&quot;</span>&#125;; <span class="comment">// list initialization: v5 has one element</span></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">v6</span><span class="params">(<span class="string">&quot;hi&quot;</span>)</span></span>; <span class="comment">// error: can’t construct a vector from a string literal</span></span><br><span class="line">vector&lt;string&gt; v7&#123;<span class="number">10</span>&#125;; <span class="comment">// v7 has ten default-initialized elements</span></span><br><span class="line">vector&lt;string&gt; v8&#123;<span class="number">10</span>, <span class="string">&quot;hi&quot;</span>&#125;; <span class="comment">// v8 has ten elements with value &quot;hi&quot;</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子，<code>v8</code>正常的初始化写法应该是<code>v8(10, "hi")</code>，但是这里用花括号，表明我们想用list
+initializer，但是花括号里值的类型都不同，不可能是list
+initializer，所以编译器尝试其他的初始化方法（此处的情况是direct
+initialization）。</p>
+<h2 id="adding-elements-to-a-vector">3.3.2 Adding Elements to a
+<code>vector</code></h2>
+<p><strong>KEY CONCEPT: VECTORS GROW EFFICIENTLY</strong></p>
+<blockquote>
+<p>The standard requires that vector implementations can efficiently add
+elements at run time. Because vectors grow efficiently, it is often
+unnecessary—and can result in poorer performance—to define a vector of a
+specific size.</p>
+</blockquote>
+<p>C++标准要求vector的实现要能在运行时高效地添加元素，所以通常没有必要在创建vector的时候指定size。</p>
+<p>indirection operator <code>*</code>
+https://en.cppreference.com/w/cpp/language/operator_member_access</p>
+<blockquote>
+<p>The operand of the built-in indirection operator must be pointer to
+object or a pointer to function, and the result is the
+<code>lvalue referring</code> to the object or function to which expr
+points.</p>
+</blockquote>
+<h3
+id="programming-implications-of-adding-elements-to-a-vector">Programming
+Implications of Adding Elements to a <code>vector</code></h3>
+<p>range for 的body里不能改变正在被遍历的vector的size</p>
+<h2 id="other-vector-operations">3.3.3 Other <code>vector</code>
+Operations</h2>
+<p>我们可以比较<code>vector</code>s，前提是两个vector的元素类型相同。</p>
+<blockquote>
+<ul>
+<li><code>v1 == v2</code>, <code>v1 != v2</code>: v1 and v2 are equal if
+they have the same number of elements and each element in v1 is equal to
+the corresponding element in v2.</li>
+<li><code>&lt;, &lt;=, &gt;, &gt;=</code>: Have their normal meanings
+using dictionary ordering.</li>
+</ul>
+</blockquote>
+<h1 id="introducing-iterators">3.4 Introducing Iterators</h1>
+<blockquote>
+<p>Technically speaking, a string is not a container type, but string
+supports many of the container operations.</p>
+</blockquote>
+<p>尽管从技术上来讲，<code>string</code>不是一种container，但是container支持的很多操作string也支持。</p>
+<p>和pointer类似，iterator也能让我们indirect access to an object。</p>
+<p>一个valid iterator：</p>
+<ul>
+<li>要么指向一个元素</li>
+<li>要么指向container的最后一个元素之后一位（one past the last
+element）。</li>
+</ul>
+<h2 id="using-iterators">3.4.1 Using Iterators</h2>
+<p>拥有iterator的类型都会有返回iterator的（成员）函数，其中两个是<code>begin</code>和<code>end</code>。</p>
+<ul>
+<li><code>begin</code>返回的iterator指向第一个元素。</li>
+<li><code>end</code>返回的iterator指向的位置是<strong>one past the
+end</strong>。通常也被叫做<strong>off-the-end
+iterator</strong>，或简称为 <strong>end iterator</strong>。</li>
+</ul>
+<p>如果container是空的，那么begin和end返回的iterator都是off-the-end
+iterator。</p>
+<blockquote>
+<p>In general, we do not know (or care about) the precise type that an
+iterator has.</p>
+</blockquote>
+<p>一般来说，我们<strong>不知道</strong>，<strong>也不关心</strong>iterator确切的类型。</p>
+<h3 id="iterator-operations">Iterator Operations</h3>
+<p>Dereference（解引用） invalid iterator或者off-the-end
+iterator都是undefined behavior。</p>
+<blockquote>
+<p><code>*iter</code> Returns a <strong>reference</strong> to the
+element denoted by the iterator iter.</p>
+</blockquote>
+<p>对iterator dereference得到的是<strong>reference</strong>！</p>
+<blockquote>
+<p><code>iter1 == iter2</code>, <code>iter1 != iter2</code>: Compares
+two iterators for equality (inequality). Two iterators are equal if they
+denote the same element or if they are the off-the-end iterator for the
+same container.</p>
+</blockquote>
+<p>两个iterator相等，意味着</p>
+<ul>
+<li>要么他们指向相同的元素</li>
+<li>要么他们是同一个container的off-the-end iterator</li>
+</ul>
+<h3 id="moving-iterators-from-one-element-to-another">Moving Iterators
+from One Element to Another</h3>
+<ul>
+<li><code>++iter</code> Increments iter to refer to the next element in
+the container.</li>
+<li><code>--iter</code> Decrements iter to refer to the previous element
+in the container.</li>
+</ul>
+<p>end返回的iterator不指向任何元素，所以不能对它<code>++</code>，也不能dereference。(但是可以<code>--</code>)。</p>
+<h3 id="iterator-types">Iterator Types</h3>
+<p>std library的container定义了它的iterator的类型：<code>iterator</code>
+and <code>const_iterator</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p108</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt;::iterator it; <span class="comment">// it can read and write vector&lt;int&gt; elements</span></span><br><span class="line">string::iterator it2; <span class="comment">// it2 can read and write characters in a string</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt;::const_iterator it3; <span class="comment">// it3 can read but not write elements</span></span><br><span class="line">string::const_iterator it4; <span class="comment">// it4 can read but not write characters</span></span><br></pre></td></tr></table></figure>
+<h3 id="the-begin-and-end-operations">The <code>begin</code> and
+<code>end</code> Operations</h3>
+<p>对于non
+const的container，也可以用<code>cbegin</code>，<code>cend</code>获得<code>const_iterator</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p109</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; v;</span><br><span class="line"><span class="keyword">auto</span> it3 = v.<span class="built_in">cbegin</span>(); <span class="comment">// it3 has type vector&lt;int&gt;::const_iterator</span></span><br></pre></td></tr></table></figure>
+<h3 id="combining-dereference-and-member-access">Combining Dereference
+and Member Access</h3>
+<blockquote>
+<p><code>it-&gt;mem</code> is a synonym for <code>(*it).mem</code></p>
+</blockquote>
+<h3 id="some-vector-operations-invalidate-iterators">Some vector
+Operations Invalidate Iterators</h3>
+<p>任何改变vector size的操作都会使所有iterator失效（invalid）。</p>
+<h2 id="iterator-arithmetic">3.4.2 Iterator Arithmetic</h2>
+<p>string和vector的iterator支持一些额外的操作：</p>
+<blockquote>
+<ul>
+<li><code>iter + n</code>, <code>iter - n</code>: Adding (subtracting)
+an integral value n to (from) an iterator yields an iterator that many
+elements forward (backward) within the container. The resulting iterator
+must denote elements in, or one past the end of, the same
+container.</li>
+<li><code>iter1 += n</code>, <code>iter1 -= n</code>:
+Compound-assignment for iterator addition and subtraction. Assigns to
+iter1 the value of adding n to, or subtracting n from, iter1.</li>
+<li><code>iter1 - iter2</code>: Subtracting two iterators yields the
+number that when added to the right-hand iterator yields the left-hand
+iterator. The iterators must denote elements in, or one past the end of,
+the same container.</li>
+<li><code>&gt;, &gt;=, &lt;, &lt;=</code>: Relational operators on
+iterators. One iterator is less than another if it refers to an element
+that appears in the container before the one referred to by the other
+iterator. The iterators must denote elements in, or one past the end of,
+the same container.</li>
+</ul>
+</blockquote>
+<p>两个iterator相减，或者要比较两个iterator的大小，他们必须是来自同一个container。</p>
+<p>两个iterator相减，结果的类型是<code>difference_type</code>，是一种<code>singed integral</code>。</p>
+<h1 id="arrays">3.5 Arrays</h1>
+<h2 id="defining-and-initializing-built-in-arrays">3.5.1 Defining and
+Initializing Built-in Arrays</h2>
+<p>Array是一种<code>compound type</code>。</p>
+<p>dimension指定了array的元素个数。而array的<strong>元素个数</strong>是array类型的<strong>一部分</strong>。因此dimension必须在编译时就已知，也就是说，dimension必须是<strong>constant
+expression</strong>。</p>
+<p>在函数体中声明的array，如果没有初始化，会被default-initialized。array中的元素的值是<strong>undefined
+values</strong>。</p>
+<p>不能用<code>auto</code>创建array。</p>
+<p>array只能存object，也就是说不能存reference。</p>
+<h3 id="explicitly-initializing-array-elements">Explicitly Initializing
+Array Elements</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p114</span></span><br><span class="line"><span class="type">const</span> <span class="type">unsigned</span> sz = <span class="number">3</span>;</span><br><span class="line"><span class="type">int</span> ia1[sz] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>&#125;; <span class="comment">// array of three ints with values 0, 1, 2</span></span><br><span class="line"><span class="type">int</span> a2[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;; <span class="comment">// an array of dimension 3</span></span><br><span class="line"><span class="type">int</span> a3[<span class="number">5</span>] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;; <span class="comment">// equivalent to a3[] = &#123;0, 1, 2, 0, 0&#125;</span></span><br><span class="line">string a4[<span class="number">3</span>] = &#123;<span class="string">&quot;hi&quot;</span>, <span class="string">&quot;bye&quot;</span>&#125;; <span class="comment">// same as a4[] = &#123;&quot;hi&quot;, &quot;bye&quot;, &quot;&quot;&#125;</span></span><br><span class="line"><span class="type">int</span> a5[<span class="number">2</span>] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>&#125;; <span class="comment">// error: too many initializers</span></span><br></pre></td></tr></table></figure>
+<p>声明array的时候dimension可以不填，但是这样就必须给初始值（list
+initialize），编译器可以推断array的size。</p>
+<p>如果声明array时给的dimension比initializer
+list里元素的个数更多，那么是剩下的元素会被<strong>value
+initialized</strong>。</p>
+<h3 id="character-arrays-are-special">Character Arrays Are Special</h3>
+<p>如果用string literal来初始化char array，那么在数组末尾会增加一个null
+character（<code>\0</code>）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p114</span></span><br><span class="line"><span class="type">char</span> a3[] = <span class="string">&quot;C++&quot;</span>; <span class="comment">// null terminator added automatically</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> a4[<span class="number">6</span>] = <span class="string">&quot;Daniel&quot;</span>; <span class="comment">// error: no space for the null!</span></span><br></pre></td></tr></table></figure>
+<h3 id="no-copy-or-assignment">No Copy or Assignment</h3>
+<p>不能用一个array去初始化另一个array. 有一些编译器可能支持array
+assignment，但是并不是标准规定的特性。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;; <span class="comment">// array of three ints</span></span><br><span class="line"><span class="type">int</span> a2[] = a; <span class="comment">// error: cannot initialize one array with another</span></span><br><span class="line">a2 = a; <span class="comment">// error: cannot assign one array to another</span></span><br></pre></td></tr></table></figure>
+<h3 id="understanding-complicated-array-declarations">Understanding
+Complicated Array Declarations</h3>
+<p>看螺旋法则吧（Clockwise/Spiral
+Rule）（https://c-faq.com/decl/spiral.anderson.html）</p>
+<blockquote>
+<p>There are three simple steps to follow:</p>
+<p>Starting with the unknown element, move in a spiral/clockwise
+direction; when ecountering the following elements replace them with the
+corresponding english statements:</p>
+<p>[X] or []</p>
+<pre><code>   =&gt; Array X size of... or Array undefined size of... 
+   </code></pre>
+<p>(type1, type2)</p>
+<pre><code>   =&gt; function passing type1 and type2 returning... 
+   </code></pre>
+<ul>
+<li>=&gt; pointer(s) to...</li>
+</ul>
+<p>Keep doing this in a spiral/clockwise direction until all tokens have
+been covered.</p>
+<p>Always resolve anything in parenthesis first!</p>
+</blockquote>
+<blockquote>
+<p>Example #1: Simple declaration</p>
+<figure>
+<img src="c5c1ca40258a7e3514a759ab99a2ef45.png" alt="picture 0" />
+<figcaption aria-hidden="true">picture 0</figcaption>
+</figure>
+<p>Question we ask ourselves: What is <code>str</code>?</p>
+<p><code>str</code> is an...</p>
+<p>We move in a spiral clockwise direction starting with
+<code>str</code> and the first character we see is a <code>[</code> so,
+that means we have an array, so...</p>
+<pre><code>   `str` is an array 10 of... </code></pre>
+<p>Continue in a spiral clockwise direction, and the next thing we
+encounter is the <code>*</code> so, that means we have pointers,
+so...</p>
+<pre><code>   `str` is an array 10 of pointers to... </code></pre>
+<p>Continue in a spiral direction and we see the end of the line (the
+<code>;</code>), so keep going and we get to the type <code>char</code>,
+so...</p>
+<pre><code>   `str` is an array 10 of pointers to `char` </code></pre>
+<p>We have now "visited" every token; therefore we are done!</p>
+<p>Example #2: Pointer to Function declaration</p>
+<figure>
+<img src="54117011b1c1e3b480d6ecbd4131100d.png" alt="picture 1" />
+<figcaption aria-hidden="true">picture 1</figcaption>
+</figure>
+<p>Question we ask ourselves: What is <code>fp</code>?</p>
+<pre><code>`fp` is a... 
+
+Moving in a spiral clockwise direction, the first thing we see is a `)`; therefore, fp is inside parenthesis, so we continue the spiral inside the parenthesis and the next character seen is the `*`, so...
+
+    `fp` is a pointer to... 
+
+We are now out of the parenthesis and continuing in a spiral clockwise direction, we see the `(`; therefore, we have a function, so...
+
+    `fp` is a pointer to a function passing an int and a pointer to float returning... 
+
+Continuing in a spiral fashion, we then see the `*` character, so...
+
+    `fp` is a pointer to a function passing an int and a pointer to float returning a pointer to... 
+
+Continuing in a spiral fashion we see the `;`, but we haven&#39;t visited all tokens, so we continue and finally get to the type `char`, so...
+
+    `fp` is a pointer to a function passing an int and a pointer to float returning a pointer to a `char` </code></pre>
+</blockquote>
+<p>如果把*fp外的括号去掉会变成什么呢？</p>
+<p><code>char **fp( int, float *);</code></p>
+<p>fp就变成了：fp是一个function，这个function返回一个指针，这个指针指向一个指向char的指针</p>
+<p>fp is a function (int, float *) returning a pointer to a pointer to
+char</p>
+<h2 id="accessing-the-elements-of-an-array">3.5.2 Accessing the Elements
+of an Array</h2>
+<p>用subscript访问array的元素，subscript的变量的类型是<code>size_t</code>，是一种<code>unsigned</code>类型。</p>
+<h2 id="pointers-and-arrays">3.5.3 Pointers and Arrays</h2>
+<p>当我们用array的时候，编译器通常会把array转换成pointer。</p>
+<blockquote>
+<p>when we use an object of array type, we are really using a pointer to
+the first element in that array.</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p117</span></span><br><span class="line">string nums[] = &#123;<span class="string">&quot;one&quot;</span>, <span class="string">&quot;two&quot;</span>, <span class="string">&quot;three&quot;</span>&#125;; <span class="comment">// array of strings</span></span><br><span class="line">string *p = &amp;nums[<span class="number">0</span>]; <span class="comment">// p points to the first element in nums</span></span><br><span class="line">string *p2 = nums; <span class="comment">// equivalent to p2 = &amp;nums[0]</span></span><br></pre></td></tr></table></figure>
+<p>当我们用array作为初始值，用auto定义一个变量的时候，编译器推断变量的类型是<strong>pointer</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p117</span></span><br><span class="line"><span class="type">int</span> ia[] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;; <span class="comment">// ia is an array of ten ints</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">ia2</span><span class="params">(ia)</span></span>; <span class="comment">// ia2 is an int* that points to the first element in ia</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// the following is equivalent to the above</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">ia2</span><span class="params">(&amp;ia[<span class="number">0</span>])</span></span>; <span class="comment">// now it’s clear that ia2 has type int*</span></span><br></pre></td></tr></table></figure>
+<p>但是如果用<code>decltype</code>，推断的类型不会发生转换，还是array。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p118</span></span><br><span class="line"><span class="comment">// ia3 is an array of ten ints</span></span><br><span class="line"><span class="keyword">decltype</span>(ia) ia3 = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br><span class="line">ia3 = p; <span class="comment">// error: can’t assign an int* to an array</span></span><br><span class="line">ia3[<span class="number">4</span>] = i; <span class="comment">// ok: assigns the value of i to an element in ia3</span></span><br></pre></td></tr></table></figure>
+<h3 id="pointers-are-iterators">Pointers Are Iterators</h3>
+<p>指向array的元素的pointer，支持和vector、string的iterator相同的操作（increment、decrement...）</p>
+<h3 id="the-library-begin-and-end-functions">The Library begin and end
+Functions</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p118</span></span><br><span class="line"><span class="type">int</span> ia[] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;; <span class="comment">// ia is an array of ten ints</span></span><br><span class="line"><span class="type">int</span> *beg = <span class="built_in">begin</span>(ia); <span class="comment">// pointer to the first element in ia</span></span><br><span class="line"><span class="type">int</span> *last = <span class="built_in">end</span>(ia); <span class="comment">// pointer one past the last element in ia</span></span><br></pre></td></tr></table></figure>
+<p>当然也和iterator一样，不能dereference或者increment off-the-end
+pointer</p>
+<h3 id="pointer-arithmetic">Pointer Arithmetic</h3>
+<p>pointer也可以用3.4.1和3.4.2里对iterator定义的操作。</p>
+<p>两个pointer相减得到的结果的类型是<code>ptrdiff_t</code>，是一种<code>signed integral</code></p>
+<p>null
+pointer和指向非array的object的pointer，也可以用这些操作，虽然现在看起来好像没什么用。</p>
+<h3 id="subcripts-and-pointers">Subcripts and Pointers</h3>
+<p>可以看到array和pointer联系非常紧密。而且可以对pointer用subscript，subscript还可以是负值。</p>
+<p>array用的是built-in subscript
+operator，但是vector和string用的是他们类定义的operator，前者可以是负数，后者不行。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> ia[] = &#123;<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>&#125;; <span class="comment">// array with 5 elements of type int</span></span><br><span class="line"><span class="type">int</span> i = ia[<span class="number">2</span>]; <span class="comment">// ia is converted to a pointer to the first element in ia</span></span><br><span class="line">            <span class="comment">// ia[2] fetches the element to which (ia + 2) points</span></span><br><span class="line"><span class="type">int</span> *p = ia; <span class="comment">// p points to the first element in ia</span></span><br><span class="line">i = *(p + <span class="number">2</span>); <span class="comment">// equivalent to i = ia[2]</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *p = &amp;ia[<span class="number">2</span>]; <span class="comment">// p points to the element indexed by 2</span></span><br><span class="line"><span class="type">int</span> j = p[<span class="number">1</span>]; <span class="comment">// p[1] is equivalent to *(p + 1),</span></span><br><span class="line">            <span class="comment">// p[1] is the same element as ia[3]</span></span><br><span class="line"><span class="type">int</span> k = p[<span class="number">-2</span>]; <span class="comment">// p[-2] is the same element as ia[0]</span></span><br></pre></td></tr></table></figure>
+<h2 id="c-style-character-strings">3.5.4 C-Style Character Strings</h2>
+<blockquote>
+<p>Although C++ supports C-style strings, they should not be used by C++
+programs. C-style strings are a surprisingly rich source of bugs and are
+the root cause of many security problems. They’re also harder to
+use!</p>
+</blockquote>
+<p>不推荐在C++程序里使用C-style字符串。</p>
+<p>C-stlye
+string是一个convention，这个convention是指怎样去表示和使用character
+strings。遵循这个convention的string，使用character array，并以null
+character （<code>\0</code>）结尾。</p>
+<h3 id="c-library-string-functions">C Library String Functions</h3>
+<blockquote>
+<ul>
+<li><code>strlen(p)</code> Returns the length of p, not counting the
+null.</li>
+<li><code>strcmp(p1, p2)</code> Compares p1 and p2 for equality. Returns
+0 if p1 == p2, a positive value if p1 &gt; p2, a negative value if p1
+&lt; p2.</li>
+<li><code>strcat(p1, p2)</code> Appends p2 to p1. Returns p1.</li>
+<li><code>strcpy(p1, p2)</code> Copies p2 into p1. Returns p1.</li>
+</ul>
+</blockquote>
+<p>如果一个char
+array的结尾不是null的话，用strlen的结果是<code>undefined</code></p>
+<h3 id="comparing-strings">Comparing Strings</h3>
+<p>比较C-style string要用<code>strcmp</code></p>
+<p>使用普通的relational或者equality操作符（<code>&gt; &lt; = !=</code>...）去比较两个char
+array的话，相当于比较两个不相关的pointer，结果是<code>undefined</code>。</p>
+<p>Exercise 3.37: What does the following program do? <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span> ca[] = &#123;<span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;o&#x27;</span>&#125;;</span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *cp = ca;</span><br><span class="line"><span class="keyword">while</span> (*cp) &#123;</span><br><span class="line">    cout &lt;&lt; *cp &lt;&lt; endl;</span><br><span class="line">    ++cp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>'\0' null terminator，实际上<code>\</code>开头的escape
+sequence。<code>\</code>可以接上1至3个八进制数字，表示的是一个字符的数值。</p>
+<blockquote>
+<p>Some examples (assumingthe Latin-1 character set):</p>
+<p>\7 (bell) \12 (newline) \40 (blank)</p>
+<p>\0 (null) \115 (’M’) 4d (’M’)</p>
+</blockquote>
+<p><code>\0</code>是null，数值上正好是0。所以如果用在字符串末尾，然后用指针遍历字符串，当遍历到<code>\0</code>的时候，因为数值为0就是false，循环就停止了。</p>
+<h2 id="interfacing-to-older-code">3.5.5 Interfacing to Older Code</h2>
+<h3 id="mixing-library-strings-and-c-style-strings">Mixing Library
+strings and C-Style Strings</h3>
+<p>可以用string
+literal初始化一个<code>string</code>。可以通过c_str方法得到一个C-style
+string。但是c_str返回的array并不会永远都是valid，当原本的string内容改变了，之前返回的array就失效了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">s</span><span class="params">(<span class="string">&quot;Hello World&quot;</span>)</span></span>; <span class="comment">// s holds Hello World</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *str = s.<span class="built_in">c_str</span>(); <span class="comment">// ok</span></span><br></pre></td></tr></table></figure>
+<h3 id="using-an-array-to-initialize-a-vector">Using an Array to
+Initialize a vector</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p125</span></span><br><span class="line"><span class="type">int</span> int_arr[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="comment">// ivec has six elements; each is a copy of the corresponding element in int_arr</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ivec</span><span class="params">(begin(int_arr), end(int_arr))</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// copies three elements: int_arr[1], int_arr[2], int_arr[3]</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">subVec</span><span class="params">(int_arr + <span class="number">1</span>, int_arr + <span class="number">4</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="advice-use-library-types-instead-of-arrays">ADVICE: USE LIBRARY
+TYPES INSTEAD OF ARRAYS</h4>
+<blockquote>
+<p>Modern C++ programs should use vectors and iterators instead of
+built-in arrays and pointers, and use strings rather than C-style
+array-based character strings.</p>
+</blockquote>
+<h1 id="multidimensional-arrays">3.6 Multidimensional Arrays</h1>
+<p>subscript的数量没有限制</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> arr[<span class="number">10</span>][<span class="number">20</span>][<span class="number">30</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// initialize all elements to 0</span></span><br><span class="line"><span class="comment">// int arr1[1][2][3][4]...</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>a two-dimensional array, the first dimension is usually referred to
+as the <strong>row</strong> and the second as the
+<strong>column</strong>.</p>
+</blockquote>
+<h2
+id="initializing-the-elements-of-a-multidimensional-array">Initializing
+the Elements of a Multidimensional Array</h2>
+<p>多维数组的初始化，可以用多层list，也可以不用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p 126</span></span><br><span class="line"><span class="type">int</span> ia[<span class="number">3</span>][<span class="number">4</span>] = &#123; <span class="comment">// three elements; each element is an array of size 4</span></span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, <span class="comment">// initializers for the row indexed by 0</span></span><br><span class="line">    &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;, <span class="comment">// initializers for the row indexed by 1</span></span><br><span class="line">    &#123;<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>&#125; <span class="comment">// initializers for the row indexed by 2</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// equivalent initialization without the optional nested braces for each row</span></span><br><span class="line"><span class="type">int</span> ia[<span class="number">3</span>][<span class="number">4</span>] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>但是如果每一行只想初始化部分元素的话，还是要用多层list，理所当然，不然的话就只是初始化前几个元素了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// explicitly initialize only element 0 in each row</span></span><br><span class="line"><span class="type">int</span> ia[<span class="number">3</span>][<span class="number">4</span>] = &#123;&#123; <span class="number">0</span> &#125;, &#123; <span class="number">4</span> &#125;, &#123; <span class="number">8</span> &#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// explicitly initialize row 0; the remaining elements are value initialized</span></span><br><span class="line"><span class="type">int</span> ix[<span class="number">3</span>][<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="subscripting-a-multidimensional-array">Subscripting a
+Multidimensional Array</h2>
+<p>如果提供的subscript数量少于定义数组时给的dimension，那么得到的会是内部的数组。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p127</span></span><br><span class="line"><span class="comment">// assigns the first element of arr to the last element in the last row of ia</span></span><br><span class="line">ia[<span class="number">2</span>][<span class="number">3</span>] = arr[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line"><span class="built_in">int</span> (&amp;row)[<span class="number">4</span>] = ia[<span class="number">1</span>]; <span class="comment">// binds row to the second four-element array in ia</span></span><br></pre></td></tr></table></figure>
+<h2 id="using-a-range-for-with-multidimensional-arrays">Using a Range
+<code>for</code> with Multidimensional Arrays</h2>
+<p>如果使用range based
+for遍历多维数组，那么除了最内层的array，外层的for循环都必须用reference</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> &amp;row : ia) <span class="comment">// for every element in the outer array</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> col : row) <span class="comment">// for every element in the inner array</span></span><br><span class="line">        cout &lt;&lt; col &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>如果外层for不用reference的话会怎样呢。因为range
+for其实是个语法糖，编译器会转换成一个普通的for循环</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> row : ia)</span><br><span class="line"><span class="comment">// 上面相当于下面，省略了不相关内容</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> beg = <span class="built_in">begin</span>(ia) ...)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> row = *beg;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>begin(ia)</code>得到的是一个指向ia的第一个元素的指针，所以类型是一个指向有size为4的array的指针：<code>int (*p)[4]</code>。</p>
+<p>而对<code>*beg</code>得到的就是一个reference，这个reference绑定的obect是一个size为4的array。</p>
+<p>我们知道auto会忽略reference，而使用array相当于使用一个指向array第一个元素的指针，所以<code>auto row = *beg;</code>会让row的类型变成一个指向int的指针。</p>
+<p>关于range based for更多内容，参考我另一篇range based for的笔记。</p>
+<h2 id="pointers-and-multidimensional-arrays">Pointers and
+Multidimensional Arrays</h2>
+<blockquote>
+<p>a multidimensional array is really an array of arrays, the pointer
+type to which the array converts is a pointer to the first inner
+array:</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EN p129</span></span><br><span class="line"><span class="type">int</span> ia[<span class="number">3</span>][<span class="number">4</span>]; <span class="comment">// array of size 3; each element is an array of ints of size 4</span></span><br><span class="line"><span class="built_in">int</span> (*p)[<span class="number">4</span>] = ia; <span class="comment">// p points to an array of four ints</span></span><br><span class="line">p = &amp;ia[<span class="number">2</span>]; <span class="comment">// p now points to the last element in ia</span></span><br></pre></td></tr></table></figure>
+<h1 id="感想">感想</h1>
+<p>这一章讲数组的内容占了很大篇幅，但是工作中几乎没见过用数组的，至少也是vector。可能在嵌入式里用的比较多？
+而且数组很多情况下会被当成指针，多维数组就更复杂，感觉很容易出错，也不易读。书里也说了现代c++程序推荐用vector、iterator和string。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Yandi Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" title="C++ primer ch3 - Strings, Vectors, and Arrays 阅读笔记">http://dinayuil.github.io/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-阅读笔记/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_linkedin"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_evernote"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
+      <a class="a2a_button_sina_weibo"></a>
+      <a class="a2a_button_copy_link"></a>
+      <a class="a2a_button_email"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/26/auto-item-declaration-in-Range-Based-For-Loop-on-a-const/" rel="prev" title="auto item-declaration in Range-Based For Loop on a const">
+                  <i class="fa fa-chevron-left"></i> auto item-declaration in Range-Based For Loop on a const
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yandi Liu</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">82k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:15</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"yandis-little-world","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
