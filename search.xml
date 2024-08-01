@@ -2747,4 +2747,58 @@ array:</p>
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Why std::cin can be used in while loop condition</title>
+    <url>/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/</url>
+    <content><![CDATA[<p>当需要从命令行读取多个值的时候，有种常见的写法：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (std::cin &gt;&gt; value) &#123;<span class="comment">/* ... */</span>&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>为什么while循环的condition可以用<code>std::cin &gt;&gt; value</code>？很明显这里需要的是一个bool值<code>std::cin &gt;&gt; value</code>是怎么转换成bool的呢？</p>
+<h1 id="的返回值"><code>&gt;&gt;</code> 的返回值</h1>
+<p>在cppreference上可以看到，cin的类型是<code>std::istream</code>（等同于<code>std::basic_istream&lt;char&gt;</code>），而且它是一个global
+object；</p>
+<p>顺着看std::istream，我们需要知道<code>&gt;&gt;</code>这个操作符返回了什么，查找到返回的类型是<code>std::basic_istream&amp;</code>，值就是cin它自己。</p>
+<p>也就是说while
+condition里现在有一个<code>std::basic_istream</code>类型的值，它要能转换成bool。</p>
+<h1 id="conversion-operator">Conversion Operator</h1>
+<p><code>std::basic_istream</code>（的基类std::basic_ios）确实定义了一个conversion
+operator:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="keyword">operator</span> <span class="title">bool</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+<p>stream有几种状态，当stream的状态是good，这个bool conversion
+operator就返回true，其他状态，比如读到eof，读入的类型跟预期不同而出错等，都返回false。</p>
+<p>但是还有一个问题，这个operator是explicit，也就是必须显式使用类型转换才能调用这个operator，如<code>static_cast&lt;int&gt;(std::cin &lt;&lt; value)</code>。</p>
+<p>然而有一个例外，那就是如果一个表达式被用在condition里的话，编译器会对这个表达式自动应用explicit
+conversion，while就是这个例外的一种。</p>
+<p>explicit conversion会被自动应用的情况：</p>
+<blockquote>
+<ul>
+<li>The condition of an if, while, or do statement</li>
+<li>The condition expression in a for statement header</li>
+<li>An operand to the logical NOT (<code>!</code>), OR
+(<code>||</code>), or AND (<code>&amp;&amp;</code>) operators</li>
+<li>The condition expression in a conditional (<code>?:</code>)
+operator</li>
+</ul>
+</blockquote>
+<h1 id="conclusion">Conclusion</h1>
+<p>所以在while
+condition里的使用形如<code>cin &gt;&gt; value</code>的语句，最后会调用一个将<code>std::basic_istream</code>类型转换为<code>bool</code>的explicit
+conversion operator；而且因为在condition里，编译器会自动应用explicit
+conversion，而不需要显式使用类型转换。</p>
+<h1 id="references">References</h1>
+<ul>
+<li>https://en.cppreference.com/w/cpp/io/cin</li>
+<li>https://en.cppreference.com/w/cpp/io/basic_istream</li>
+<li>https://en.cppreference.com/w/cpp/io/basic_istream/operator_gtgt</li>
+<li>https://en.cppreference.com/w/cpp/io/basic_ios/operator_bool</li>
+<li>C++ Primer 5th Edition</li>
+</ul>
+]]></content>
+      <categories>
+        <category>programming</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
 </search>
