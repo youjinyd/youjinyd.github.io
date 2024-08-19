@@ -2801,4 +2801,100 @@ conversion，而不需要显式使用类型转换。</p>
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>C++ common initialization methods</title>
+    <url>/2024/08/19/C-common-initialization-methods/</url>
+    <content><![CDATA[<p>看完了C++ Primer part
+I，看到了好几个初始化的方式，总是容易忘，翻来翻去也挺麻烦，而且本来也要写笔记，遂记录一下。</p>
+<span id="more"></span>
+<h1 id="default-initialization">Default Initialization</h1>
+<p>当定义一个变量，但是没有显式地给初始值的时候，就会发生default
+initialization。</p>
+<ul>
+<li>built-in types
+<ul>
+<li>如果一个built-in type的变量定义在global
+scope，那么它会被初始化为0</li>
+<li>如果它在local scope定义，那么它的值是<strong>undefined</strong></li>
+</ul></li>
+<li>class types
+<ul>
+<li>如果类有default constructor，就会调用这个default constructor</li>
+<li>如果类没有定义default constructor，那么编译器会生成一个
+<ul>
+<li>如果member有in-class
+initializer，那么生成的ctor会使用这个initializer</li>
+<li>否则，member会进行default initialization</li>
+</ul></li>
+</ul></li>
+<li>但是对于一个<strong>local
+static</strong>变量，如果它的定义没有显式的初始化值，它会进行<strong>value
+initialization</strong>。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// global scope</span></span><br><span class="line"><span class="type">int</span> x;  <span class="comment">// default initialization, x initialized to 0.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x;  <span class="comment">// defualt initialization, x value undefined.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">double</span> y = <span class="number">1.0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A a; <span class="comment">// no default constructor, compiler generates one</span></span><br><span class="line">    <span class="comment">// a.x is default initialized to 0. a.y is initialized with in-class initializer 1.0.</span></span><br></pre></td></tr></table></figure>
+<h1 id="value-initialization">Value Initialization</h1>
+<blockquote>
+<p>https://en.cppreference.com/w/cpp/language/value_initialization</p>
+</blockquote>
+<p>value
+initialization发生在用空的圆括号<code>()</code>或者花括号<code>&#123;&#125;</code>来初始化变量的时候。当创建一个container，只给了size而没给初始值的时候，也会发生value
+initialization。</p>
+<ul>
+<li>built-in types：被初始化为0</li>
+<li>class types：如果类有default
+constructor，会调用它来初始化；否则是错误</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> x&#123;&#125;; <span class="comment">// x is initialized to 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// int x1(); // not a variable definition, it&#x27;s function declaration!</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *px = <span class="keyword">new</span> <span class="built_in">int</span>(); <span class="comment">// value initialization, px points to a int with value 0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyStruct</span> &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">double</span> b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyStruct s&#123;&#125;; <span class="comment">// `s.a` is 0, `s.b` is 0.0 (members are zero-initialized)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// MyStruct s1(); // not a variable definition, it&#x27;s a function declaration!!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">AnotherStruct</span> &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="built_in">AnotherStruct</span>(): <span class="built_in">a</span>() &#123;<span class="comment">/* ... */</span>&#125; <span class="comment">// a will be value initialized to 0</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p98</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ivec</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// ten elements, each initialized to 0</span></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">svec</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// ten elements, each an empty string</span></span><br></pre></td></tr></table></figure>
+<h1 id="direct-initialization">Direct Initialization</h1>
+<p>direct
+initialization用非空的圆括号<code>()</code>或者花括号<code>&#123;&#125;</code>来初始化变量。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">x</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// Directly initializes `x` with 10</span></span><br><span class="line"></span><br><span class="line"><span class="function">std::string <span class="title">str</span><span class="params">(<span class="string">&quot;Hello, World!&quot;</span>)</span></span>; <span class="comment">// Directly initializes `str` with &quot;Hello, World!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyStruct</span> &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">double</span> b;</span><br><span class="line">    <span class="built_in">MyStruct</span>(<span class="type">int</span> x, <span class="type">double</span> y) : <span class="built_in">a</span>(x), <span class="built_in">b</span>(y) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">MyStruct <span class="title">s</span><span class="params">(<span class="number">1</span>, <span class="number">2.5</span>)</span></span>; <span class="comment">// Calls MyStruct&#x27;s constructor</span></span><br></pre></td></tr></table></figure>
+<h1 id="copy-initialization">Copy Initialization</h1>
+<blockquote>
+<p>https://en.cppreference.com/w/cpp/language/copy_initialization</p>
+</blockquote>
+<p>Copy initialization发生在：</p>
+<ol type="1">
+<li>用<code>=</code>来初始化变量的时候</li>
+<li>调用函数时，函数的参数pass by value</li>
+<li>函数的返回值return by value</li>
+<li>发生异常时，throw or catch by value</li>
+<li>aggregate initialization</li>
+</ol>
+<p>对于class types，copy initialization可能会调用copy
+constructor，也可能会调用(implict) conversion
+constructor，（还可能会调用move
+constructor，不过目前还没看到这里，暂且按下不表）。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">MyClass obj1;</span><br><span class="line">MyClass obj2 = obj1; <span class="comment">// copy constructor of MyClass will be called</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyClass</span>(<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="comment">// Conversion constructor</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> num = <span class="number">42</span>;</span><br><span class="line">MyClass obj = num; <span class="comment">// Calls MyClass(int x)</span></span><br></pre></td></tr></table></figure>
+<h2 id="aggregate">Aggregate</h2>
+<p>aggregate要么是数组类型，要么是一类特殊的class type。</p>
+<p>如果是class type，那么这个class</p>
+<ul>
+<li>不能有user-defined consturctor</li>
+<li>不能有private和protected member</li>
+<li>不能有base class，也就是不能是继承自其他的类</li>
+</ul>
+<p>详细的定义在此：https://en.cppreference.com/w/cpp/language/aggregate_initialization</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Array initialization</span></span><br><span class="line">    <span class="type">int</span> arr[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// Elements `1`, `2`, and `3` are copy-initialized to `arr[0]`, `arr[1]`, and `arr[2]`</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Struct initialization</span></span><br><span class="line">    Point p = &#123;<span class="number">10</span>, <span class="number">20</span>&#125;; <span class="comment">// `10` is copy-initialized to `p.x`, and `20` is copy-initialized to `p.y`</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Point: (&quot;</span> &lt;&lt; p.x &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; p.y &lt;&lt; <span class="string">&quot;)&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="list-initialization">List Initialization</h1>
+<p>list
+initialization是C++11的新特性，它用花括号<code>&#123;&#125;</code>来初始化对象。之前在value
+initialization里<code>int x&#123;&#125;;</code>和<code>MyStruct s&#123;&#125;;</code>就用到了list
+initialization。</p>
+<p>list initialization看着和aggregate
+initialization很像，但是前者不止可以初始化aggregate，还可以用来初始化其他的类型，还可以用在函数的参数。</p>
+<p>list initialization也分copy list / direct list
+initialization，区别和之前 copy / direct initialization 类似。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Rectangle</span> &#123;</span><br><span class="line">    Point topLeft;</span><br><span class="line">    Point bottomRight;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Rectangle</span>(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2)</span><br><span class="line">        : topLeft&#123;x1, y1&#125;, bottomRight&#123;x2, y2&#125; &#123;&#125;  <span class="comment">// List initialization within a constructor</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x&#123;<span class="number">42</span>&#125;;            <span class="comment">// Direct list initialization</span></span><br><span class="line">    <span class="type">int</span> y = &#123;<span class="number">42</span>&#125;;         <span class="comment">// Copy list initialization</span></span><br><span class="line"></span><br><span class="line">    Point p&#123;<span class="number">10</span>, <span class="number">20</span>&#125;;      <span class="comment">// List initialization of an aggregate</span></span><br><span class="line">    Rectangle r&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">10</span>&#125;; <span class="comment">// List initialization calling a constructor</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>programming</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
 </search>

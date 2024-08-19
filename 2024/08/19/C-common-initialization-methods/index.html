@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"dinayuil.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="看完了C++ Primer part I，看到了好几个初始化的方式，总是容易忘，翻来翻去也挺麻烦，而且本来也要写笔记，遂记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ common initialization methods">
+<meta property="og:url" content="http://dinayuil.github.io/2024/08/19/C-common-initialization-methods/index.html">
+<meta property="og:site_name" content="Yandi&#39;s Garden">
+<meta property="og:description" content="看完了C++ Primer part I，看到了好几个初始化的方式，总是容易忘，翻来翻去也挺麻烦，而且本来也要写笔记，遂记录一下。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-19T20:10:10.000Z">
+<meta property="article:modified_time" content="2024-08-19T20:10:50.896Z">
+<meta property="article:author" content="Yandi Liu">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://dinayuil.github.io/2024/08/19/C-common-initialization-methods/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/08/19/C-common-initialization-methods/","path":"2024/08/19/C-common-initialization-methods/","title":"C++ common initialization methods"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C++ common initialization methods | Yandi's Garden</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-354MG6H6PY"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-354MG6H6PY","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Yandi's Garden</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#default-initialization"><span class="nav-text">Default Initialization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#value-initialization"><span class="nav-text">Value Initialization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#direct-initialization"><span class="nav-text">Direct Initialization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#copy-initialization"><span class="nav-text">Copy Initialization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#aggregate"><span class="nav-text">Aggregate</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#list-initialization"><span class="nav-text">List Initialization</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yandi Liu</p>
+  <div class="site-description" itemprop="description">Work hard, Play hard!</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dinayuil" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dinayuil" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yandi-liu-a82bbb156/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yandi-liu-a82bbb156&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/08/19/C-common-initialization-methods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yandi Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yandi's Garden">
+      <meta itemprop="description" content="Work hard, Play hard!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C++ common initialization methods | Yandi's Garden">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++ common initialization methods
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2024-08-19 22:10:10 / Modified: 22:10:50" itemprop="dateCreated datePublished" datetime="2024-08-19T22:10:10+02:00">2024-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2024/08/19/C-common-initialization-methods/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/08/19/C-common-initialization-methods/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>4 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>看完了C++ Primer part
+I，看到了好几个初始化的方式，总是容易忘，翻来翻去也挺麻烦，而且本来也要写笔记，遂记录一下。</p>
+<span id="more"></span>
+<h1 id="default-initialization">Default Initialization</h1>
+<p>当定义一个变量，但是没有显式地给初始值的时候，就会发生default
+initialization。</p>
+<ul>
+<li>built-in types
+<ul>
+<li>如果一个built-in type的变量定义在global
+scope，那么它会被初始化为0</li>
+<li>如果它在local scope定义，那么它的值是<strong>undefined</strong></li>
+</ul></li>
+<li>class types
+<ul>
+<li>如果类有default constructor，就会调用这个default constructor</li>
+<li>如果类没有定义default constructor，那么编译器会生成一个
+<ul>
+<li>如果member有in-class
+initializer，那么生成的ctor会使用这个initializer</li>
+<li>否则，member会进行default initialization</li>
+</ul></li>
+</ul></li>
+<li>但是对于一个<strong>local
+static</strong>变量，如果它的定义没有显式的初始化值，它会进行<strong>value
+initialization</strong>。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// global scope</span></span><br><span class="line"><span class="type">int</span> x;  <span class="comment">// default initialization, x initialized to 0.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x;  <span class="comment">// defualt initialization, x value undefined.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">double</span> y = <span class="number">1.0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">A a; <span class="comment">// no default constructor, compiler generates one</span></span><br><span class="line">    <span class="comment">// a.x is default initialized to 0. a.y is initialized with in-class initializer 1.0.</span></span><br></pre></td></tr></table></figure>
+<h1 id="value-initialization">Value Initialization</h1>
+<blockquote>
+<p>https://en.cppreference.com/w/cpp/language/value_initialization</p>
+</blockquote>
+<p>value
+initialization发生在用空的圆括号<code>()</code>或者花括号<code>&#123;&#125;</code>来初始化变量的时候。当创建一个container，只给了size而没给初始值的时候，也会发生value
+initialization。</p>
+<ul>
+<li>built-in types：被初始化为0</li>
+<li>class types：如果类有default
+constructor，会调用它来初始化；否则是错误</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x&#123;&#125;; <span class="comment">// x is initialized to 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// int x1(); // not a variable definition, it&#x27;s function declaration!</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *px = <span class="keyword">new</span> <span class="built_in">int</span>(); <span class="comment">// value initialization, px points to a int with value 0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyStruct</span> &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">double</span> b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyStruct s&#123;&#125;; <span class="comment">// `s.a` is 0, `s.b` is 0.0 (members are zero-initialized)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// MyStruct s1(); // not a variable definition, it&#x27;s a function declaration!!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">AnotherStruct</span> &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="built_in">AnotherStruct</span>(): <span class="built_in">a</span>() &#123;<span class="comment">/* ... */</span>&#125; <span class="comment">// a will be value initialized to 0</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C++ primer EN p98</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ivec</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// ten elements, each initialized to 0</span></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">svec</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// ten elements, each an empty string</span></span><br></pre></td></tr></table></figure>
+<h1 id="direct-initialization">Direct Initialization</h1>
+<p>direct
+initialization用非空的圆括号<code>()</code>或者花括号<code>&#123;&#125;</code>来初始化变量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">x</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// Directly initializes `x` with 10</span></span><br><span class="line"></span><br><span class="line"><span class="function">std::string <span class="title">str</span><span class="params">(<span class="string">&quot;Hello, World!&quot;</span>)</span></span>; <span class="comment">// Directly initializes `str` with &quot;Hello, World!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyStruct</span> &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">double</span> b;</span><br><span class="line">    <span class="built_in">MyStruct</span>(<span class="type">int</span> x, <span class="type">double</span> y) : <span class="built_in">a</span>(x), <span class="built_in">b</span>(y) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">MyStruct <span class="title">s</span><span class="params">(<span class="number">1</span>, <span class="number">2.5</span>)</span></span>; <span class="comment">// Calls MyStruct&#x27;s constructor</span></span><br></pre></td></tr></table></figure>
+<h1 id="copy-initialization">Copy Initialization</h1>
+<blockquote>
+<p>https://en.cppreference.com/w/cpp/language/copy_initialization</p>
+</blockquote>
+<p>Copy initialization发生在：</p>
+<ol type="1">
+<li>用<code>=</code>来初始化变量的时候</li>
+<li>调用函数时，函数的参数pass by value</li>
+<li>函数的返回值return by value</li>
+<li>发生异常时，throw or catch by value</li>
+<li>aggregate initialization</li>
+</ol>
+<p>对于class types，copy initialization可能会调用copy
+constructor，也可能会调用(implict) conversion
+constructor，（还可能会调用move
+constructor，不过目前还没看到这里，暂且按下不表）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MyClass obj1;</span><br><span class="line">MyClass obj2 = obj1; <span class="comment">// copy constructor of MyClass will be called</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyClass</span>(<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="comment">// Conversion constructor</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">int</span> num = <span class="number">42</span>;</span><br><span class="line">MyClass obj = num; <span class="comment">// Calls MyClass(int x)</span></span><br></pre></td></tr></table></figure>
+<h2 id="aggregate">Aggregate</h2>
+<p>aggregate要么是数组类型，要么是一类特殊的class type。</p>
+<p>如果是class type，那么这个class</p>
+<ul>
+<li>不能有user-defined consturctor</li>
+<li>不能有private和protected member</li>
+<li>不能有base class，也就是不能是继承自其他的类</li>
+</ul>
+<p>详细的定义在此：https://en.cppreference.com/w/cpp/language/aggregate_initialization</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Array initialization</span></span><br><span class="line">    <span class="type">int</span> arr[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// Elements `1`, `2`, and `3` are copy-initialized to `arr[0]`, `arr[1]`, and `arr[2]`</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Struct initialization</span></span><br><span class="line">    Point p = &#123;<span class="number">10</span>, <span class="number">20</span>&#125;; <span class="comment">// `10` is copy-initialized to `p.x`, and `20` is copy-initialized to `p.y`</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Point: (&quot;</span> &lt;&lt; p.x &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; p.y &lt;&lt; <span class="string">&quot;)&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="list-initialization">List Initialization</h1>
+<p>list
+initialization是C++11的新特性，它用花括号<code>&#123;&#125;</code>来初始化对象。之前在value
+initialization里<code>int x&#123;&#125;;</code>和<code>MyStruct s&#123;&#125;;</code>就用到了list
+initialization。</p>
+<p>list initialization看着和aggregate
+initialization很像，但是前者不止可以初始化aggregate，还可以用来初始化其他的类型，还可以用在函数的参数。</p>
+<p>list initialization也分copy list / direct list
+initialization，区别和之前 copy / direct initialization 类似。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Rectangle</span> &#123;</span><br><span class="line">    Point topLeft;</span><br><span class="line">    Point bottomRight;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Rectangle</span>(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2)</span><br><span class="line">        : topLeft&#123;x1, y1&#125;, bottomRight&#123;x2, y2&#125; &#123;&#125;  <span class="comment">// List initialization within a constructor</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x&#123;<span class="number">42</span>&#125;;            <span class="comment">// Direct list initialization</span></span><br><span class="line">    <span class="type">int</span> y = &#123;<span class="number">42</span>&#125;;         <span class="comment">// Copy list initialization</span></span><br><span class="line"></span><br><span class="line">    Point p&#123;<span class="number">10</span>, <span class="number">20</span>&#125;;      <span class="comment">// List initialization of an aggregate</span></span><br><span class="line">    Rectangle r&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">10</span>&#125;; <span class="comment">// List initialization calling a constructor</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Yandi Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://dinayuil.github.io/2024/08/19/C-common-initialization-methods/" title="C++ common initialization methods">http://dinayuil.github.io/2024/08/19/C-common-initialization-methods/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_linkedin"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_evernote"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
+      <a class="a2a_button_sina_weibo"></a>
+      <a class="a2a_button_copy_link"></a>
+      <a class="a2a_button_email"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/" rel="prev" title="Why std::cin can be used in while loop condition">
+                  <i class="fa fa-chevron-left"></i> Why std::cin can be used in while loop condition
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Yandi Liu</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">88k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:20</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"yandis-little-world","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
