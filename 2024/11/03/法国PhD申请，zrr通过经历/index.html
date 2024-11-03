@@ -20,28 +20,32 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"dinayuil.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="当需要从命令行读取多个值的时候，有种常见的写法： 1while (std::cin &gt;&gt; value) &amp;#123;&#x2F;* ... *&#x2F;&amp;#125;">
+    <meta name="description" content="法国PhD申请，zrr通过经历 背景：南科大CS本，KU Leuven CS硕，比利时工作两年 申请项目：CNRS的funding，thesis是做无线传感器网络能效优化，会涉及一些AI的应用 实验室地点：法国中南部乡下 时间线：8月29号下午收到大学的ZRR申请邮件通知；30号提交了申请；9月30号收到通过的结果 之前在小红书上看了很多关于法国的PhD安全审查的负面消息，所以也很担心，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Why std::cin can be used in while loop condition">
-<meta property="og:url" content="http://dinayuil.github.io/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/index.html">
+<meta property="og:title" content="法国PhD申请，zrr通过经历">
+<meta property="og:url" content="http://dinayuil.github.io/2024/11/03/%E6%B3%95%E5%9B%BDPhD%E7%94%B3%E8%AF%B7%EF%BC%8Czrr%E9%80%9A%E8%BF%87%E7%BB%8F%E5%8E%86/index.html">
 <meta property="og:site_name" content="Yandi&#39;s Garden">
-<meta property="og:description" content="当需要从命令行读取多个值的时候，有种常见的写法： 1while (std::cin &gt;&gt; value) &amp;#123;&#x2F;* ... *&#x2F;&amp;#125;">
+<meta property="og:description" content="法国PhD申请，zrr通过经历 背景：南科大CS本，KU Leuven CS硕，比利时工作两年 申请项目：CNRS的funding，thesis是做无线传感器网络能效优化，会涉及一些AI的应用 实验室地点：法国中南部乡下 时间线：8月29号下午收到大学的ZRR申请邮件通知；30号提交了申请；9月30号收到通过的结果 之前在小红书上看了很多关于法国的PhD安全审查的负面消息，所以也很担心，">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-08-01T19:57:21.000Z">
-<meta property="article:modified_time" content="2024-08-01T19:57:59.280Z">
+<meta property="og:image" content="http://dinayuil.github.io/2024/11/03/%E6%B3%95%E5%9B%BDPhD%E7%94%B3%E8%AF%B7%EF%BC%8Czrr%E9%80%9A%E8%BF%87%E7%BB%8F%E5%8E%86/zrr%20result.png">
+<meta property="article:published_time" content="2024-11-03T19:30:16.000Z">
+<meta property="article:modified_time" content="2024-11-03T19:31:47.850Z">
 <meta property="article:author" content="Yandi Liu">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="software">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="language learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dinayuil.github.io/2024/11/03/%E6%B3%95%E5%9B%BDPhD%E7%94%B3%E8%AF%B7%EF%BC%8Czrr%E9%80%9A%E8%BF%87%E7%BB%8F%E5%8E%86/zrr%20result.png">
 
 
-<link rel="canonical" href="http://dinayuil.github.io/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/">
+<link rel="canonical" href="http://dinayuil.github.io/2024/11/03/%E6%B3%95%E5%9B%BDPhD%E7%94%B3%E8%AF%B7%EF%BC%8Czrr%E9%80%9A%E8%BF%87%E7%BB%8F%E5%8E%86/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/","path":"2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/","title":"Why std::cin can be used in while loop condition"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://dinayuil.github.io/2024/11/03/%E6%B3%95%E5%9B%BDPhD%E7%94%B3%E8%AF%B7%EF%BC%8Czrr%E9%80%9A%E8%BF%87%E7%BB%8F%E5%8E%86/","path":"2024/11/03/法国PhD申请，zrr通过经历/","title":"法国PhD申请，zrr通过经历"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Why std::cin can be used in while loop condition | Yandi's Garden</title>
+<title>法国PhD申请，zrr通过经历 | Yandi's Garden</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-354MG6H6PY"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-354MG6H6PY","only_pageview":false}</script>
@@ -130,7 +134,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -143,7 +147,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-text">&gt;&gt; 的返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conversion-operator"><span class="nav-text">Conversion Operator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conclusion"><span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#references"><span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -205,7 +208,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/">
+    <link itemprop="mainEntityOfPage" href="http://dinayuil.github.io/2024/11/03/%E6%B3%95%E5%9B%BDPhD%E7%94%B3%E8%AF%B7%EF%BC%8Czrr%E9%80%9A%E8%BF%87%E7%BB%8F%E5%8E%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -218,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Why std::cin can be used in while loop condition | Yandi's Garden">
+      <meta itemprop="name" content="法国PhD申请，zrr通过经历 | Yandi's Garden">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Why std::cin can be used in while loop condition
+          法国PhD申请，zrr通过经历
         </h1>
 
         <div class="post-meta-container">
@@ -235,7 +238,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2024-08-01 21:57:21 / Modified: 21:57:59" itemprop="dateCreated datePublished" datetime="2024-08-01T21:57:21+02:00">2024-08-01</time>
+      <time title="Created: 2024-11-03 20:30:16 / Modified: 20:31:47" itemprop="dateCreated datePublished" datetime="2024-11-03T20:30:16+01:00">2024-11-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -243,7 +246,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/programming/" itemprop="url" rel="index"><span itemprop="name">programming</span></a>
+          <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">life</span></a>
         </span>
     </span>
 
@@ -256,8 +259,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2024/11/03/%E6%B3%95%E5%9B%BDPhD%E7%94%B3%E8%AF%B7%EF%BC%8Czrr%E9%80%9A%E8%BF%87%E7%BB%8F%E5%8E%86/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/11/03/法国PhD申请，zrr通过经历/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -268,7 +271,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>1.4k</span>
+      <span>224</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -285,49 +288,16 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>当需要从命令行读取多个值的时候，有种常见的写法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (std::cin &gt;&gt; value) &#123;<span class="comment">/* ... */</span>&#125;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>为什么while循环的condition可以用<code>std::cin &gt;&gt; value</code>？很明显这里需要的是一个bool值<code>std::cin &gt;&gt; value</code>是怎么转换成bool的呢？</p>
-<h1 id="的返回值"><code>&gt;&gt;</code> 的返回值</h1>
-<p>在cppreference上可以看到，cin的类型是<code>std::istream</code>（等同于<code>std::basic_istream&lt;char&gt;</code>），而且它是一个global
-object；</p>
-<p>顺着看std::istream，我们需要知道<code>&gt;&gt;</code>这个操作符返回了什么，查找到返回的类型是<code>std::basic_istream&amp;</code>，值就是cin它自己。</p>
-<p>也就是说while
-condition里现在有一个<code>std::basic_istream</code>类型的值，它要能转换成bool。</p>
-<h1 id="conversion-operator">Conversion Operator</h1>
-<p><code>std::basic_istream</code>（的基类std::basic_ios）确实定义了一个conversion
-operator:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="keyword">operator</span> <span class="title">bool</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
-<p>stream有几种状态，当stream的状态是good，这个bool conversion
-operator就返回true，其他状态，比如读到eof，读入的类型跟预期不同而出错等，都返回false。</p>
-<p>但是还有一个问题，这个operator是explicit，也就是必须显式使用类型转换才能调用这个operator，如<code>static_cast&lt;int&gt;(std::cin &lt;&lt; value)</code>。</p>
-<p>然而有一个例外，那就是如果一个表达式被用在condition里的话，编译器会对这个表达式自动应用explicit
-conversion，while就是这个例外的一种。</p>
-<p>explicit conversion会被自动应用的情况：</p>
-<blockquote>
-<ul>
-<li>The condition of an if, while, or do statement</li>
-<li>The condition expression in a for statement header</li>
-<li>An operand to the logical NOT (<code>!</code>), OR
-(<code>||</code>), or AND (<code>&amp;&amp;</code>) operators</li>
-<li>The condition expression in a conditional (<code>?:</code>)
-operator</li>
-</ul>
-</blockquote>
-<h1 id="conclusion">Conclusion</h1>
-<p>所以在while
-condition里的使用形如<code>cin &gt;&gt; value</code>的语句，最后会调用一个将<code>std::basic_istream</code>类型转换为<code>bool</code>的explicit
-conversion operator；而且因为在condition里，编译器会自动应用explicit
-conversion，而不需要显式使用类型转换。</p>
-<h1 id="references">References</h1>
-<ul>
-<li>https://en.cppreference.com/w/cpp/io/cin</li>
-<li>https://en.cppreference.com/w/cpp/io/basic_istream</li>
-<li>https://en.cppreference.com/w/cpp/io/basic_istream/operator_gtgt</li>
-<li>https://en.cppreference.com/w/cpp/io/basic_ios/operator_bool</li>
-<li>C++ Primer 5th Edition</li>
-</ul>
+    <div class="post-body" itemprop="articleBody"><p>法国PhD申请，zrr通过经历</p>
+<p>背景：南科大CS本，KU Leuven CS硕，比利时工作两年
+申请项目：CNRS的funding，thesis是做无线传感器网络能效优化，会涉及一些AI的应用
+实验室地点：法国中南部乡下
+时间线：8月29号下午收到大学的ZRR申请邮件通知；30号提交了申请；9月30号收到通过的结果</p>
+<p>之前在小红书上看了很多关于法国的PhD安全审查的负面消息，所以也很担心，不过最后还是过了，可能是因为学校和实验室都没什么名气吧（</p>
+<figure>
+<img src="zrr%20result.png" alt="picture 0" />
+<figcaption aria-hidden="true">picture 0</figcaption>
+</figure>
 
     </div>
 
@@ -345,7 +315,7 @@ conversion，而不需要显式使用类型转换。</p>
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="http://dinayuil.github.io/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/" title="Why std::cin can be used in while loop condition">http://dinayuil.github.io/2024/08/01/Why-std-cin-can-be-used-in-while-loop-condition/</a>
+      <a href="http://dinayuil.github.io/2024/11/03/%E6%B3%95%E5%9B%BDPhD%E7%94%B3%E8%AF%B7%EF%BC%8Czrr%E9%80%9A%E8%BF%87%E7%BB%8F%E5%8E%86/" title="法国PhD申请，zrr通过经历">http://dinayuil.github.io/2024/11/03/法国PhD申请，zrr通过经历/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</a> unless stating additionally.
@@ -353,9 +323,6 @@ conversion，而不需要显式使用类型转换。</p>
 </ul>
 </div>
 
-          <div class="post-tags">
-              <a href="/tags/C/" rel="tag"># C++</a>
-          </div>
 
         
   <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
@@ -374,14 +341,11 @@ conversion，而不需要显式使用类型转换。</p>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/07/30/C-primer-ch3-Strings-Vectors-and-Arrays-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="prev" title="C++ primer ch3 - Strings, Vectors, and Arrays 阅读笔记">
-                  <i class="fa fa-chevron-left"></i> C++ primer ch3 - Strings, Vectors, and Arrays 阅读笔记
+                <a href="/2024/10/18/%E6%B3%95%E8%AF%AD%E8%AF%AD%E9%9F%B3-eu-oeu%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88%E7%9A%84%E8%AF%BB%E9%9F%B3%E8%A7%84%E5%88%99%EF%BC%88%E6%B6%89%E5%8F%8A%E5%85%83%E9%9F%B3oe-o%EF%BC%89/" rel="prev" title="法语语音 eu, oeu字母组合的读音规则（涉及元音œ, ø）">
+                  <i class="fa fa-chevron-left"></i> 法语语音 eu, oeu字母组合的读音规则（涉及元音œ, ø）
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/08/19/C-common-initialization-methods/" rel="next" title="C++ common initialization methods">
-                  C++ common initialization methods <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
